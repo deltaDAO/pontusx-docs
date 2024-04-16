@@ -10,7 +10,7 @@ function toPatchVersionRange(version: string) {
 }
 
 export default defineConfig({
-  baseUrl: 'https://docs.pontus-x.eu',
+  baseUrl: 'https://pontusx-docs.vercel.app',
   title: 'Pontus-X Docs',
   titleTemplate: '%s · Pontus-X Docs',
   description:
