@@ -31,7 +31,7 @@ export default defineConfig({
     '/op-stack':
       'https://vocs.dev/api/og?logo=%logo&title=%title&description=%description'
   },
-  iconUrl: { light: '/favicons/light.png', dark: '/favicons/dark.png' },
+  iconUrl: { light: '/favicons/icon.png', dark: '/favicons/icon.png' },
   logoUrl: { light: '/icon-light.png', dark: '/icon-dark.png' },
   rootDir: ".",
   sidebar,
