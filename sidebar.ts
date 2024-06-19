@@ -17,7 +17,10 @@ export const sidebar = {
       text: "Pontus-X Networks",
       items: [
         { text: "Quick Start", link: "/docs/pontus-x-networks/quick-start" },
-        // { text: 'FAQ', link: '/docs/faq' }
+        {
+          text: "Validator Node Setup",
+          link: "/docs/pontus-x-networks/node-setup",
+        },
       ],
     },
 

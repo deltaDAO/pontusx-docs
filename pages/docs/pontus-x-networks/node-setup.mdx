@@ -1,0 +1,229 @@
+# Setup Instructions for Oasis Node
+
+## System User Setup
+
+Add a system user for running the Oasis node:
+
+```bash
+sudo adduser --system oasis --shell /usr/sbin/nologin
+```
+
+Grant the user permission to use SGX:
+
+```bash
+adduser oasis sgx
+adduser oasis sgx_prv
+```
+
+## Directory Structure
+
+Create the required directories with the appropriate permissions:
+
+```bash
+mkdir -m700 -p /node/{etc,bin,runtimes,data,web3_gateway}
+```
+
+## File Downloads
+
+Download the genesis file, Oasis node, and runtimes:
+
+```bash
+wget https://github.com/oasisprotocol/testnet-artifacts/releases/download/2023-10-12/genesis.json -P /node/etc/
+wget https://github.com/oasisprotocol/oasis-core/releases/download/v24.0/oasis_core_24.0_linux_amd64.tar.gz -P /
+wget https://github.com/oasisprotocol/pontusx-paratime/releases/download/v0.0.2-testnet/pontusx-paratime.orc -P /node/runtimes/
+```
+
+Download the attestation tool:
+
+```bash
+wget https://github.com/oasisprotocol/tools/releases/download/attestation-tool-0.3.3/attestation-tool
+```
+
+## SGX Installation
+
+Follow the Oasis documentation to set up the Trusted Execution Environment:
+
+[Oasis SGX Setup Documentation](https://docs.oasis.io/node/run-your-node/prerequisites/set-up-trusted-execution-environment-tee)
+
+## Oasis Node Configuration
+
+Create the node configuration file at `/node/etc/config.yml` with the following content:
+
+```yaml
+mode: compute
+common:
+  data_dir: /node/data
+  log:
+    level:
+      cometbft: info
+      cometbft/context: info
+      default: debug
+    format: JSON
+consensus:
+  external_address: tcp://${SERVER_IP}:26656
+  listen_address: tcp://0.0.0.0:26656
+  state_sync:
+    enabled: true
+    trust_period: 720h
+    trust_height: 21051680
+    trust_hash: cdd2f4d7a656b0b64bc13ab0db8410cb53d35102bc813713eadc07a2776faf50
+genesis:
+  file: /node/etc/genesis.json
+ias:
+  proxy_addresses:
+    - y4XO1ZETqgtHeZzLLmJLYAzpEfdGSJLvtd8bhIz+v3s=@34.86.197.181:8650
+    - jaFE5Lq6GS76ya1V7a+XlGQTgttAagXEtknO4Tv1wLs=@185.56.138.83:8650
+p2p:
+  port: 30002
+  registration:
+    addresses:
+      - ${SERVER_IP}:30002
+    seeds:
+      - HcDFrTp/MqRHtju5bCx6TIhIMd6X/0ZQ3lUG73q5898=@34.86.165.6:26656
+      - HcDFrTp/MqRHtju5bCx6TIhIMd6X/0ZQ3lUG73q5898=@34.86.165.6:9200
+registration:
+  entity: /node/etc/entity.json
+runtime:
+  paths:
+    - /node/runtimes/pontusx-paratime.orc
+  sgx_loader: /node/bin/oasis-core-runtime-loader
+```
+
+## Oasis Node Service
+
+Configure the system service for the Oasis node:
+
+Create the service file `/etc/systemd/system/oasis-node.service` with the following content:
+
+```ini
+[Unit]
+Description=Oasis Node
+After=network.target
+
+[Service]
+Type=simple
+User=oasis
+WorkingDirectory=/node
+ExecStart=/node/bin/oasis-node --config /node/etc/config.yml
+Restart=on-failure
+RestartSec=3
+LimitNOFILE=1024000
+
+[Install]
+WantedBy=multi-user.target
+```
+
+## Oasis Gateway Setup
+
+Download the Oasis Web3 Gateway:
+
+```bash
+wget https://github.com/oasisprotocol/oasis-web3-gateway/releases/download/v5.0.1/oasis_web3_gateway_5.0.1_linux_amd64.tar.gz -P /node/web3_gateway/
+```
+
+Create the directory for Docker setup:
+
+```bash
+mkdir -m700 /node/web3_gateway/docker
+```
+
+Create `docker-compose.yaml` for running PostgreSQL and set a custom password for the database user:
+
+```yaml
+version: '3'
+services:
+  postgres:
+    image: postgres:14
+    ports:
+      - '127.0.0.1:4432:5432'
+    command:
+      [
+        "postgres",
+        "-cshared_preload_libraries=pg_stat_statements"
+      ]
+    environment:
+      POSTGRES_USER: pontusx_admin
+      POSTGRES_PASSWORD: "xxxxxxxx"
+      POSTGRES_DB: pontusx
+      PGDATA: "/var/lib/postgresql/data"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+```
+
+Create `postgresql.conf`:
+
+```ini
+# Custom PostgreSQL configuration
+logging_collector = on
+log_statement = 'all'
+log_connections = on
+log_directory = '/var/log/postgresql/'
+```
+
+Create the Oasis Gateway configuration file `/node/web3_gateway/gateway.yaml`:
+
+```yaml
+# Uncomment the runtime_id below.
+runtime_id: 00000000000000000000000000000000000000000000000004a6f9071c007069
+# Path to your internal.sock file in the root Oasis node datadir.
+node_address: "unix:/node/data/internal.sock"
+# By default, we index the entire blockchain history.
+# If you are low on disk space or you use the gateway just for submitting transactions, enable
+# pruning below.
+enable_pruning: false
+pruning_step: 100000
+indexing_start: 0
+log:
+  level: debug
+  format: json
+database:
+  # Change host and port, if PostgreSQL is running somewhere else.
+  host: "127.0.0.1"
+  port: 4432
+  # Enter your database name, username and password.
+  db: pontusx
+  user: pontusx_admin
+  password: "${PASSWORD}"
+  dial_timeout: 15
+  read_timeout: 30
+  write_timeout: 15
+  max_open_conns: 0
+gateway:
+  chain_id: 32457
+  http:
+    # Change host to your external IP address if you have users accessing Web3 from the outside.
+    host: "0.0.0.0"
+    # Use different port for each Web3 gateway instance, if all run locally.
+    port: 8545
+    cors: ["*"]
+  ws:
+    # Change host to your external IP address if you have users accessing Web3 from the outside.
+    host: "0.0.0.0"
+    # Use different port for each Web3 gateway instance, if all run locally.
+    port: 8546
+    origins: ["*"]
+  method_limits:
+    get_logs_max_rounds: 300
+```
+
+## Oasis Gateway Service
+
+Create the service file `/etc/systemd/system/oasis-gateway.service` with the following content:
+
+```ini
+[Unit]
+Description=Oasis Gateway
+After=network.target
+
+[Service]
+Type=simple
+User=oasis
+WorkingDirectory=/node
+ExecStart=/node/web3_gateway/oasis-web3-gateway --config /node/web3_gateway/gateway.yml
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+```
