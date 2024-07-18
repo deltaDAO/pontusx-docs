@@ -38,6 +38,14 @@ export const sidebar = {
               text: 'Access Controller',
               link: '/docs/technical-architecture/access-controller',
             },
+            {
+              text: 'Service Catalogue - Metadata Cache ("Aquarius")',
+              link: '/docs/technical-architecture/aquarius',
+            },
+            {
+              text: 'Portals',
+              link: '/docs/technical-architecture/portals',
+            },
           ],
         },
       ],
