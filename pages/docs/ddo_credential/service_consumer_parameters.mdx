@@ -1,0 +1,10 @@
+# Service consumerParameters
+
+The Service [`consumerParameters`](/docs/ddo_credential/consumer_parameters) are used to specify optional or required parameters that the consumer must provide when consuming the service. They can be used to add query strings to URLs for `GET` requests or to add additional fields into the `POST` header.
+
+Sometimes, the asset needs additional input data before downloading or running a Compute-to-Data job. 
+
+**Example:**
+
+- The publisher needs to know the sampling interval before the buyer downloads it. Suppose the dataset URL is https://example.com/mydata. 
+- The publisher defines a field called sampling and asks the buyer to enter a value. This parameter is then added to the URL of the published dataset as query parameters: https://example.com/mydata?sampling=10

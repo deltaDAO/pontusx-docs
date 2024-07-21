@@ -5,13 +5,19 @@
   "scripts": {
     "dev": "vocs dev",
     "build": "vocs build",
-    "preview": "vocs preview"
+    "preview": "vocs preview",
+    "postinstall": "npx playwright-core install"
   },
   "dependencies": {
-    "@types/react": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "typescript": "latest",
-    "vocs": "latest"
+    "vocs": "latest",
+    "remark-gemoji": "^8.0.0",
+    "remark-mermaidjs": "^6.0.0",
+    "playwright-core": "^1.45.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "typescript": "^5.5.3"
   }
 }

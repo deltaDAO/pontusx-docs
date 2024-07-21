@@ -1,0 +1,37 @@
+# Language and Base Direction (i18n)
+
+Use W3C standard: https://w3c.github.io/vc-data-model/#language-and-base-direction
+
+https://www.w3.org/TR/string-meta/
+
+| Attribute    | Type     | Description                                                                                                                                                                                                                                                      | Required           |
+| ------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `@value`     | `string` | Text in one specific language                                                                                                                                                                                                                                    | :white_check_mark: |
+| `@language`  | `string` | `Language-Tag` as defined by [[BCP47](https://w3c.github.io/vc-data-model/#bib-bcp47)]                                                                                                                                                                           | :white_check_mark: |
+| `@direction` | `string` | _MAY_ contain a `@direction` property whose value is a [base direction](https://www.w3.org/TR/i18n-glossary/#dfn-base-direction) string defined by the `@direction` property in [[JSON-LD11](https://w3c.github.io/vc-data-model/#bib-json-ld11)] Example: `rtl` |                    |
+
+Single translation:
+
+```json
+"title": {
+  "@value": "HTML و CSS: تصميم و إنشاء مواقع الويب",
+  "@language": "ar",
+  "@direction": "rtl"
+}
+```
+
+Multiple translations:
+
+```json
+"title": [
+  {
+    "@value": "HTML and CSS: Designing and Creating Websites",
+    "@language": "en"
+  },
+  {
+    "@value": "HTML و CSS: تصميم و إنشاء مواقع الويب",
+    "@language": "ar",
+    "@direction": "rtl"
+  }
+]
+```

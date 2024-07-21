@@ -50,6 +50,109 @@ export const sidebar = {
         },
       ],
     },
+    {
+      text: 'DRAFT: Asset Metadata Standard (DDO)',
+      collapsed: true,
+      items: [
+        {
+          text: 'Introduction',
+          link: '/docs/ddo_credential/ddo_intro',
+          items: [
+            {
+              text: 'W3C VCs & VPs',
+              link: '/docs/ddo_credential/w3c_credentials',
+            },
+            {
+              text: 'On-Chain Metadata',
+              link: '/docs/ddo_credential/on_chain',
+            },
+          ],
+        },
+        {
+          text: 'Verifiable Presentation (DDO Schema)',
+          link: '/docs/ddo_credential/ddo_schema',
+          items: [
+            {
+              text: 'Metadata',
+              link: '/docs/ddo_credential/metadata',
+              items: [
+                {
+                  text: 'Algorithm Metadata',
+                  link: '/docs/ddo_credential/algorithm_metadata',
+                  items: [
+                    {
+                      text: 'Container',
+                      link: '/docs/ddo_credential/container',
+                    },
+                    {
+                      text: 'Algorithm Consumer Parameters',
+                      link: '/docs/ddo_credential/algorithm_consumer_parameters',
+                    },
+                  ],
+                },
+              ],
+            },
+
+            {
+              text: 'Service',
+              link: '/docs/ddo_credential/service',
+              items: [
+                {
+                  text: 'Files Object',
+                  link: '/docs/ddo_credential/files_object',
+                },
+                {
+                  text: 'Compute Object',
+                  link: '/docs/ddo_credential/compute_object',
+                },
+                {
+                  text: 'Service Consumer Parameters',
+                  link: '/docs/ddo_credential/service_consumer_parameters',
+                },
+              ],
+            },
+            {
+              text: 'Credentials (Access Control)',
+              link: '/docs/ddo_credential/credentials',
+            },
+            {
+              text: 'License Object',
+              link: '/docs/ddo_credential/license_object',
+              items: [
+                {
+                  text: 'ODRL Object',
+                  link: '/docs/ddo_credential/odrl_object',
+                },
+              ],
+            },
+            {
+              text: 'Consumer Parameters',
+              link: '/docs/ddo_credential/consumer_parameters',
+            },
+            {
+              text: 'Language and Base Direction (i18n)',
+              link: '/docs/ddo_credential/language_i18n',
+            },
+            {
+              text: 'Lifecycle States',
+              link: '/docs/ddo_credential/lifecycle_states',
+            },
+            {
+              text: 'Remote Object',
+              link: '/docs/ddo_credential/remote_object',
+            },
+            {
+              text: 'Complete Overview (Schema)',
+              link: '/docs/ddo_credential/complete_overview',
+            },
+            {
+              text: 'Changelog',
+              link: '/docs/ddo_credential/changelog',
+            },
+          ],
+        },
+      ],
+    },
 
     {
       text: 'Legal',

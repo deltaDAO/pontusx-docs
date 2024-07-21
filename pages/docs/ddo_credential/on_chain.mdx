@@ -1,0 +1,58 @@
+# On-chain Metadata - Anchoring of OE service credentials
+
+Specific metadata of the catalogue entries is saved (anchored) on the blockchain to ensure the reliability and integrity of the data. On-chain storage is immutable and cannot be deleted. Therefore, only selected metadata is allowed to be stored on the blockchain.
+
+As an additional layer of protection, the data is also encrypted to ensure extra privacy and access control for data spaces.
+
+## On-chain remote object
+
+:::danger
+Never store any data besides the remote data object defined below on-chain. Both on-chain and off-chain data MUST always be encrypted. 
+:::
+
+:::info
+Any other metadata MUST be stored off-chain using IPFS or other web storage solutions. This is important to comply with the GDPR and other data protection regulations (e.g., the GDPR right to erasure). 
+
+The `fileHash` ensures integrity of the off-chain data (OE Verifiable Presentation). It eliminates the need to store regulated data (e.g., personally identifiable information) on-chain.
+:::
+
+Example remote objects before encryption:
+
+```ts
+export const remoteDDOTypeURL = {
+  remote: {
+    type: 'url',
+    url: 'path.to/encrypted/oe-verifiable-presentation',
+    method: 'GET'
+    fileHash: "xyz"
+    encryptedBy: '16Uiu2HAmN211yBiE6dF5xu8GFXV1jqZQzK5MbzBuQDspfa6qNgXF',
+    encryptedMethod: 'ECIES'
+  }
+}
+
+export const remoteDDOTypeIPFS = {
+  remote: {
+    type: 'ipfs',
+    hash: 'QmaD5S7TakPs3a4fijatbfqhmhhrEbCvbqGTTAp7VrZ91T',
+    fileHash: "xyz"
+    encryptedBy: '16Uiu2HAmN211yBiE6dF5xu8GFXV1jqZQzK5MbzBuQDspfa6qNgXF',
+    encryptedMethod: 'ECIES'
+  }
+}
+```
+
+| Attribute         | Type                      | Description                                          | Required                                       |
+| ----------------- | ------------------------- | ---------------------------------------------------- | ---------------------------------------------- |
+| `type`            | `sring` (`ipfs` , `url`)  | specifies the type of remote location                | :white_check_mark:                             |
+| `hash`            | `string`                  | CID of the IPFS resource       | :ballot_box_with_check: (For `ipfs` type only) |
+| `method`          | `string`(`GET`, `POST`)   | HTTP method                                         | :ballot_box_with_check: (For `url` type only)  |
+| `url`             | `string`                  | URL pointing to encrypted OE Verifiable Presentation | :ballot_box_with_check: (For `url` type only)  |
+| `fileHash`        | `string`                  | sha256 hash of the data object                       | :white_check_mark:                             |
+| `encryptedBy`     | `string`                  | ocean-node id (derived from private key)             | :white_check_mark:                             |
+| `encryptedMethod` | `string` (`ecies`, `aes`) | Encryption method used                               | :white_check_mark:                             |
+
+
+
+## On-chain / off-chain data overview
+
+![on-chain and offchain data diagram](/on-chain.webp 'on-chain and offchain data diagram')

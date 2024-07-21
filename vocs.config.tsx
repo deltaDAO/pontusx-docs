@@ -2,6 +2,8 @@ import * as React from 'react'
 import { defineConfig } from 'vocs'
 import pkg from './package.json'
 import { sidebar } from './sidebar'
+import remarkMermaid from 'remark-mermaidjs'
+import remarkGemoji from 'remark-gemoji'
 
 // biome-ignore lint/correctness/noUnusedVariables: <explanation>
 function toPatchVersionRange(version: string) {
@@ -80,5 +82,8 @@ export default defineConfig({
         },
       ]
     }
-  ]
+  ],
+  markdown: {
+    remarkPlugins: [remarkGemoji, remarkMermaid],
+  }
 })
