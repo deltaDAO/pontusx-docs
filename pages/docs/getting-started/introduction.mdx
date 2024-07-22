@@ -1,0 +1,74 @@
+## Onboarding Guide
+
+This documentation serves as an introduction and onboarding guide to the Pontus-X ecosystem for Gaia-X.
+
+## Checklist - What is required for onboarding to the Gaia-X development ecosystem?
+- [ ] Mandatory: A modern browser that supports extensions (Chrome, Brave or Firefox)
+- [ ] Mandatory: An EU-registered company or institution with a legal identifier (vatID, EORI, EUID, leiCode)
+- [ ] Mandatory: An institutional e-mail address for basic domain validation
+- [ ] X.509 certificate with a certificate chain leading to a Gaia-X Trust Anchor
+  - [ ] Can be an own certificate (self-sovereign)
+  - [ ] deltaDAO can provide a development solution (managed)
+- [ ] A private RSA key linked to the X.509 certificate
+  - [ ] Can be a fully private key (self-sovereign)
+  - [ ] deltaDAO can provide a development solution (managed)
+- [ ] A private SECP256K1 key (can be created by any suitable wallet solution)
+  - [ ] Can be a fully private key (self-sovereign)
+  - [ ] deltaDAO can provide a development solution (managed)
+- [ ] A webhosting solution for storage of participant and service credentials as JSON documents
+  - [ ] Own infrastructure (self-sovereign)
+  - [ ] deltaDAO or cloud service providers can offer a solution (managed)
+- [ ] A webhosting solution for storage of a DID document
+  - [ ] Own infrastructure (self-sovereign)
+  - [ ] deltaDAO or cloud service providers can offer a solution (managed)
+
+## Results - What will you be able to do after onboarding to the Gaia-X development ecosystem?
+- Consumption, publication and management of services in the ecosystem.
+- Offering federation services in the ecosystem.
+- Creation, verification and management of Gaia-X compliant participant and service credentials.
+- Transfer of funds and settlement of business transactions in the ecosystem.
+- You will be identified as participant in the ecosystem.
+
+## How to perform participant identification
+
+To create a trustworthy, secure and transparent data infrastructure, we need a clear identification process for participants. A participant is, according to the Gaia-X Trust Framework, a legal person, which is identified, onboarded and has a valid participant credential. Therefore, to ensure trust in the ecosystem, you must create a Gaia-X compliant participant credential for your company first.
+
+The following information is needed to identify a legal person as Gaia-X participant and to create a valid Gaia-X participant credential.
+
+1. The legal name of the instition as stated in the documents of incorporation and relevant registers.
+2. A valid registration number (vatID, EORI, EUID, LEI Code). The details of applicable registration numbers are stated in the Trust Framework Chapter 5.2.1. 
+3. The headquarter address, specifically the ISO 3166-2:2020 country code.
+4. The legal address, specifically the ISO 3166-2:2020 country code.
+5. The same details for a parent company if this onboarding is done for a subsidiary. 
+6. Your public address(es), derived from your public key(s), in the Pontus-X network
+
+Example: https://www.delta-dao.com/.well-known/2210_gx_participant.json
+
+The issuer of a participant credential, attesting this information, needs to sign the Gaia-X Terms and Conditions as stated in the Trust Framework Chapter 5.1.
+
+Example: https://www.delta-dao.com/.well-known/2210_gx_tandc.json
+
+The registration number will be part of a dedicated credential in the upcoming version of the Trust Framework.
+
+Example: https://www.delta-dao.com/.well-known/2210_gx_registrationnumber.json
+
+You can either sign and create all these credentials on your own or with the help of an accredited Gaia-X Trust Anchor or Gaia-X Digital Clearing House (GXDCH). For the current ecosystem we do not require production grade X.509 certificates (eIDAS QWAC, EV SSL) and deltaDAO is able to onboard you as a Trust Anchor to Pontus-X.
+
+During onboarding you will provide the required information for your institution through an institutional e-mail address for basic domain validation and deltaDAO will verify the information before onboarding. 
+
+deltaDAO will create a first SECP256K1 keypair for you and explain in the course of the document how you can set up a wallet to manage and use your keys in the ecosystem. If you already have a SECP246K1 keypair, you can also submit your public address to be added to the participant credential without compromising your private keys.
+
+
+With the first Gaia-X compliant participant credential your institution is identified and can now participate in the Pontus-X ecosystem.
+
+## How do I join?
+
+After we have signed and confirmed your participant credential as a Trust Service Provider of the Pontus-X ecosystem, we can now equip you with a private key and a public address OR you can already use your existing private key and public address to
+
+
+- allow your institution to consume service offerings in Pontus-X
+- publish service offerings and implement use cases in Pontus-X
+- allow you to use the federation services of the ecosystem
+- identify your institution in the test network as participant of Pontus-X and Gaia-X
+
+You now joined the ecosystem as registered participant. As most interactions with the federation services in this ecosystem require some form of compensation we'll equip you with virtual currency for the test ecosystem and guide you on how to setup your wallet for interaction with the ecosystem.

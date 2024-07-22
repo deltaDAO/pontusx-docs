@@ -1,0 +1,111 @@
+# Use Case Migration Guide
+
+This section guides data and software providers in the Pontus-X ecosystem in the migration of their currently published use cases on the GEN-X network to the new Pontus-X Testnet.
+
+The GEN-X network is the soon-to-be-retired neutral decentralized physical infrastructure (DePIN) and software infrastructure for the Pontus-X ecosystem. It was developed using the Polygon Edge client and leveraging Polygon Supernets. Due to several challenges faced by the validators and participants of GEN-X it was decided to migrate to the Oasis Network for the new Pontus-X Testnet. For a comprehensive overview of the GEN-X migration including the reasons for moving to a new network and the evaluation criteria please refer to the chapter "GEN-X Migration" on page X.
+
+## Prerequisites
+
+As an onboarded participant in the Pontus-X ecosystem you should have received Network and Payment tokens for the new Pontus-X Testnet. All participants listed in our [documentation](/docs/participants-and-federators/ecosystem-participants) were provided with tokens by June 30, 2024.
+
+## Migration Process
+
+Migrating your use cases to the Pontus-X Testnet can be achieved through two primary methods. You can either use the Pontus-X portal accessible at [pontus-x.eu](https://pontus-x.eu) or utilize [Nautilus](https://nautilus.delta-dao.com/), our comprehensive TypeScript data economy toolkit. In the following sections we will guide you through each method in detail.
+
+### Migration Process: Using Pontus-X portal under pontus-x.eu
+
+#### 1. Connect to Your Wallet
+
+Connect to the portal using either your onboarded wallet via MetaMask or an Automation Wallet. We recommend using the Automation Wallet as it eliminates the need for manual transaction signing during the publication process. In case you do not have an Automation Wallet, you can create one with your private key [here](https://dec-word-edit.officeapps.live.com/we/wordeditorframe.aspx?ui=en-US&rs=de-DE&wopisrc=https%3A%2F%2Fdeltadao-my.sharepoint.com%2Fpersonal%2Falbert_delta-dao_com%2F_vti_bin%2Fwopi.ashx%2Ffiles%2Fe45e719f73e54fb79c714e82db143d24&wdpid=6fdb99d&wdenableroaming=1&mscc=1&wdodb=1&hid=08E633A1-2085-9000-28B3-8990A3F057AA.0&uih=sharepointcom&wdlcid=en-US&jsapi=1&jsapiver=v2&corrid=f63fc513-5182-d37e-4a20-d44b173f40cc&usid=f63fc513-5182-d37e-4a20-d44b173f40cc&newsession=1&sftc=1&uihit=docaspx&muv=1&cac=1&sams=1&mtf=1&sfp=1&sdp=1&hch=1&hwfh=1&dchat=1&sc=%7B%22pmo%22%3A%22https%3A%2F%2Fdeltadao-my.sharepoint.com%22%2C%22pmshare%22%3Atrue%7D&ctp=LeastProtected&rct=Normal&wdorigin=Other&instantedit=1&wopicomplete=1&wdredirectionreason=Unified_SingleFlush).
+
+**Note:** Currently, you must still connect with a MetaMask wallet to access the portals even if you have an Automation Wallet. The MetaMask wallet does not need to be funded.
+
+![Portal Wallet Connect](/images/use-cases/use-case-connect.png)
+
+#### 2. Connect to the Pontus-X Testnet
+
+Hover over your displayed wallet address, click "Add Pontus-X Testnet," and confirm both MetaMask transactions.
+
+![Portal Network Connect](/images/use-cases/use-case-connect-testnet.png)
+
+#### 3. Start Publishing Process for Service Asset
+
+1. Click "Publish"
+2. Fill out the metadata:
+     - **Asset Type**: Select "Dataset" or "Algorithm."
+     - **Title**: Enter at least 4 characters.
+     - **Description**: Enter at least 10 characters.
+     - (Optional) Upload a Gaia-X service credential and define tags.
+     - (If algorithm): Define Docker Image
+3. Agree to the Terms and Conditions.
+4. Click "Continue"
+
+**Note:** For a smooth migration, reuse the same metadata as in your GEN-X asset.
+
+![Start Publishing Process](/images/use-cases/use-case-define-access-information.png)
+
+#### 4. Define Access Information
+
+1. Choose access type: "Download" or "Compute."
+2. Select provider URL (relevant if own provider is set up; see chapter X). deltaDAO provider is added by default.
+3. Provide file information and click "Submit."
+   - **Note:** Only access information is provided; files are never transferred to Pontus-X. More information about supported data sources can be found [here](https://docs.pontus-x.eu/docs/Basic Concepts/data_service_offerings).
+4. (Optional) Provide a sample file and click "Validate."
+5. Choose a timeout period defining how long buyers can download the asset after the initial purchase.
+6. (Optional) Provide user-defined parameters, allowlist and/or denylist participants (otherwise all onboarded participants listed [here](/docs/participants-and-federators/ecosystem-participants) will have access). Provide a license and add a link to asset specific Terms and Conditions.
+7. Click "Continue"
+
+**Note:** For a smooth migration, reuse the same access information as in your GEN-X asset.
+
+![Portal Define Access Information](/images/use-cases/use-case-publish.png)
+
+#### 5. Define Pricing Information
+1. Define a price in EUROe or select "Free" if the asset should be free of charge.
+2. Click "Continue."
+
+**Notes:**
+1. Since the Pontus-X Testnet is a staging environment no real monetary transactions occur. Only test tokens are exchanged.
+2. For a smooth migration, reuse the same pricing information as in your GEN-X asset.
+
+#### 6. Finalize Submission
+
+1. Click "Submit."
+2. If using MetaMask for transaction signing, confirm the transaction requests.
+
+#### 7. Compute-to-Data Use Cases
+
+Repeat the process for the algorithm asset to be allowlisted for computation on the data source of the previously published data asset.
+
+#### 8. Compute-to-Data Use Cases: Allowlist Algorithm Asset
+
+1. Click "Catalogue" and select the previously published data asset.
+![Portal Catalogue](/images/use-cases/use-case-catalogue.png)
+
+2. Click "Edit Asset."
+![Portal Catalogue](/images/use-cases/use-case-edit-asset.png)
+
+3. Click "Edit Compute Settings" and set the previously published algorithm asset for allowlisting.
+![Portal Catalogue](/images/use-cases/use-case-compute-settings.png)
+
+4. Click "Submit"
+
+### Migration Process: Using Nautilus
+
+**Overview of Nautilus**
+
+Nautilus is a developer-focused TypeScript library designed to simplify and streamline the development experience within OceanEnterprise ecosystems. It addresses common pain points such as configuring metadata, defining pricing schemes, and managing access controls, which can often be time-consuming and error-prone.
+
+**Key Features:**
+
+- **Builder Pattern:** Simplifies configuration of data economy assets and services enhancing readability, maintainability, and flexibility.
+- **Feature Complete:** Manages data assets and services, supports publish and edit functionalities, and leverages OceanEnterprise's Compute-to-Data capabilities.
+- **Seamless Compute Jobs:** Start, monitor, and retrieve compute job results within your development environment.
+
+For a detailed guide on the publishing process refer to the [publishing section](https://nautilus.delta-dao.com/docs/guides/edit) of the [Nautilus Documentation](https://nautilus.delta-dao.com/).
+
+**Notes:**
+
+- To install Nautilus refer to our [GitHub repository](https://github.com/deltaDAO/nautilus).
+- For quick coding examples check out the [nautilus-examples repository](https://github.com/deltaDAO/nautilus-examples).
+- After installation, update the `.env` file with the `NETWORK` configuration for Pontus-X Testnet (`pontusxtestnet`) and the `PRIVATEY_KEY` of your onboarded wallet.
+- For a smooth migration, reuse the same metadata information as in your GEN-X asset.

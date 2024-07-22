@@ -1,0 +1,29 @@
+# Service Catalogue - Metadata Cache ("Aquarius")
+
+Aquarius is a service designed to streamline the management and caching of metadata from multiple blockchain networks. Operating off-chain with an Elasticsearch database, Aquarius simplifies the process of querying metadata generated on-chain by maintaining an up-to-date record of metadata activities across multiple chains.
+
+## Functionalities
+
+### Caching of Service Catalogue entries
+
+Aquarius continuously monitors for `MetadataCreated` and `MetadataUpdated` smart contract events on the blockchain. It processes new or updated metadata of catalogue entries and updates its off-chain database to ensure it is always current with the latest information.
+
+Since the metadata is encrypted, the provider calls the Access Controller to decrypt the metadata.
+
+### Metadata Query API
+
+The Aquarius API provides a straightforward way to query metadata from the service catalogue leverging elastic search queries. This eliminates the need for users to directly interact with the blockchain and enables efficient catalogue queries, e.g. when using the portals.
+
+#### API docs
+
+- Asset requests: https://docs.oceanprotocol.com/developers/aquarius/asset-requests
+- Chain requests: https://docs.oceanprotocol.com/developers/aquarius/chain-requests
+- Other: https://docs.oceanprotocol.com/developers/aquarius/other-requests
+
+
+
+## What technology does Aquarius use?
+
+- **Python:** Primary programming language for Aquarius.
+- **Flask:** Python framework for building the Aquarius API.
+- **Elasticsearch:** Engine for efficient data indexing and retrieval.
