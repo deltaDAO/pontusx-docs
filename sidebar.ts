@@ -23,7 +23,7 @@ export const sidebar = {
     },
     {
       text: "Getting Started",
-      collapsed: true,
+      collapsed: false,
       items: [
         { text: "Quick Start", link: "/docs/getting-started/quick-start" },
         {
@@ -37,6 +37,16 @@ export const sidebar = {
         {
           text: "Pontus-X Ecosystem",
           link: "/docs/getting-started/pontus-x-ecosystem",
+        },
+      ],
+    },
+    {
+      text: "Core Concepts",
+      collapsed: false,
+      items: [
+        {
+          text: "Overview",
+          link: "/docs/core-concepts/overview",
         },
       ],
     },
