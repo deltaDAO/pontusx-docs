@@ -113,7 +113,20 @@ export const sidebar = {
         { text: "Migration Guide", link: "/docs/use-cases/migration-guide" },
       ],
     },
-
+    {
+      text: "Contribution",
+      collapsed: true,
+      items: [
+        {
+          text: "How to contribute",
+          link: "/docs/contribute/overview",
+        },
+        {
+          text: "Repositories",
+          link: "/docs/contribute/repositories",
+        },
+      ],
+    },
     {
       text: "Legal",
       collapsed: true,
