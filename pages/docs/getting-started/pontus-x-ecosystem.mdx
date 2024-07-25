@@ -1,0 +1,119 @@
+
+# Introducing to the Pontus-X ecosystem
+
+From here on you will be able to interact with the Pontus-X network, sign and approve transaction, cover fees and to publish, manage and consume service offerings associated with the network.
+
+
+## 1. How to find services
+
+The easiest way to discover services published in the network is through the various portals, such as https://portal.pontus-x.eu/ or https://euprogigant.pontus-x.eu/
+
+The portal landing page will offer an overview of selected service offerings and the catalogue will show a (filtered) overview of available services (depending on the portal used).
+
+![Portal Assets Overview](/images/onboarding/community_onboarding_12.jpg)
+
+The service metadata summary already informs you about some important aspects of the displayed services, such as name, title, short description, price, number of consumptions/sales, the network where the service and its contracts are residing and if it is a data service for download or actually an application to be used with data. 
+
+When we inspect a service in detail more information becomes available.
+
+![Portal Asset Detail](/images/onboarding/community_onboarding_13.jpg)
+
+All services are identified by a unique identifier, the DID.
+
+You are informed about the owner of the asset, identified by the public address. This can be manually resolved to a participant using the participant register https://docs.genx.minimal-gaia-x.eu/docs/Community/participants
+
+Below the owner information the access token for this service is displayed.
+
+You can also see if a Gaia-X compliant service credential has been added to the service and if it matches this services DID.
+
+On the righthand side you will find a summary of the costs of consumption for this services, denominated in a currency specified by the service provider, i.e. in EUROe. This currency will be used for pre-paid settlement for a subscription and the settlement must be completed before the service can be accessed during the subscription period. 
+![Portal Asset Consumption Detail](/images/onboarding/community_onboarding_14.jpg)
+
+This initial guide will not cover the full extend of information given here in the service details page for now.
+
+## 2. How to consume services
+
+To consume a selected service the following requirements must be met.
+
+1. you must be eligable to consume the service or combination of services. By default the services can be consumed by any participant unless the service provider did restrict access to certain potential consumers or purposes.
+2. you must have a sufficient balance associated with your selected public address a) sufficient to cover network fees and b) sufficient to cover costs for the service offering
+3. you must be connected with the portal and network with the right public address.
+
+If all conditions are met the buy button will indicate this by beeing available and not greyed out.
+
+ 
+![Portal Asset Consumption Detail](/images/onboarding/community_onboarding_15.jpg)
+ 
+
+If not you will receive an indication in the frontend. 
+
+ 
+![Portal Asset Consumption Detail: Not Connected](/images/onboarding/community_onboarding_16.jpg)
+
+If you want to start consumption you press the "buy" button and will be asked to sign a number of transactions to
+
+- document your consent with the Terms and Conditions of the service(s)
+- make your balance available for a transaction
+- pay for the service and to acquire an access token
+- (exchange the acquired access token for access to the service)
+
+The first transaction will set and approve a maximum spending cap for the following transaction that determines how much you allow to be paid for the service. This is a security feature which is not really useful for a service with a fixed price, but needs to be completed nonetheless. This will NOT increase the price of the service, even if you enter a higher number.
+
+ 
+![MetaMask EUROe Approval](/images/onboarding/community_onboarding_17.jpg)
+
+
+When you approve this transaction it will be submitted to the network and documented which will take a few seconds.
+
+ 
+![Portal EUROe Approval](/images/onboarding/community_onboarding_18.jpg) 
+
+In the next step you will approve the transaction with the service provider to exchange currency against the access token required for the service.
+
+![MetaMask Transaction Details](/images/onboarding/community_onboarding_19.jpg)
+
+This transaction will induce network fees to cover the cost of federation services and infrastructure provided by federators (network validators). When approved the transaction will be submitted to the network, the exchange will be facilitated and the acquired access token will be exchanged to execute the right to use the service. This creates an audit trail entry and marks the beginning of the service subscription which is documented in the federated logging service.
+
+The access controller used by the service provider will use this audit trail event and proof of transaction to determine if a user has the right to access the service and to check the identity of a user.
+
+You will be able to asses the status of the transaction through the logging service and the wallet.
+
+![Activity Log](/images/onboarding/community_onboarding_20.jpg) 
+
+The results of both transactions can also been seen in the Logging Explorer for the used network.
+
+![Blockchain Epxlorer Transaction Details](/images/onboarding/community_onboarding_21.jpg) 
+
+Now the service can be consumed and results can be accessed. Please note that in the case of a Compute-to-Data process there will be a second service offering and contracting process involved and at least 5 transactions are required as two contracts with up to three parties will be stipulated.
+
+## 3. How to access results
+
+Now the service can be consumed by the consumer which is indicated by a download button.
+
+![Portal Download Asset](/images/onboarding/community_onboarding_22.jpg) 
+
+If a download is requested from the access controller designated by the service provider the identity of the consumer must be confirmed to match the identity of the party who signed the contract with the service provider. For this reason you will need to answer a signature request to prove you have control of the private key associated with the public address of the consumer.
+
+![MetaMask Sign Request](/images/onboarding/community_onboarding_23.jpg) 
+
+If the signature has been verified successfully by the access controller the HTTPS download will be initiated and the file can be downloaded.
+
+All these processes can be initiated without the graphical user interface of the portal using the Python or JS libraries or Nautilus.
+
+## 4. How to access consumption history
+
+To access your consumption history via the GUI you can visit the "profile" section of any portal that has not filtered out the services you did consume.
+
+Under the section "Downloads" you will find a full overview of all services that have been contracted for download.
+
+![Portal Downloads Overview](/images/onboarding/community_onboarding_24.jpg) 
+
+Under the section "Compute Jobs" you will find a summary for all compute processes, the respective audit trails and the options to access the results of previous computations.
+
+![Portal Compute Jobs Overview](/images/onboarding/community_onboarding_25.jpg) 
+
+## 5. Further Help
+
+Thank you for contributing to Pontus-X. If you need help with anything, just let us know, we are happy to assist you. Just contact [thomas@delta-dao.com](mailto:thomas@delta-dao.com) and [kai@delta-dao.com](mailto:kai@delta-dao.com) if you have questions or need help.
+
+If you want to get started with some additional quick links to the ecosystem and additional resources, please follow [https://docs.pontus-x.eu/docs/quick_links](https://docs.pontus-x.eu/docs/quick_links).
