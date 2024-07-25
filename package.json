@@ -6,7 +6,7 @@
     "dev": "vocs dev",
     "build": "vocs build",
     "preview": "vocs preview",
-    "postinstall": "npx playwright-core install"
+    "postinstall": "npx playwright install-deps && npx playwright-core install"
   },
   "dependencies": {
     "react": "latest",
