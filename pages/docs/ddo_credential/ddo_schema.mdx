@@ -1,25 +1,23 @@
 # DDO Schema
 
+![OE Verifiable Presentation](/images/DDO/diagrams/w3c_presentation.svg)
+:::details[mermaid]
 ```mermaid
----
-title: OE Verifiable Presentation
----
 classDiagram
     class `W3C Verifiable Presentation` {
     }
-    class `W3C Verifiable Credential` {
-    }
     class `OE Service Credential` {
+    }
+    class `W3C Verifiable Credential` {
     }
     class CredentialSubject {
     }
-
-    `W3C Verifiable Presentation` "1" --> "1..*" `W3C Verifiable Credential` : contains
-    `W3C Verifiable Credential` "1" --> "1" CredentialSubject : defines
-    `OE Service Credential` --|> `W3C Verifiable Credential` : is a type of
-
-
+ 
+    `W3C Verifiable Presentation` "1" --> "1..*" `OE Service Credential` : contains
+    `OE Service Credential` "1" --> "1" CredentialSubject : defines
+    `W3C Verifiable Credential` <|-- `OE Service Credential` : is a type of
 ```
+:::
 
 ## Verifiable Presentation (off-chain metadata object)
 
@@ -42,6 +40,13 @@ This is a W3C verifiable credential.
 | `issuer`            | `string` (URL)                          | A [verifiable credential](https://w3c.github.io/vc-data-model/#dfn-verifiable-credential) _MUST_ have an `issuer` [property](https://w3c.github.io/vc-data-model/#dfn-property). The value of the `issuer` [property](https://w3c.github.io/vc-data-model/#dfn-property) _MUST_ be either a [URL](https://w3c.github.io/vc-data-model/#dfn-url), or an object containing an `id` [property](https://w3c.github.io/vc-data-model/#dfn-property) whose value is a [URL](https://w3c.github.io/vc-data-model/#dfn-url); in either case, the issuer selects this [URL](https://w3c.github.io/vc-data-model/#dfn-url) to identify itself in a globally unambiguous way. It is _RECOMMENDED_ that the [URL](https://w3c.github.io/vc-data-model/#dfn-url) be one which, if dereferenced, results in a controller document, as defined in [[VC-DATA-INTEGRITY](https://w3c.github.io/vc-data-model/#bib-vc-data-integrity)] or [[VC-JOSE-COSE](https://w3c.github.io/vc-data-model/#bib-vc-jose-cose)], about the [issuer](https://w3c.github.io/vc-data-model/#dfn-issuers) that can be used to [verify](https://w3c.github.io/vc-data-model/#dfn-verify) the information expressed in the [credential](https://w3c.github.io/vc-data-model/#dfn-credential). More info [here](https://w3c.github.io/vc-data-model/#issuer). | :white_check_mark:                                                                    |
 | `version`           | `string`                                | Version number of "OE Service Credential" standard in [SemVer](https://semver.org) notation referring to this DDO spec version, like `1.0.0`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                                                                                       |
 
+
+
+
+## credentialSubject
+
+![CredentialSubject](/images/DDO/diagrams/credential_subject.svg)
+:::details[mermaid]
 ```mermaid
 ---
 title: CredentialSubject
@@ -81,8 +86,7 @@ classDiagram
 
 
 ```
-
-## credentialSubject
+:::
 
 | Attribute     | Type                                          | Description                                                                                                                                                                                                                                                                                                                                                                                                          | Required                                                                              |
 | ------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |

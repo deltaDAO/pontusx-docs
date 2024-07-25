@@ -1,8 +1,10 @@
 # Complete Overview (Schema)
 
+![OE VP Overview](/images/DDO/diagrams/complete_overview.svg)
+:::details[mermaid]
 ```mermaid
 classDiagram
-    class W3C_Verifiable_Presentation {
+    class OE_Verifiable_Presentation {
         @context
         type
         verifiableCredential
@@ -91,7 +93,7 @@ classDiagram
         publisherTrustedAlgorithms
     }
 
-    W3C_Verifiable_Presentation --> OE_Service_Credential : contains
+    OE_Verifiable_Presentation --> OE_Service_Credential : contains
     OE_Service_Credential --> CredentialSubject : defines
 
     CredentialSubject --> Metadata
@@ -107,3 +109,4 @@ classDiagram
     Service --> Credentials
 
 ```
+:::
