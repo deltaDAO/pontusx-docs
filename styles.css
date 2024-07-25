@@ -18,7 +18,3 @@
 #home-install .vocs_Code {
   font-size: 18px;
 }
-
-[id^='mermaid'] {
-  line-height: 16px;
-}
