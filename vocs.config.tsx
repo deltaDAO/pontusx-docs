@@ -1,13 +1,7 @@
-import * as React from 'react'
 import { defineConfig } from 'vocs'
 import pkg from './package.json'
 import { sidebar } from './sidebar'
-
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
-function toPatchVersionRange(version: string) {
-  const [major, minor] = version.split('.').slice(0, 2)
-  return `${major}.${minor}.x`
-}
+import remarkGemoji from 'remark-gemoji'
 
 export default defineConfig({
   baseUrl: 'https://pontusx-docs.vercel.app',
@@ -17,11 +11,6 @@ export default defineConfig({
     'The official documentation for Pontus-X, a decentralized data and ai ecosystem.',
   head: (
     <>
-      {/* <script
-        src="https://cdn.usefathom.com/script.js"
-        defer
-      /> */}
-      <script src="https://buttons.github.io/buttons.js" async defer />
     </>
   ),
   ogImageUrl: {
@@ -80,5 +69,8 @@ export default defineConfig({
         },
       ]
     }
-  ]
+  ],
+  markdown: {
+    remarkPlugins: [remarkGemoji],
+  }
 })

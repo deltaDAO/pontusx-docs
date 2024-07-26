@@ -1,0 +1,18 @@
+# Subgraph - Transaction Cache
+
+The subgraph isis built on top of [The Graph](https://thegraph.com/) and responsible for the extraction of service pricing and purchase history data from the blockchain, subsequent processing of this data, and its storage in a format that allows for straightforward querying via GraphQL.
+
+:::info
+The Subgraph retrieves data related to access tokens and transactions directly from the blockchain. However, it lacks the capability to decrypt or serve metadata associated with service offerings. This functionality is provided by two distinct components: the metadata cache, known as "Aquarius," which is responsible for serving the metadata, and the Access Controller, referred to as "Provider," which handles the decryption of the metadata.
+:::
+
+:::warning
+When making subgraph queries, ensure that parameters like token addresses are in lowercase. This is crucial for accurate query processing.
+:::
+
+
+## Further documentation and repositories
+
+Ocean Protocol Docs: https://docs.oceanprotocol.com/developers/subgraph
+
+Subgraph Repository: https://github.com/OceanProtocolEnterprise/ocean-subgraph
