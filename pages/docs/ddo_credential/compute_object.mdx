@@ -1,0 +1,19 @@
+# Compute Object
+
+Required for type compute services.
+
+| Attribute                             | Type                                                                 | Description                                                                                                                                                                                                               | Required           |
+| ------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `allowRawAlgorithm`                   | `boolean`                                                            | If `true`, any passed raw text will be allowed to run. Useful for an algorithm drag & drop use case, but increases risk of data escape through malicious user input. Should be `false` by default in all implementations. | :white_check_mark: |
+| `allowNetworkAccess`                  | `boolean`                                                            | If `true`, the algorithm job will have network access.                                                                                                                                                                    | :white_check_mark: |
+| `publisherTrustedAlgorithmPublishers` | Array of `string`                                                    | If not defined, then any published algorithm is allowed. If empty array, then no algorithm is allowed. If not empty any algo published by the defined publishers is allowed.                                              | :white_check_mark: |
+| `publisherTrustedAlgorithms`          | Array of [`publisherTrustedAlgorithms`](#publishertrustedalgorithms) | If not defined, then any published algorithm is allowed. If empty array, then no algorithm is allowed. Otherwise only the algorithms defined in the array are allowed. (see below).                                       | :white_check_mark: |
+
+## publisherTrustedAlgorithms
+
+| Attribute                  | Type     | Description                                                        | Required           |
+| -------------------------- | -------- | ------------------------------------------------------------------ | ------------------ |
+| `did`                      | `string` | The DID of the algorithm which is trusted by the publisher.        | :white_check_mark: |
+| `serviceId`                | `string` | The service ID of the algorithm which is trusted by the publisher. | :white_check_mark: |
+| `filesChecksum`            | `string` | Hash of algorithm's files (as `string`).                           | :white_check_mark: |
+| `containerSectionChecksum` | `string` | Hash of algorithm's image details (as `string`).                   | :white_check_mark: |

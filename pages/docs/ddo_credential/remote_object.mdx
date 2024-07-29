@@ -1,0 +1,55 @@
+# remoteObject
+
+| Attribute               | Type                                     | Description                                                              | Required           |
+| ----------------------- | ---------------------------------------- | ------------------------------------------------------------------------ | ------------------ |
+| `name`                  | `string`                                 | Describing name                                                          | :white_check_mark: |
+| `displayName`           | [`language value object`](/docs/ddo_credential/language_i18n)                  | Descriptive name of the file used for human readability in applications. |                    |
+| `description`           | [`language value object`](/docs/ddo_credential/language_i18n)                  | File description                                                         |                    |
+| `fileType`              | `string`                                 | MIME Filetype of the remote object. E.g.: `application/pdf`              | :white_check_mark: |
+| `sha256`                | `string`                                 | `sha256` hash of the rremote object                                      | :white_check_mark: |
+| `mirrors`               | Array of [`remoteSource`](#remotesource) | Can include source `type` `url` and `ipfs`. Array must not be empty.     | :white_check_mark: |
+| `additionalInformation` | `Object`                                 | Stores additional information, this is customizable by publisher         |                    |
+
+## remoteSource
+
+### type `url`
+
+| Attribute | Type     | Description                           | Required           |
+| --------- | -------- | ------------------------------------- | ------------------ |
+| `type`    | `string` | value `url`                           | :white_check_mark: |
+| `url`     | `string` | Remote object URL                     | :white_check_mark: |
+| `method`  | `string` | The HTTP method (e.g.: `GET`, `POST`) | :white_check_mark: |
+| `headers` | `string` | additional http headers               |                    |
+
+**Example:**
+
+```json
+{
+    "type": "url",
+    "url": "https://your-files.com/file1.json",
+    "method": "GET",
+    "headers": {
+      "Custom-Header": "custom-value-if-needed"
+    }
+}
+```
+
+
+
+### type `ipfs`
+
+| Attribute | Type     | Description                                                  | Required           |
+| --------- | -------- | ------------------------------------------------------------ | ------------------ |
+| `type`    | `string` | value `ipfs`                                                 | :white_check_mark: |
+| `ipfsCID` | `string` | A *content identifier*, or [CID](https://docs.ipfs.tech/concepts/content-addressing/#what-is-a-cid), is a label used to point to material in IPFS. | :white_check_mark: |
+
+
+
+Example:
+
+```json
+{
+  "type": "ipfs",
+  "ipfsCID": "QmRA3NWM82ZGynMbYzAgYTSXCVM14Wx1RZ8fKP42G6gjgj"
+}
+```

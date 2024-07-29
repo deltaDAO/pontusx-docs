@@ -1,0 +1,23 @@
+# Container
+
+| Attribute    | Type     | Description                                                                                                                             | Required           |
+| ------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `image`      | `string` | The Docker image name the algorithm will run with.                                                                                      | :white_check_mark: |
+| `tag`        | `string` | The Docker image tag that you are going to use.                                                                                         | :white_check_mark: |
+| `entrypoint` | `string` | The Docker entrypoint. `$ALGO` is a macro that gets replaced inside the compute job, depending where your algorithm code is downloaded. | :white_check_mark: |
+
+**Example:**
+
+Run an algorithm written in JavaScript/Node.js, based on Node.js v18:
+
+```json
+{
+  "algorithm": {
+    "container": {
+      "entrypoint": "node $ALGO",
+      "image": "node",
+      "tag": "18"
+    }
+  }
+}
+```

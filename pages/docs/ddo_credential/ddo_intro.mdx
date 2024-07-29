@@ -1,0 +1,27 @@
+# OE Service Credential (DDO)
+
+Asset metadata plays a critical role within the Ocean Enterprise ecosystem, enabling the cataloging and management of service offerings. Each asset can include multiple service offerings. The metadata is intended for publication to federated catalogues, ensuring that service offerings are easily discoverable across different data spaces and data ecosystems. To ensure confidentiality and integrity, the metadata is encrypted by default.
+
+Additionally, while the majority of the metadata is stored off-chain to optimize performance and scalability, a hash of this metadata is anchored on-chain. This approach combines the benefits of off-chain storage with the immutability and security of blockchain technology, ensuring both the scalability of data management and the verifiability of metadata integrity.
+
+## Version
+
+The current version of the service credential standard is `0.1.0`.
+You can find out more in the [changelog](/docs/ddo_credential/changelog).
+
+## On-chain / off-chain distinction
+
+Due to privacy and efficiency reasons, the asset metadata is split into two parts:
+
+### on-chain
+
+The on-chain part is stored on the blockchain and contains a `remote` object pointing to a W3C compliant verifiable presentation in `JWT` format.
+More about the on-chain metadata can be found [here](/docs/ddo_credential/on_chain).
+
+### off-chain
+
+The off-chain part is a W3C compliant verifiable presentation stored using `IPFS` or any other webservice. The off-chain part is encrypted and signed by the service provider.
+The verifiable presentation includes an `OceanEnterpriseServiceCredential` W3C compliant verifiable credential and potentially other ecosystem specific credentials.
+Verifiable credentials are encoded in VC-JWT (Json-LD) format.
+
+You can find the full specification of the `OceanEnterpriseServiceCredential` [here](/docs/ddo_credential/ddo_schema).
