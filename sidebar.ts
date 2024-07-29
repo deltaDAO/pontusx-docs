@@ -38,15 +38,9 @@ export const sidebar = {
           text: "Pontus-X Ecosystem",
           link: "/docs/getting-started/pontus-x-ecosystem",
         },
-      ],
-    },
-    {
-      text: "Core Concepts",
-      collapsed: false,
-      items: [
         {
-          text: "Overview",
-          link: "/docs/core-concepts/overview",
+          text: "Core Concepts",
+          link: "/docs/getting-started/core-concepts",
         },
       ],
     },

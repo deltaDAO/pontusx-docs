@@ -2,7 +2,7 @@
 
 The Access Controller (alternatively Provider in the context of Ocean Protocol) is a REST API designed for the provision of services. It performs a series of checks to verify the buyer's permission to access the service. The access controller acts as an intermediary between the data source and the user, thus preventing the need for the user to have direct access to the data.
 
-## Security considerations (info box)
+## Security considerations
 
 To achieve maximum security and data sovereignty it's recommended to seld-host an Access Controller component or use a trusted service provider. Leveraging the compute-to-data paradigm the data stays under the control of the owner and never leaves the secure infrastructure. Algorithms running on the data will be audited and explicitly allowed to run on the data to prevent data leakage.
 
@@ -10,10 +10,10 @@ To achieve maximum security and data sovereignty it's recommended to seld-host a
 
 ### Access Control
 
-The Access Controller performs a series of checks to verify the buyer's permission to access the service: 
+The Access Controller performs a series of checks to verify the buyer's permission to access the service:
 
 1. Checking the lifecycle state of the asset to confir its availability
-2. Checking if the buyer has purchased and spent the access token (also calles "datatoken" in the Ocean Protocol docs)  to gain access to the data. 
+2. Checking if the buyer has purchased and spent the access token (also calles "datatoken" in the Ocean Protocol docs)  to gain access to the data.
 3. Checking the access control conditions to the service, using the allow/deny lists of the service
 
 ### Algorithm integrity checks
@@ -22,7 +22,7 @@ When utilising the compute-to-data functionality, the Access Controller conducts
 
 ### Catalogue metadata encryption/decryption
 
-The publisher uses a trusted Access Controller`s api encryption endpoint to encrypt their service metadata prior to publishing (anchoring the service offering on the blockchain). 
+The publisher uses a trusted Access Controller`s api encryption endpoint to encrypt their service metadata prior to publishing (anchoring the service offering on the blockchain).
 
 Any trusted metadata cache component (Aquarius) can call the decryption api endpoint of the Access Controller to decrypt the metadata fetched from the blockchain. This ensures that only selected Aquarius instances have access to the service offering metadata.
 
@@ -51,4 +51,3 @@ Encryption/Decryption: https://docs.oceanprotocol.com/developers/provider/encryp
 Compute Endpoints: https://docs.oceanprotocol.com/developers/provider/compute-endpoints
 
 Authentication Endpoints: https://docs.oceanprotocol.com/developers/provider/authentication-endpoints
-
