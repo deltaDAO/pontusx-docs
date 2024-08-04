@@ -50,12 +50,12 @@ The Devnet serves as a dynamic development environment where new features, algor
 
 ## Network Operations
 
-### Get the Latest Block:
+### Get the Latest Block
 ```bash
 curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest", false],"id":1}' https://rpc.<network>.pontus-x.eu/
 ```
 
-### Get Syncing Status:
+### Get Syncing Status
 ```bash
 curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' https://rpc.<network>.pontus-x.eu/
 ```
