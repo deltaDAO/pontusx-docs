@@ -18,7 +18,6 @@ export const sidebar = {
           text: "Pontus-X Network",
           link: "/docs/introduction/network",
         },
-        // { text: 'FAQ', link: '/docs/faq' }
       ],
     },
     {
@@ -71,6 +70,14 @@ export const sidebar = {
           text: "Validator Node Setup",
           link: "/docs/pontus-x-networks/node-setup",
         },
+        {
+          text: "Testnet",
+          link: "/docs/pontus-x-networks/testnet",
+        },
+        {
+          text: "Devnet",
+          link: "/docs/pontus-x-networks/devnet",
+        },
       ],
     },
     {
@@ -97,48 +104,48 @@ export const sidebar = {
               link: "/docs/technical-architecture/portals",
             },
             {
-              text: 'Subgraph - Transaction Cache',
-              link: '/docs/technical-architecture/subgraph',
+              text: "Subgraph - Transaction Cache",
+              link: "/docs/technical-architecture/subgraph",
             },
           ],
         },
         {
-          text: 'DRAFT: Asset Metadata Standard (DDO)',
+          text: "DRAFT: Asset Metadata Standard (DDO)",
           collapsed: true,
           items: [
             {
-              text: 'Introduction',
-              link: '/docs/ddo_credential/ddo_intro',
+              text: "Introduction",
+              link: "/docs/ddo_credential/ddo_intro",
               items: [
                 {
-                  text: 'W3C VCs & VPs',
-                  link: '/docs/ddo_credential/w3c_credentials',
+                  text: "W3C VCs & VPs",
+                  link: "/docs/ddo_credential/w3c_credentials",
                 },
                 {
-                  text: 'On-Chain Metadata',
-                  link: '/docs/ddo_credential/on_chain',
+                  text: "On-Chain Metadata",
+                  link: "/docs/ddo_credential/on_chain",
                 },
               ],
             },
             {
-              text: 'Verifiable Presentation (DDO Schema)',
-              link: '/docs/ddo_credential/ddo_schema',
+              text: "Verifiable Presentation (DDO Schema)",
+              link: "/docs/ddo_credential/ddo_schema",
               items: [
                 {
-                  text: 'Metadata',
-                  link: '/docs/ddo_credential/metadata',
+                  text: "Metadata",
+                  link: "/docs/ddo_credential/metadata",
                   items: [
                     {
-                      text: 'Algorithm Metadata',
-                      link: '/docs/ddo_credential/algorithm_metadata',
+                      text: "Algorithm Metadata",
+                      link: "/docs/ddo_credential/algorithm_metadata",
                       items: [
                         {
-                          text: 'Container',
-                          link: '/docs/ddo_credential/container',
+                          text: "Container",
+                          link: "/docs/ddo_credential/container",
                         },
                         {
-                          text: 'Algorithm Consumer Parameters',
-                          link: '/docs/ddo_credential/algorithm_consumer_parameters',
+                          text: "Algorithm Consumer Parameters",
+                          link: "/docs/ddo_credential/algorithm_consumer_parameters",
                         },
                       ],
                     },
@@ -146,60 +153,60 @@ export const sidebar = {
                 },
 
                 {
-                  text: 'Service',
-                  link: '/docs/ddo_credential/service',
+                  text: "Service",
+                  link: "/docs/ddo_credential/service",
                   items: [
                     {
-                      text: 'Files Object',
-                      link: '/docs/ddo_credential/files_object',
+                      text: "Files Object",
+                      link: "/docs/ddo_credential/files_object",
                     },
                     {
-                      text: 'Compute Object',
-                      link: '/docs/ddo_credential/compute_object',
+                      text: "Compute Object",
+                      link: "/docs/ddo_credential/compute_object",
                     },
                     {
-                      text: 'Service Consumer Parameters',
-                      link: '/docs/ddo_credential/service_consumer_parameters',
+                      text: "Service Consumer Parameters",
+                      link: "/docs/ddo_credential/service_consumer_parameters",
                     },
                   ],
                 },
                 {
-                  text: 'Credentials (Access Control)',
-                  link: '/docs/ddo_credential/credentials',
+                  text: "Credentials (Access Control)",
+                  link: "/docs/ddo_credential/credentials",
                 },
                 {
-                  text: 'License Object',
-                  link: '/docs/ddo_credential/license_object',
+                  text: "License Object",
+                  link: "/docs/ddo_credential/license_object",
                   items: [
                     {
-                      text: 'ODRL Object',
-                      link: '/docs/ddo_credential/odrl_object',
+                      text: "ODRL Object",
+                      link: "/docs/ddo_credential/odrl_object",
                     },
                   ],
                 },
                 {
-                  text: 'Consumer Parameters',
-                  link: '/docs/ddo_credential/consumer_parameters',
+                  text: "Consumer Parameters",
+                  link: "/docs/ddo_credential/consumer_parameters",
                 },
                 {
-                  text: 'Language and Base Direction (i18n)',
-                  link: '/docs/ddo_credential/language_i18n',
+                  text: "Language and Base Direction (i18n)",
+                  link: "/docs/ddo_credential/language_i18n",
                 },
                 {
-                  text: 'Lifecycle States',
-                  link: '/docs/ddo_credential/lifecycle_states',
+                  text: "Lifecycle States",
+                  link: "/docs/ddo_credential/lifecycle_states",
                 },
                 {
-                  text: 'Remote Object',
-                  link: '/docs/ddo_credential/remote_object',
+                  text: "Remote Object",
+                  link: "/docs/ddo_credential/remote_object",
                 },
                 {
-                  text: 'Complete Overview (Schema)',
-                  link: '/docs/ddo_credential/complete_overview',
+                  text: "Complete Overview (Schema)",
+                  link: "/docs/ddo_credential/complete_overview",
                 },
                 {
-                  text: 'Changelog',
-                  link: '/docs/ddo_credential/changelog',
+                  text: "Changelog",
+                  link: "/docs/ddo_credential/changelog",
                 },
               ],
             },
