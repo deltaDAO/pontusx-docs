@@ -1,0 +1,87 @@
+# Use Cases in Pontus-X
+
+In the Pontus-X ecosystem, downloading data is a fundamental use case that enables users to access various data services, applications, and other digital assets. This chapter provides a guide on how to download data using the Nautilus library, ensuring secure and efficient access to the resources you need.
+
+## Introduction to Downloading Data
+
+Downloading data involves making an access request to the controlling provider of the desired asset. This process typically includes verifying access permissions and processing any necessary payments. Once these steps are completed, the provider generates a one-time URL for the requested data.
+
+### Accessing Data with Nautilus
+
+To access assets or their respective services, Nautilus provides a dedicated function that simplifies the process. Below is a step-by-step guide on how to use the `nautilus.access()` function to download data.
+
+#### Step-by-Step Guide
+
+1. **Setup and Initialization:** First, set up your environment by importing the necessary modules and creating a Nautilus instance. Ensure you have the correct provider and signer information.
+
+   ```javascript
+   import { Nautilus } from '@deltadao/nautilus'
+   import { providers, Wallet } from 'ethers'
+
+   const provider = new providers.JsonRpcProvider('https://rpc.dev.pontux-x.eu')
+   const signer = new Wallet('0x...', provider) // add private key here
+
+   // Create the Nautilus instance
+   const nautilus = await Nautilus.create(signer)
+   ```
+
+:::warning
+Ensure that your private key is used exclusively for development purposes and is kept secure. Additionally, verify that your account has been explicitly enabled by the use case owner to allow data downloads.
+:::
+
+
+
+2. **Request Access:** Use the `nautilus.access()` function to request access to the asset. You need to provide the DID (Decentralized Identifier) of the asset you wish to access.
+
+   ```javascript
+   const accessUrl = await nautilus.access({
+     assetDid: 'did:op:123abc'
+   })
+   ```
+:::info
+You can find available use cases in the Pontus-X ecosystem here: [Pontus-X Catalogue](https://www.pontus-x.eu/search?sort=nft.created&sortOrder=desc)
+:::
+
+3. **Fetch the Data:** If the access rules and payment processing are successful, the controlling provider will generate a one-time URL. Use this URL to fetch the data.
+
+   ```javascript
+   const data = await fetch(accessUrl)
+   ```
+
+#### Example Code
+
+Here's a complete example that demonstrates the process of accessing and downloading data using Nautilus:
+
+```javascript
+import { Nautilus } from '@deltadao/nautilus'
+import { providers, Wallet } from 'ethers'
+
+const provider = new providers.JsonRpcProvider('https://rpc.dev.pontux-x.eu')
+const signer = new Wallet('0x...', provider)
+
+// Create the Nautilus instance
+const nautilus = await Nautilus.create(signer)
+
+// Request access to the asset
+const accessUrl = await nautilus.access({
+  assetDid: 'did:op:123abc'
+})
+
+// Fetch the data
+const data = await fetch(accessUrl)
+```
+
+:::info
+Pay close attention to the network you are connected to and ensure you select the correct provider for that network. You can find a list of available providers here: [Pontus-X Networks](../docs/pontus-x-networks/quick-start).
+:::
+
+### Deep Dive
+
+For more detailed information and advanced usage of the `nautilus.access()` function, refer to the following resources:
+
+- [nautilus.access() - API Documentation](https://nautilus.delta-dao.com/docs/api/nautilus/access)
+- [Download Examples - Code Examples for Access Flows](https://github.com/deltaDAO/nautilus-examples/blob/main/access.ts)
+
+## Conclusion
+
+Downloading data in the Pontus-X ecosystem is a straightforward process facilitated by the Nautilus interface. By following the steps outlined in this guide, you can securely access and retrieve the data and services you need, ensuring compliance with access permissions and payment requirements.

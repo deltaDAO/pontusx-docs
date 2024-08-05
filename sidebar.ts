@@ -218,7 +218,11 @@ export const sidebar = {
       text: "Use Cases",
       collapsed: true,
       items: [
+        { text: "Introduction", link: "/docs/use-cases/introduction" },
         { text: "Migration Guide", link: "/docs/use-cases/migration-guide" },
+        { text: "Download Assets", link: "/docs/use-cases/download" },
+        { text: "Compute Assets", link: "/docs/use-cases/compute" },
+        { text: "Publish Assets", link: "/docs/use-cases/publish" },
       ],
     },
     {

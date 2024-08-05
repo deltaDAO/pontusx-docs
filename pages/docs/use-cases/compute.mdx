@@ -1,0 +1,150 @@
+# Compute-to-Data with Nautilus
+
+Compute-to-Data (CtD) allows you to generate value from data while ensuring it remains private. In the Pontus-X ecosystem, Nautilus provides a `compute` function to start and manage compute jobs. This chapter guides you through starting a new compute job, monitoring its status, and retrieving the results.
+
+## Introduction to Compute-to-Data
+
+Compute-to-Data enables the analysis of data without exposing it. This functionality is crucial for maintaining data privacy and security while still extracting valuable insights.
+
+## Starting a New Compute Job
+
+Starting a compute job with Nautilus is straightforward. The basic configuration requires only the identifiers of both the dataset and the algorithm.
+
+1. **Setup and Initialization**: Begin by setting up your environment and creating a Nautilus instance.
+
+   ```javascript
+   import { Nautilus } from '@deltadao/nautilus'
+   import { providers, Wallet } from 'ethers'
+
+   const provider = new providers.JsonRpcProvider('https://rpc.dev.pontux-x.eu')
+   const signer = new Wallet('0x...', provider)
+
+   // Create the Nautilus instance
+   const nautilus = await Nautilus.create(signer)
+   ```
+
+2. **Define Dataset and Algorithm**: Specify the DIDs (Decentralized Identifiers) for both the dataset and the algorithm.
+
+   ```javascript
+   const dataset = {
+       did: 'did:op:123abc...'
+   }
+   const algorithm = {
+       did: 'did:op:456def...'
+   }
+   ```
+
+:::info
+You can find available use cases in the Pontus-X ecosystem here: [Pontus-X Catalogue](https://www.pontus-x.eu/search?sort=nft.created&sortOrder=desc)
+:::
+
+3. **Start the Compute Job:** Use the `nautilus.compute()` function to start the compute job.
+
+   ```javascript
+   const computeJob = await nautilus.compute({
+       dataset,
+       algorithm
+   })
+   ```
+
+4. **Store the Job ID:** Save the job ID for future reference.
+
+   ```javascript
+   const { jobId } = computeJob
+   ```
+
+## Monitoring Compute Job Status
+
+Once you have a reference to a compute job, you can monitor its status using the `getComputeStatus()` function.
+
+1. **Get Compute Job Status:** Retrieve the status of the compute job using its job ID and the provider URI.
+
+   ```javascript
+   const computeJobStatus = await nautilus.getComputeStatus({
+     jobId, // Using our extracted jobId
+     providerUri: 'https://v4.provider.oceanprotocol.com/'
+   })
+   ```
+
+:::info
+The `providerUri` should be the service endpoint of the dataset's service that was computed on. This is where compute jobs are managed and retrieved.
+:::
+
+## Retrieving Compute Job Results
+
+After a compute job has finished, you can access the results using the `getComputeResult` function.
+
+1. **Get Compute Job Results:** Obtain the URL to retrieve the compute job results.
+
+   ```javascript
+   const computeResultUrl = await nautilus.getComputeResult({
+     jobId, // Use your previously saved jobId
+     providerUri // Use the provider as described above
+   })
+   ```
+
+2. **Fetch the Data:** Use the generated one-time URL to fetch the data.
+
+   ```javascript
+   const data = computeResultUrl && await fetch(computeResultUrl)
+   ```
+
+## Example Code
+
+Here's a complete example demonstrating the compute-to-data process using Nautilus:
+
+```javascript
+import { Nautilus } from '@deltadao/nautilus'
+import { providers, Wallet } from 'ethers'
+
+const provider = new providers.JsonRpcProvider('https://rpc.dev.pontux-x.eu')
+const signer = new Wallet('0x...', provider)
+
+// Create the Nautilus instance
+const nautilus = await Nautilus.create(signer)
+
+// Define dataset and algorithm
+const dataset = {
+    did: 'did:op:123abc...'
+}
+const algorithm = {
+    did: 'did:op:456def...'
+}
+
+// Start the compute job
+const computeJob = await nautilus.compute({
+    dataset,
+    algorithm
+})
+
+// Store the job ID
+const { jobId } = computeJob
+
+// Get the status of the compute job
+const computeJobStatus = await nautilus.getComputeStatus({
+  jobId,
+  providerUri: 'https://v4.provider.oceanprotocol.com/'
+})
+
+// Get the compute job results
+const computeResultUrl = await nautilus.getComputeResult({
+  jobId,
+  providerUri
+})
+
+// Fetch the data
+const data = computeResultUrl && await fetch(computeResultUrl)
+```
+
+## Deep Dive
+
+For a detailed look into the compute APIs and their capabilities, refer to the following resources:
+
+- [nautilus.compute() - Full API Documentation](https://nautilus.delta-dao.com/docs/api/nautilus/compute)
+- [nautilus.getComputeStatus() - Full API Documentation](https://nautilus.delta-dao.com/docs/api/nautilus/getComputeStatus)
+- [nautilus.getComputeResult() - Full API Documentation](https://nautilus.delta-dao.com/docs/api/nautilus/getComputeResult)
+- [Compute Examples - Code Examples](https://github.com/deltaDAO/nautilus-examples/blob/main/compute.ts)
+
+## Conclusion
+
+Compute-to-Data in the Pontus-X ecosystem enables secure and private data analysis, maintaining data privacy while extracting valuable insights. By following this guide, you can efficiently start, monitor, and retrieve compute jobs using the Nautilus interface, leveraging the full potential of the Pontus-X platform.

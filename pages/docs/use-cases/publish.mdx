@@ -1,0 +1,161 @@
+# Publishing with Nautilus
+
+In the decentralized data economy of Pontus-X, publishing data, applications, and services is essential for enabling a thriving ecosystem. By making your assets available, you contribute to the collective value and utility of the network. This chapter guides you through the process of publishing assets using the Nautilus interface, simplifying the creation and configuration of assets.
+
+## Introduction to Publishing
+
+Publishing in Pontus-X involves describing your asset in a standardized way so that it can be displayed in catalogs, offered on marketplaces, and sold to others. Constructing a Decentralized Identifier Document (DDO) can be complex, but Nautilus streamlines this process with two main builder classes: `AssetBuilder` and `ServiceBuilder`.
+
+## Creating Asset Metadata with AssetBuilder
+
+The `AssetBuilder` class in Nautilus helps you construct the metadata for your asset. Follow these steps to set up and build your asset's metadata:
+
+1. **Setup and Initialization:** Begin by creating an instance of `AssetBuilder`.
+
+   ```javascript
+   import { AssetBuilder } from '@deltadao/nautilus'
+
+   const assetBuilder = new AssetBuilder()
+   ```
+
+2. **Configure Metadata:** Use the builder pattern to set up the metadata information for the asset, such as type, name, description, and author.
+
+   ```javascript
+   assetBuilder
+     .setType('dataset')
+     .setName('My New Asset')
+     .setDescription('This is a publish asset building test using Nautilus')
+     .setAuthor('Company Ltd.')
+   ```
+
+3. **Build the Asset:** Finalize the configuration by calling the `build()` method, which returns a correctly configured asset ready for publishing.
+
+   ```javascript
+   const asset = assetBuilder.build()
+   ```
+
+## Defining Services with ServiceBuilder
+
+While the asset now has metadata, it needs defined services to be functional. The `ServiceBuilder` class allows you to specify how the asset can be accessed or interacted with.
+
+1. **Setup ServiceBuilder:** Initialize `ServiceBuilder` with the appropriate service type and file type.
+
+   ```javascript
+   import { UrlFile, FileTypes, ServiceTypes, ServiceBuilder } from '@deltadao/nautilus'
+
+   const serviceBuilder = new ServiceBuilder({
+     serviceType: ServiceTypes.ACCESS,
+     fileType: FileTypes.URL
+   })
+   ```
+
+2. **Declare the File:** Define the file you want to publish. This example uses an HTTP GET request to access the asset.
+
+   ```javascript
+   const urlFile = {
+     type: 'url',
+     url: 'https://link.to/my/asset',
+     method: 'GET'
+   }
+   ```
+
+:::info
+For quick testing, you can use any publicly available file on e.g. GitHub. Ensure that you have the rights to the file and that the endpoint is reliably reachable.
+:::
+
+
+3. **Add Metadata and Build the Service:** Use the builder pattern to add required metadata and the file, then build the service.
+
+   ```javascript
+   const service = serviceBuilder
+     .setServiceEndpoint('https://provider.dev.pontus-x.eu')
+     .setTimeout(0)
+     .addFile(urlFile)
+     .setPricing({
+       type: 'free'
+     })
+     .build()
+   ```
+
+:::info
+You are currently publishing on the Pontus-X Devnet, as indicated by the provider url. This is ideal for testing. However, once you are satisfied with your use case, you should consider publishing it on the Pontus-X Testnet for final validation.
+:::
+
+## Publishing the Asset
+
+Combine the asset metadata and services, then publish the asset using the Nautilus interface.
+
+1. **Add Service to Asset:** Add the configured service to your asset.
+
+   ```javascript
+   const assetWithService = assetBuilder.addService(service).build()
+   ```
+
+2. **Publish the Asset:** Use the `nautilus.publish` function to anchor the asset on your chosen network.
+
+   ```javascript
+   const result = await nautilus.publish(assetWithService)
+   ```
+
+## Example Code
+
+Here's a complete example demonstrating the publishing process using Nautilus:
+
+```javascript
+import { Nautilus, AssetBuilder, ServiceBuilder, UrlFile, FileTypes, ServiceTypes } from '@deltadao/nautilus'
+import { providers, Wallet } from 'ethers'
+
+const provider = new providers.JsonRpcProvider('https://rpc.dev.pontux-x.eu')
+const signer = new Wallet('0x...', provider)
+
+// Create the Nautilus instance
+const nautilus = await Nautilus.create(signer)
+
+// Setup AssetBuilder
+const assetBuilder = new AssetBuilder()
+  .setType('dataset')
+  .setName('My New Asset')
+  .setDescription('This is a publish asset building test using Nautilus')
+  .setAuthor('Company Ltd.')
+
+// Setup ServiceBuilder
+const serviceBuilder = new ServiceBuilder({
+  serviceType: ServiceTypes.ACCESS,
+  fileType: FileTypes.URL
+})
+
+const urlFile = {
+  type: 'url',
+  url: 'https://link.to/my/asset',
+  method: 'GET'
+}
+
+const service = serviceBuilder
+  .setServiceEndpoint('https://provider.dev.pontus-x.eu')
+  .setTimeout(0)
+  .addFile(urlFile)
+  .setPricing({
+    type: 'free'
+  })
+  .build()
+
+// Add service to asset and build
+const assetWithService = assetBuilder.addService(service).build()
+
+// Publish the asset
+const result = await nautilus.publish(assetWithService)
+```
+
+## Deep Dive
+
+For more detailed information and advanced configurations, refer to the following resources:
+
+- [AssetBuilder - API Documentation](https://nautilus.delta-dao.com/docs/api/AssetBuilder)
+- [ServiceBuilder - API Documentation](https://nautilus.delta-dao.com/docs/api/ServiceBuilder)
+- [ConsumerParameterBuilder - API Documentation](https://nautilus.delta-dao.com/docs/api/ConsumerParameterBuilder)
+- [nautilus.publish() - API Documentation](https://nautilus.delta-dao.com/docs/api/nautilus/publish)
+- [Publish Examples - Code Examples](https://github.com/deltaDAO/nautilus-examples/blob/main/publish.ts)
+
+## Conclusion
+
+Publishing data, applications, and services in the Pontus-X ecosystem is simplified with Nautilus, making it accessible even for those new to decentralized technologies. By following this guide, you can efficiently publish your assets, contribute to the data economy, and leverage the full potential of the Pontus-X ecosystem.
