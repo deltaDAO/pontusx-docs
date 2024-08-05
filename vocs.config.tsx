@@ -1,10 +1,9 @@
 import { defineConfig } from "vocs";
-import pkg from "./package.json";
 import { sidebar } from "./sidebar";
 import remarkGemoji from "remark-gemoji";
 
 export default defineConfig({
-  baseUrl: "https://pontusx-docs.vercel.app",
+  baseUrl: "https://docs.pontus-x.eu",
   title: "Pontus-X Docs",
   titleTemplate: "%s · Pontus-X Docs",
   description:
