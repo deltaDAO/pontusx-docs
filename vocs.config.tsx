@@ -50,7 +50,7 @@ export default defineConfig({
         },
         {
           text: "Cooperants Portal",
-          link: "https://cooperants.pontus-x.eu/",
+          link: "https://federator.cooperants.info/marketplace",
         },
         {
           text: "Airbus Portal",
