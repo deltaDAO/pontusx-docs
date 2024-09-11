@@ -12,7 +12,7 @@ export default defineConfig({
       <>
         <script
           defer
-          data-domain='pontus-x.eu'
+          data-domain='docs.pontus-x.eu'
           src='https://plausible.io/js/script.js'
         ></script>
       </>
