@@ -8,7 +8,15 @@ export default defineConfig({
   titleTemplate: "%s · Pontus-X Docs",
   description:
     "The official documentation for Pontus-X, a decentralized data and ai ecosystem.",
-  head: <></>,
+    head: (
+      <>
+        <script
+          defer
+          data-domain='pontus-x.eu'
+          src='https://plausible.io/js/script.js'
+        ></script>
+      </>
+    ),
   ogImageUrl: {
     "/": "/og-image.png",
     "/docs":
