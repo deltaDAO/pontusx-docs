@@ -56,7 +56,7 @@ export const sidebar = {
           link: "/docs/tutorial/nautilus",
         },
         {
-          text: "Lesson 3: Monetizing Your Data and AI Products ",
+          text: "Lesson 3: Monetizing Your Data and AI Products",
           link: "/docs/tutorial/monetization",
         },
         {
