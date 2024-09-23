@@ -1,0 +1,188 @@
+# Lesson 2: Learn Nautilus – Publishing, Consuming, and Downloading Data Assets
+
+In this session, we’ll dive into **Nautilus**, the essential toolkit for managing decentralized data pipelines. This course will focus on **publishing, consuming, and downloading data assets** within the **Pontus-X** ecosystem, providing you with a comprehensive guide to using Nautilus in real-world applications.
+
+By the end of this lesson, you'll be able to:
+- Publish datasets to the Pontus-X networks.
+- Consume and retrieve data assets.
+- Download and use data from decentralized sources.
+
+## What is Nautilus?
+**Nautilus** is a TypeScript toolkit specifically designed for the **data economy**. It serves as an **abstraction layer** over decentralized data infrastructure, allowing users to create, manage, and interact with data pipelines in a more intuitive and accessible way. It is a powerful tool for those looking to **publish, access, and monetize data services** in the **Pontus-X** ecosystem.
+
+Whether you are publishing a dataset, executing a compute job, or managing access to data, Nautilus streamlines these processes by providing easy-to-use APIs and features that are flexible enough to adapt to different use cases.
+
+## Key Features of Nautilus
+
+**Publishing and Managing Data Assets**
+- Nautilus makes it simple to publish datasets, APIs, and algorithms on the Pontus-X marketplace. Once published, you can manage your data assets by editing, updating, or removing them as needed.
+- Users can offer different access types (e.g., subscription, one-time purchase) for their data assets, creating flexible monetization models.
+- Hands-on Example: Walkthrough of publishing a dataset and setting access parameters.
+
+**Triggering and Managing Compute Jobs**
+- One of the standout features of Nautilus is its support for Compute-to-Data. This feature allows you to execute compute jobs on data without moving the data itself, ensuring privacy and security.
+- Nautilus also supports monitoring compute job status and retrieving the results, providing end-to-end control over data processing tasks.
+- Hands-on Example: Demonstrate how to trigger a compute job and retrieve the results using Nautilus.
+
+**Accessing Data from Decentralized Spaces**
+- Nautilus allows you to consume data services offered by others within the Pontus-X ecosystem. Whether you are accessing datasets, APIs, or compute services, the toolkit makes it easy to discover and use the resources you need.
+- With typed APIs and full TypeScript support, Nautilus ensures that you have reliable, clear interfaces for interacting with the data economy.
+- Hands-on Example: Demonstrate accessing a dataset or API offered by another participant in the Pontus-X ecosystem.
+
+**Custom Network Configurations**
+- One of the key strengths of Nautilus is its flexibility. You can customize your connections to different networks and components within Pontus-X to meet your specific needs.
+- This allows businesses and developers to seamlessly integrate Nautilus into their existing infrastructures and workflows.
+- Hands-on Example: Guide through setting up a custom network configuration for a specific business use case.
+
+**Cross-Network Collaboration**
+- Nautilus supports interactions across different data spaces, allowing for collaboration between industries, institutions, and partners. By offering seamless cross-network functionality, it opens up opportunities for multi-sector collaboration.
+
+## Why Use Nautilus?
+
+1. **Ease of Use**: Nautilus abstracts the complexity of decentralized data management, making it accessible even to users with limited experience in blockchain or decentralized technologies.
+2. **Data Sovereignty**: It allows you to maintain control over your data assets while still participating in a decentralized marketplace.
+3. **Flexible Monetization**: By using Nautilus, businesses can explore various ways to monetize their data, from one-time sales to subscription-based models.
+
+## Setting Up Your Environment
+
+Before diving into the practical steps, let’s ensure your environment is set up correctly:
+
+1. **Install Nautilus:**
+   Make sure you have **Node.js** installed. Then, run the following command to install Nautilus:
+   ```bash
+   npm install @deltadao/nautilus
+   ```
+
+2. **Set Up Dependencies:**
+   Import the required modules:
+   ```typescript
+   import { Nautilus } from '@deltadao/nautilus';
+   import { Wallet, providers } from 'ethers';
+   ```
+
+3. **Configure Your Client:**
+   Create a connection to the **Pontus-X** network by setting up the client with a JSON RPC provider:
+   ```typescript
+   const provider = new providers.JsonRpcProvider('https://rpc.dev.pontus-x.eu');
+   const signer = new Wallet('0xYourPrivateKey', provider);
+   const nautilus = await Nautilus.create(signer);
+   ```
+
+## Publishing Data Assets
+
+Publishing a data asset on Pontus-X allows you to share and potentially monetize your datasets or services. Let’s go step-by-step through the publishing process.
+
+### Step 1: Define Your Asset
+First, prepare your data or API that you want to publish. This can be a dataset, an API, or an algorithm.
+
+### Step 2: Publish the Asset Using Nautilus
+With **Nautilus**, publishing an asset is straightforward. Use the following code snippet to publish your dataset:
+
+```typescript
+const serviceBuilder = new ServiceBuilder({
+  serviceType: ServiceTypes.ACCESS,
+  fileType: FileTypes.URL,
+});
+
+const urlFile: UrlFile = {
+  type: "url",
+  url: "https://raw.githubusercontent.com/Pontus-X/.github/main/profile/README.md",
+  method: "GET",
+};
+
+const service = serviceBuilder
+  .setServiceEndpoint(devnet.providerUri)
+  .setTimeout(60)
+  .addFile(urlFile)
+  .setPricing({ type: "free" })
+  .setDatatokenNameAndSymbol("Test Presentation", "TST")
+  .build();
+
+const assetbuilder = new AssetBuilder();
+const asset = assetbuilder
+  .setType("dataset")
+  .setName("13:24 Nautilus Example")
+  .setDescription("Nautilus Example")
+  .setAuthor("deltaDAO AG")
+  .setLicense("MIT")
+  .addService(service)
+  .setOwner("0xFB7Cb9F2E15F3935B22FB9846d69b46bD31edf07") // YOUR ADDRESS
+  .build();
+
+const result = await nautilus.publish(asset);
+console.log(result);
+console.log('Published asset:', publishedAsset);
+```
+
+### Step 3: Set Access Permissions
+You can configure how other users can access your data. **Nautilus** allows you to set various types of permissions, such as free access, paid access, or restricted access. For example, to allow free access, use:
+
+```typescript
+const service = serviceBuilder.setPricing({ type: "free" })
+```
+
+## Consuming Data Assets
+
+Once a dataset or service is published on the Pontus-X network, other users can access it. Here’s how you can consume a data asset using Nautilus.
+
+### Step 1: Search for Available Assets
+You can search for available datasets using the [Pontus-X marketplace](https://portal.pontus-x.eu/search?sort=nft.created&sortOrder=desc)
+
+### Step 2: Consume a Dataset
+Once you find a dataset you want to consume, you can request access to it. You’ll need the **DID** (Decentralized Identifier) of the asset:
+
+```typescript
+const did = 'did:op:3cccb2963b99120426249b11f7b911526533237509cfad8e9671813a7adb2cec';
+const consumedDataUrl = await nautilus.access({ assetDid: did });
+console.log('Consumed data:', consumedDataUrl);
+```
+
+Once the transaction is complete, you’ll be able to access and use the data.
+
+
+## Downloading Data Assets
+
+After accessing a dataset, you may want to download it for local analysis or other purposes.
+
+### Step 1: Request Download
+Once you have access to a dataset, **Nautilus** allows you to download the files associated with the asset:
+
+```typescript
+const fetch = require('node-fetch');
+const fs = require('fs');
+
+async function downloadData(url, destination) {
+  const response = await fetch(url);
+  const fileStream = fs.createWriteStream(destination);
+  return new Promise((resolve, reject) => {
+    response.body.pipe(fileStream);
+    response.body.on('error', reject);
+    fileStream.on('finish', resolve);
+  });
+}
+```
+
+### Step 2: Save the Data Locally
+You can save the downloaded data to your local machine for further use:
+
+```typescript
+const url = 'https://example.com/data.json'; // Replace with the actual URL from the previous step
+const destination = 'data.json'; // Specify the path where the file should be saved and make sure file extension is correct
+
+downloadData(url, destination)
+  .then(() => console.log('Download completed!'))
+  .catch((err) => console.error('Error downloading file: ', err));
+```
+
+Now you have the data locally, and you can use it for analysis, machine learning, or any other project.
+
+## Conclusion
+
+You’ve now learned how to:
+- Publish datasets on the Pontus-X network.
+- Consume and access decentralized data assets.
+- Download and manage data from the network for local use.
+
+By mastering these skills, you can fully participate in the Pontus-X data economy, offering and consuming valuable datasets and services while maintaining control over your assets.
+
+In the next lesson, we will explore how to monetize your data and AI products within the Pontus-X marketplace, and take a deeper dive into cross-industry collaboration and data sharing.

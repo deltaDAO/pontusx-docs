@@ -1,0 +1,73 @@
+# Lesson 3: Monetizing Your Data and AI Products
+
+In this lesson, we will focus on the exciting possibilities of **monetizing data and AI products** in the Pontus-X ecosystem. By the end of this session, you will understand how to use Nautilus to create flexible monetization models, secure your intellectual property, and maximize the value of your assets through decentralized networks.
+
+## Why Monetize Data and AI in Pontus-X?
+
+The **Pontus-X** ecosystem provides businesses, developers, and data professionals with a powerful platform to monetize their data assets and AI services. Monetization opportunities are made more attractive because of the network’s decentralized nature, where **data sovereignty** and **privacy** are maintained, and assets can be securely shared and accessed across industries.
+
+Monetization within **Pontus-X** can take several forms, including:
+- **Selling data access** with flexible pricing models (e.g., one-time access, subscription-based models).
+- **Offering compute services** through Compute-to-Data, allowing customers to run computations on your data without ever downloading or accessing it directly.
+- **Providing AI models** as a service, where other organizations can utilize pre-trained models for their business needs.
+
+
+## Flexible Monetization Models
+
+Nautilus enables you to create multiple ways to monetize your data and AI assets, giving you the flexibility to match your business model to market demands.
+
+### Model 1: One-Time Purchase
+This model is ideal if you want to offer **single-use access** to your data assets, allowing customers to pay once and retrieve the data.
+
+In this setup, users will be able to access and download your dataset after completing a one-time payment. More details in the [Nautilus docs](https://nautilus.delta-dao.com/docs/api/nautilus/setServicePrice).
+
+### Model 2: Subscription-Based Access (WIP)
+Subscription models allow for ongoing access to your data over a specific period, making it perfect for regularly updated datasets or continuous services like APIs or AI models.
+
+This ensures that customers pay periodically, making it easier to create a recurring revenue stream for your data services.
+
+### Model 3: Pay-Per-Compute
+This model uses **Compute-to-Data**, which allows users to run computations on your data without ever moving the data itself. This is particularly useful for sensitive datasets where data privacy is critical.
+
+Customers pay to use your data for computations (e.g., training a machine learning model), but they never gain direct access to the raw data, ensuring security and compliance with privacy regulations.
+
+
+## Protecting Intellectual Property
+
+A major concern when monetizing data and AI is the risk of losing control over your assets. Pontus-X addresses this through advanced privacy features, including **Compute-to-Data** and **granular access controls**.
+
+### Compute-to-Data: Securing Sensitive Data
+With **Compute-to-Data**, you can offer data for analysis without sharing the raw data itself. This ensures that your intellectual property is protected while allowing others to benefit from your data in a secure, privacy-compliant manner.
+
+Example:
+```typescript
+const dataset = {
+    did: 'did:op:123abc...'
+}
+const algorithm = {
+    did: 'did:op:123abc...'
+}
+
+const computeJob = await nautilus.compute({
+    dataset,
+    algorithm
+})
+
+console.log('Compute job:', computeJob);
+```
+
+With this feature, customers can run their computations, such as training AI models, but they only receive the results, not the original data.
+
+
+## Maximizing the Value of Your Data and AI
+
+To maximize the value of your assets within Pontus-X, it’s important to take a strategic approach to monetization:
+-	**Diversify access models**: Offer one-time purchases, subscription access, and pay-per-compute options to cater to different customer needs.
+-	**Leverage cross-industry collaborations**: Work with partners from other industries to expand your reach and unlock new opportunities for data-driven solutions.
+-	**Bundle data and AI services**: Create packages where customers can access both datasets and AI models, offering a comprehensive solution for their needs.
+
+## Conclusion
+
+Monetizing data and AI products in the Pontus-X ecosystem offers immense potential for businesses, developers, and data professionals. By using Nautilus to set up flexible access models, protect your intellectual property, and maximize the value of your assets, you can unlock new revenue streams while maintaining full control over your data.
+
+In the next lesson, we will explore advanced techniques for collaboration across industries, focusing on how different sectors can leverage the Pontus-X ecosystem to build innovative, data-driven solutions.

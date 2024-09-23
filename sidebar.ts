@@ -44,6 +44,32 @@ export const sidebar = {
       ],
     },
     {
+      text: "Ecosystem Tutorial",
+      collapsed: true,
+      items: [
+        {
+          text: "Lesson 1: Introduction to Pontus-X Ecosystem",
+          link: "/docs/tutorial/introduction",
+        },
+        {
+          text: "Lesson 2: Learn Nautilus",
+          link: "/docs/tutorial/nautilus",
+        },
+        {
+          text: "Lesson 3: Monetizing Your Data and AI Products ",
+          link: "/docs/tutorial/monetization",
+        },
+        {
+          text: "Lesson 4: Collaboration Across Industries",
+          link: "/docs/tutorial/collaboration",
+        },
+        {
+          text: "Lesson 5: Ensuring Privacy and Compliance",
+          link: "/docs/tutorial/compliance",
+        },
+      ],
+    },
+    {
       text: "Participants & Federators",
       collapsed: true,
       items: [
