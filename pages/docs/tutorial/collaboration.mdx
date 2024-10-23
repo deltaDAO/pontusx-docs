@@ -1,0 +1,112 @@
+# Lesson 4: Collaboration Across Industries
+
+In this lesson, we will explore the power of collaboration within the Pontus-X ecosystem, where industries can securely share and utilize data across various sectors. Collaboration is the backbone of the decentralized data economy, enabling industries such as manufacturing, AI, healthcare, and mobility to create innovative solutions and unlock new business opportunities.
+
+By the end of this lesson, you will understand how to:
+-	Facilitate cross-industry collaboration using Nautilus.
+-	Leverage decentralized data spaces to share and consume data across sectors.
+-	Use Pontus-X to develop joint AI and data-driven solutions that benefit multiple industries.
+
+
+## Why Cross-Industry Collaboration Matters
+
+In today’s digital economy, industries are increasingly interconnected. Data from one sector, such as healthcare, can have a profound impact when applied to another, like AI or manufacturing. However, traditional data sharing is often limited by concerns about privacy, intellectual property, and the security of sensitive information.
+
+The Pontus-X ecosystem, with its decentralized and federated structure, offers a solution by providing a secure, transparent, and privacy-compliant platform for cross-sector collaboration. Through Pontus-X, industries can share data assets and AI models, enabling them to:
+-	Accelerate innovation by pooling resources and expertise from different fields.
+-	Reduce costs by leveraging shared data and infrastructure.
+-	Unlock new market opportunities by developing joint solutions tailored to multiple industries.
+
+## Facilitating Cross-Industry Collaboration Using Nautilus
+
+Nautilus makes it easy to collaborate across industries by enabling secure data sharing and seamless interaction between different data spaces. Let’s go through how you can set up collaborative projects in Pontus-X.
+
+### **Step 1: Publishing Shared Assets**
+
+When publishing data assets in **Pontus-X**, you can configure them for shared access across different industries. For example, you might publish a dataset that is useful for both healthcare and AI sectors, such as a medical imaging dataset that can be used for AI training.
+
+### **Step 2: Setting Up Collaborative Access Permissions**
+
+**Nautilus** allows you to set up specific access permissions to enable collaboration between industries. For example, you may choose to provide free access to universities while offering paid access to private companies.
+
+```typescript
+const service = serviceBuilder.setPricing({ type: "free" })
+```
+
+This flexibility enables institutions, businesses, and researchers to collaborate on the same dataset with tailored access depending on their role in the ecosystem.
+
+
+## Leveraging Decentralized Data Spaces for Collaboration
+
+**Pontus-X** operates across **decentralized data spaces**, meaning different organizations can maintain their own data spaces while still sharing and consuming data within the larger ecosystem. This makes cross-sector collaboration more efficient, as each industry can maintain control over its data while accessing shared resources from other sectors.
+
+### Step 1: Accessing Data from Other Sectors
+
+Let’s assume you are a company in the manufacturing industry, but you want to access data from the mobility sector to optimize your production process with real-time traffic data.
+
+Using a Pontus-XPortal, you can search for and consume data from other industries, such as mobility or AI: [Pontus-X Portal](https://portal.pontus-x.eu/search?sort=nft.created&sortOrder=desc)
+
+Once you find a relevant dataset, you can request access just like with any other data asset.
+
+```typescript
+const assetDid = 'did:op:mobility_data_did';
+const mobilityData = await nautilus.access({ assetDid });
+console.log('Accessed mobility data:', mobilityData);
+```
+
+Now you can combine this data with your own manufacturing data to develop a solution that optimizes production based on traffic patterns.
+
+### Step 2: Cross-Sector Compute-to-Data Jobs
+
+Compute-to-Data enables secure collaboration by allowing industries to perform computations on shared data without accessing the raw data itself. This is particularly useful for industries like healthcare and AI, where sensitive data needs to be processed while maintaining strict privacy controls.
+
+For instance, if a healthcare company wants to collaborate with an AI provider to develop a diagnostic model, they can share their medical data without exposing it.
+
+```typescript
+const computeJob = await nautilus.compute({
+  did: 'did:op:healthcare_data_did',
+  did: 'did:op:ai_model_did',
+});
+
+const { jobId } = computeJob
+
+const computeJobStatus = await nautilus.getComputeStatus({
+  jobId, // using our extracted jobId
+  providerUri: 'https://v4.provider.oceanprotocol.com/'
+})
+
+console.log('Compute job status:', computeJobStatus);
+```
+The AI company can run computations on the healthcare data to develop an AI model, but the healthcare company retains full control over its sensitive information.
+
+## Developing Joint Solutions Across Industries
+
+Collaboration within Pontus-X allows industries to develop joint solutions that benefit from the expertise and data of multiple sectors. Let’s explore a real-world example of how this works:
+
+Example: Healthcare and Mobility Collaboration
+In this scenario, a mobility company wants to integrate healthcare data into its services to develop a smart ambulance routing system. This system uses real-time traffic data from the mobility company and patient data from healthcare providers to optimize ambulance routes during emergencies.
+
+### Step 1: Access Mobility Data
+   The healthcare provider can consume traffic data from the mobility company through **Nautilus**:
+   ```typescript
+   const trafficData = await nautilus.access({ assetDid: 'did:op:traffic_data_did' });
+   ```
+
+### Step 2: Compute Healthcare Data
+   The mobility company can securely process the healthcare data without accessing it directly:
+   ```typescript
+   const computeJob = await nautilus.compute({
+     did: 'did:op:healthcare_data_did',
+     did: 'did:op:ai_model_did',
+   });
+   ```
+
+### Step 3: Joint Solution Deployment
+The result is a smart ambulance routing solution that combines the best of both industries—real-time traffic data and patient healthcare information—to save lives in emergencies.
+
+
+## Conclusion
+
+Collaboration across industries is one of the most powerful features of the Pontus-X ecosystem. By using Nautilus, you can securely share and consume data from various sectors, develop joint solutions, and unlock new business opportunities that would not be possible in traditional siloed data environments.
+
+In the next lesson, we will explore advanced privacy and compliance features within the Pontus-X ecosystem, focusing on how to ensure data sovereignty and meet regulatory requirements when sharing sensitive data.
