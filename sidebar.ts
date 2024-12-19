@@ -39,7 +39,7 @@ export const sidebar = {
         },
         {
           text: "Publication Guide",
-          link: "docs/getting-started/Publication-guide",
+          link: "/docs/getting-started/Publication-guide",
         },
         {
           text: "Core Concepts",
