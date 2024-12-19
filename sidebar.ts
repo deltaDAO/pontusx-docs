@@ -38,6 +38,10 @@ export const sidebar = {
           link: "/docs/getting-started/pontus-x-ecosystem",
         },
         {
+          text: "Publication Guide",
+          link: "docs/getting-started/Publication-guide",
+        },
+        {
           text: "Core Concepts",
           link: "/docs/getting-started/core-concepts",
         },
