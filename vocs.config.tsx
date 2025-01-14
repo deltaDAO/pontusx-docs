@@ -83,16 +83,12 @@ export default defineConfig({
           link: 'https://marketplace.future-mobility-alliance.org/',
         },
         {
-          text: 'EnergyShr Portal',
-          link: 'https://www.energyshr.nl/',
-        },
-        {
           text: 'EnergySHR Portal',
           link: 'https://www.energyshr.nl/',
         },
         {
-          text: 'UdL Research Portal',
-          link: 'https://dataspace.angliru.udl.cat/',
+          text: 'AgrospAI Portal',
+          link: 'https://agrospai.udl.cat/',
         },
       ],
     },
