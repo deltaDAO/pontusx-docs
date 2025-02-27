@@ -1,0 +1,128 @@
+## Oasis Sapphire Mainnet Migration Guide
+
+This guide will help you migrate from testnet to Oasis Sapphire Mainnet, covering configuration updates, asset publishing, funding your account, PTX tokens, and troubleshooting.
+
+Whether you’re a developer or a business user, this guide ensures a smooth and secure transition, even if you’re not familiar with Web3 technologies.
+
+## 1. Updating to Mainnet Configuration
+
+To interact with Oasis Sapphire Mainnet, update your settings to match the following mainnet configuration.
+
+### Mainnet Configuration
+
+Make sure to update your application or service configuration with these settings:
+```
+"oasis_sapphire": {
+    "chainId": 23294,
+    "Ocean": "0x39d22B78A7651A76Ffbde2aaAB5FD92666Aca520",
+    "LoggingToken": "0x431aE822B6D59cc96dA181dB632396f58932dA9d",
+    "OPFCommunityFeeCollector": "0xb7731D56Ccd695c65537bF4eFAb642724e945E41",
+    "startBlock": 7654843,
+    "Router": "0x9994e943C476C84590D858c12bF0cB0B1DaC42Bf",
+    "FixedPrice": "0xE0a3fd09646dDA15f119b6Ad9Fcd1A110c432e1E",
+    "ERC20Template": {
+      "1": "0xb4bed043801017af28B0dFd043C8E1ded7b0E62a",
+      "2": "0xe8D7aa364914C323848434a6251B98dB378A783D",
+      "3": "0x97BDb3AD093eaF85A6d37E6d517EdeDB476F5eb1"
+    },
+    "ERC721Template": {
+      "1": "0x90d0c80Ba8Dd4C07320965B53959Ae1b24455d68"
+    },
+    "Dispenser": "0x9B7d696023Cf6f7Fbc8B7F4a9cEaACC46d7E9A24",
+    "ERC721Factory": "0x2b4E0fA953Ac6f762cb0cC6736d257a0509C9f9B",
+    "BatchPayments": "0x0F509afFa6B5Fc3b6019CA659B69d4d5ceb079E9"
+}
+```
+
+### Mainnet Backend Services
+
+Service	URL
+- Subgraph Mainnet	https://subgraph.main.pontus-x.eu
+- Provider	https://provider.main.pontus-x.eu
+- Aquarius	https://aquarius.main.pontus-x.eu
+- Contracting Provider https://contracting.main.delta-dao.com
+- Oasis RPC Node	https://1rpc.io/oasis/sapphire (or contact us for a dedicated RPC node)
+
+### Provider & Aquarius Addresses
+
+**Service	Address**
+- Aquarius	*0x560920844190C4c703536D550f5322D41bE45124*
+- Provider	*0x566c1Bd445392Fd3bCd7D7D8D63dd0d8f3B14571*
+
+## 2. Funding Your Address for Mainnet Transactions
+
+Before publishing assets, you need to fund your institutional wallet with OASIS ROSE tokens.
+
+Steps to Transfer Tokens
+	1.	Log in to your assigned account.
+	2.	Transfer OASIS ROSE tokens to your own controlled address.
+	3.	Use your institutional address for all publishing and transaction activities.
+
+**Security Note**: Shared accounts are considered compromised. Always transfer funds to a institutional account first before using it.
+
+## 3. PTX Tokens – Usage & Acquisition
+
+### What Are PTX Tokens?
+- PTX tokens are used to log the price of assets in the ecosystem during the MVP.
+- They serve as the logging token for exchanges and later invoicing.
+- Logging Tokens will be replaced by e-money as soon as available.
+
+### How to Get PTX Tokens
+- Send your new wallet address to deltaDAO to receive PTX.
+- (PTX will later be replaced by a stablecoin to ensure long-term pricing stability.)
+
+### How PTX is Used
+- For Nautilus Users: PTX must be manually set as the price token in asset configurations.
+- For MVP Portal Users: PTX is automatically handled by the portal when publishing assets.
+
+## 4. Publishing Your Assets on Mainnet
+
+There are two ways to publish assets on mainnet:
+
+### Method 1: Nautilus (For Developers)
+- Recommended for developers who prefer programmatic asset management.
+- Supports custom configurations, automation, and integration with existing systems.
+
+**Resources**
+- [Nautilus GitHub Examples](https://github.com/deltaDAO/nautilus-examples)
+- [Mainnet Configuration File](https://github.com/deltaDAO/nautilus-examples/blob/main/config.ts)
+- [Nautilus Setup Guide and Docs](https://nautilus.delta-dao.com/docs/getting-started)
+
+### Method 2: MVP Portal (For Non-Developers)
+- A user-friendly web-based solution for publishing and managing assets.
+- Recommended for businesses and users who prefer a no-code approach.
+
+**Resources**:
+- [MVP Portal](https://portal.main.pontus-x.eu/)
+- [MVP Portal GitHub](https://github.com/deltaDAO/mvp-portal)
+
+## 5. Verification & Troubleshooting
+
+### Final Verification Steps
+
+After publishing an asset, confirm the following:
+- The asset appears correctly in Nautilus or the MVP Portal.
+- The asset can be accessed and consumed by other users without errors.
+
+### Common Issues & Solutions
+
+- Asset not appearing:	Check if the correct chain ID and configuration were used.
+- Transaction failed: 	Ensure enough OASIS ROSE tokens are available for gas fees.
+- Asset not consumable:	Verify PTX token balance and contract settings.
+
+Need Help?
+- Join the support community to ask questions and get assistance.
+- Contact enterprise support for priority technical help.
+
+## 6. To-Do List: Your Next Steps
+
+- [ ] Fund your institutional wallet with OASIS ROSE Tokens.
+- [ ] Update your Nautilus or MVP Portal config with the latest mainnet settings.
+- [ ] Publish an asset using either Nautilus or the MVP Portal.
+- [ ] Request PTX tokens from deltaDAO.
+- [ ] Verify that your asset is accessible and functional.
+- [ ] Reach out for support if you encounter issues.
+
+By completing this guide, you are now fully set up to publish and manage assets on Oasis Sapphire Mainnet.
+
+If you run into issues, consult the documentation, reach out to the support team, or connect with other users in the community.

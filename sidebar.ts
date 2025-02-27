@@ -230,6 +230,15 @@ export const sidebar = {
       ],
     },
     {
+      text: "Migration Guides",
+      collapsed: true,
+      items: [
+        { text: "Overview", link: "/docs/migrations/overview" },
+        { text: "Mainnet Migration", link: "/docs/migrations/oasis-mainnet-migration" },
+        { text: "FAQ", link: "/docs/migrations/faq" },
+      ],
+    },
+    {
       text: "Contribution",
       collapsed: true,
       items: [
