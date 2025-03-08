@@ -235,6 +235,7 @@ export const sidebar = {
       items: [
         { text: "Overview", link: "/docs/migrations/overview" },
         { text: "Mainnet Migration", link: "/docs/migrations/oasis-mainnet-migration" },
+        { text: "Success Program", link: "/docs/migrations/success" },
         { text: "FAQ", link: "/docs/migrations/faq" },
       ],
     },
