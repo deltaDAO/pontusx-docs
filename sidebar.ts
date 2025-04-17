@@ -45,6 +45,10 @@ export const sidebar = {
           text: "Core Concepts",
           link: "/docs/getting-started/core-concepts",
         },
+        {
+          text: "Data Service Offerings",
+          link: "/docs/getting-started/data-service-offerings",
+        }
       ],
     },
     {
