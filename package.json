@@ -11,6 +11,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "remark-gemoji": "^8.0.0",
+    "tailwindcss": "^4.1.11",
     "vocs": "^1.0.12"
   },
   "devDependencies": {
