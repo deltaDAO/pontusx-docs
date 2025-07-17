@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vocs dev",
-    "build": "npx playwright install --with-deps && vocs build",
+    "build": "npx playwright install && vocs build",
     "preview": "vocs preview"
   },
   "dependencies": {
