@@ -42,13 +42,17 @@ export const sidebar = {
           link: "/docs/getting-started/Publication-guide",
         },
         {
+          text: "Custom Algorithms",
+          link: "/docs/getting-started/buildCustomAlgorithmsForPontusX",
+        },
+        {
           text: "Core Concepts",
           link: "/docs/getting-started/core-concepts",
         },
         {
           text: "Data Service Offerings",
           link: "/docs/getting-started/data-service-offerings",
-        }
+        },
       ],
     },
     {
@@ -227,7 +231,6 @@ export const sidebar = {
       collapsed: true,
       items: [
         { text: "Introduction", link: "/docs/use-cases/introduction" },
-        { text: "Migration Guide", link: "/docs/use-cases/migration-guide" },
         { text: "Download Assets", link: "/docs/use-cases/download" },
         { text: "Compute Assets", link: "/docs/use-cases/compute" },
         { text: "Publish Assets", link: "/docs/use-cases/publish" },

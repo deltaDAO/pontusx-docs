@@ -5,27 +5,28 @@ content:
 layout: landing
 logo: false
 ---
-
-import { HomePage } from 'vocs/components'
+import "./docs/styles.css";
+import { HomePage } from "vocs/components";
 
 <div className="absolute max-w-[1120px] mx-auto w-full top-20 bottom-0 bg-[url('/colosseum-light.svg')] dark:bg-[url('/colosseum.svg')] bg-no-repeat max-sm:w-[200%] max-sm:-left-[200px] max-sm:hidden" />
 <div className="max-w-[1120px] mx-auto vp-doc relative px-[24px] mb-[96px] mt-[32px] md:px-0 md:mb-[64px">
   <div className="pt-[48px] max-sm:pt-0">
       <div className="space-y-8 max-w-[440px] flex flex-col items-start max-md:items-center mx-auto">
+        {/* display important because Vocs set display: block to all images */}
           <img
-            className="h-[90px] max-sm:h-[300px] block dark:hidden "
+            className="h-[90px] max-sm:h-[300px] dark:!hidden "
             src="/logo-light.svg"
             alt="Pontus-X logo (Light Mode)"
           />
           <img
-            className="h-[90px] max-sm:h-[300px] hidden dark:block "
+            className="h-[90px] max-sm:h-[300px] !hidden dark:!block "
             src="/logo-dark.svg"
             alt="Pontus-X logo (Dark Mode)"
           />
         <div className="flex flex-col justify-between w-full space-y-10 max-lg:w-[370px] max-md:hidden">
         <div className="flex justify-between space-x-4">
           <a href="https://github.com/Pontus-X/.github/blob/main/LICENSE" className="cursor-pointer h-[36px] flex-1 relative rounded-lg overflow-hidden border border-black/10 dark:border-white/20" style={{ color: 'inherit' }} rel="noreferrer noopener" target="_blank">
-            <div className="absolute flex z-[1] p-[6px] h-full w-full">
+            <div className="absolute flex z-1 p-[6px] h-full w-full">
               <div className="flex-1 bg-white/60 dark:bg-black/40 flex items-center w-full h-full rounded-md">
                 <span className="font-medium text-[15px] leading-none opacity-80 w-full text-center">license</span>
               </div>
@@ -33,11 +34,11 @@ import { HomePage } from 'vocs/components'
                 <span className="font-medium text-[15px] leading-none text-center w-full text-black dark:text-white">Apache-2.0</span>
               </div>
             </div>
-            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black/5 dark:bg-white/5 z-[0]" />
-            <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-[2px] backdrop-filter z-[0]" />
+            <div className="absolute left-0 right-0 top-0 bottom-0 bg-black/5 dark:bg-white/5 z-0" />
+            <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-[2px] backdrop-filter z-0" />
           </a>
           <a href="https://github.com/pontus-x" className="cursor-pointer h-[36px] flex-1 relative rounded-lg overflow-hidden border border-green-400/50" style={{ color: 'inherit' }} rel="noreferrer noopener" target="_blank">
-            <div className="absolute flex z-[1] p-[6px] h-full w-full">
+            <div className="absolute flex z-1 p-[6px] h-full w-full">
               <div className="flex-1 bg-white/60 dark:bg-black/40 flex items-center w-full h-full rounded-md">
                 <span className="font-medium text-[15px] leading-none opacity-80 w-full text-center">version</span>
               </div>
@@ -45,8 +46,8 @@ import { HomePage } from 'vocs/components'
                 <span className="font-medium text-[15px] leading-none text-center w-full text-green-400">0.5.0</span>
               </div>
             </div>
-            <div className="absolute left-0 right-0 top-0 bottom-0 bg-green-400 opacity-10 z-[0]" />
-            <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-[2px] backdrop-filter z-[0]" />
+            <div className="absolute left-0 right-0 top-0 bottom-0 bg-green-400 opacity-10 z-0" />
+            <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-blur-[2px] backdrop-filter z-0" />
           </a>
         </div>
       </div>
@@ -65,7 +66,7 @@ import { HomePage } from 'vocs/components'
     <div className="flex justify-between flex-wrap mt-16 max-sm:hidden">
       <div className="pr-2 w-1/3 max-lg:pb-3 max-sm:px-0 max-lg:w-1/2 max-sm:w-full z-0">
         <div className="relative w-full h-[220px] max-lg:h-[142px] overflow-hidden">
-          <div className="border-black dark:border-white border border-solid border-opacity-10 dark:border-opacity-10 rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
+          <div className="border-black/10 dark:border-white/10 border border-solid rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
             <div className="text-xl font-medium text-black dark:text-white">Data Sovereignty</div>
             <div className="text-[17px] text-[#919193]">[Pontus-X](http://portal.pontus-x.eu) provides full visibility and control over how your data is used and shared, allowing data to be stored and processed within the control domain and jurisdiction of the data provider.</div>
           </div>
@@ -75,7 +76,7 @@ import { HomePage } from 'vocs/components'
       </div>
       <div className="pl-2 pr-2 max-sm:px-0 max-lg:pb-3 max-lg:pr-0 w-1/3 max-lg:w-1/2 max-sm:w-full z-0">
         <div className="relative w-full h-[220px] max-lg:h-[142px]">
-          <div className="border-black dark:border-white border border-solid border-opacity-10 dark:border-opacity-10 rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
+          <div className="border-black/10 dark:border-white/10 border border-solid rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
             <div className="text-xl font-medium text-black dark:text-white">Privacy and IP-Protection</div>
             <div>
             <div className="text-[17px] text-[#919193]">Protect your data with [Pontus-X](http://pontus-x.eu) using modern paradigms like Compute-to-Data for local data processing and granular access control.</div>
@@ -87,7 +88,7 @@ import { HomePage } from 'vocs/components'
       </div>
       <div className="pl-2 w-1/3 max-lg:px-0 max-lg:w-full z-0">
         <div className="relative w-full h-[220px] max-lg:h-[142px]">
-          <div className="border-black dark:border-white border border-solid border-opacity-10 dark:border-opacity-10 rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
+          <div className="border-black/10 dark:border-white/10 border border-solid rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
             <div className="text-xl font-medium text-black dark:text-white">Collaboration Across Data Spaces</div>
             <div className="text-[17px] text-[#919193]">[Pontus-X](http://pontus-x.eu) enables seamless collaboration across different data spaces using standardized and fully open-source protocols such as [Ocean Enterprise](https://github.com/OceanProtocolEnterprise).</div>
           </div>
