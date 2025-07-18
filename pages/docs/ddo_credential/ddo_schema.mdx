@@ -1,8 +1,7 @@
 # DDO Schema
 
 ![OE Verifiable Presentation](/images/DDO/diagrams/w3c_presentation.svg)
-:::details[mermaid]
-```mermaid
+```
 classDiagram
     class `W3C Verifiable Presentation` {
     }
@@ -12,12 +11,11 @@ classDiagram
     }
     class CredentialSubject {
     }
- 
+
     `W3C Verifiable Presentation` "1" --> "1..*" `OE Service Credential` : contains
     `OE Service Credential` "1" --> "1" CredentialSubject : defines
     `W3C Verifiable Credential` <|-- `OE Service Credential` : is a type of
 ```
-:::
 
 ## Verifiable Presentation (off-chain metadata object)
 
@@ -46,8 +44,7 @@ This is a W3C verifiable credential.
 ## credentialSubject
 
 ![CredentialSubject](/images/DDO/diagrams/credential_subject.svg)
-:::details[mermaid]
-```mermaid
+```
 ---
 title: CredentialSubject
 ---
@@ -86,7 +83,6 @@ classDiagram
 
 
 ```
-:::
 
 | Attribute     | Type                                          | Description                                                                                                                                                                                                                                                                                                                                                                                                          | Required                                                                              |
 | ------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
