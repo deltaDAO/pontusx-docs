@@ -1,0 +1,291 @@
+import { Callout } from 'vocs/components'
+
+# Building Custom Algorithms for Pontus-X
+Learn how to write algorithms for use in Pontus-X's Compute-to-Data (CtD) feature. Compute-to-Data enables data sharing by allowing algorithms to run on private data without exposing it, ensuring data privacy and security.
+
+This guide walks through creating and configuring algorithms in CtD, including structuring code, using Docker images, managing storage, configuring environment variables, and setting up execution. By the end, you'll understand the essential components and practical steps needed to successfully publish and execute algorithms in CtD.
+
+# Key Components of a Compute-to-Data Algorithm
+
+In the Pontus-X stack, algorithms are recognized as distinct asset types, alongside datasets. A Compute-to-Data algorithm consists of these key components:
+
+
+## 1. Algorithm Code
+
+The algorithm code is a set of specific instructions and logic defining the computational steps to be executed on a dataset. It contains the algorithm's functionalities, calculations, and transformations.
+
+<Callout type="warning">
+Note: When publishing an algorithm through the [Pontus-X Portal](https://portal.pontus-x.eu), you can set authentication headers to allow secure download of the algorithm inside the cluster.
+</Callout>
+
+<Callout type="info">
+**Keep in mind:**
+- **Public Docker Containers**: If your Docker container is public, no further action is required.
+- **Private Docker Containers**: For private containers, you need to run your own backend and add a PullSecret with the appropriate rights to access the private Docker image. This ensures that only authorized users and services can access the container and its contents.
+</Callout>
+
+By following these guidelines, you can securely manage access and permissions for your algorithm’s Docker container within the Pontus-X CtD framework.
+
+---
+
+## 2. Docker Image
+
+A Docker image encapsulates the algorithm code and its runtime dependencies. It consists of:
+   - **Base Image**: Provides the underlying environment for the algorithm.
+   - **Tag**: Identifies a specific version of the image.
+
+Common choices include `python:3.8` or `node:14` from Docker Hub, but you may create a custom Docker image if your algorithm has unique dependencies.
+
+### 2.1 Creating a Custom Docker Image
+
+If your algorithm requires specific dependencies, create a `Dockerfile`:
+
+```dockerfile
+# Sample Dockerfile
+FROM python:3.8
+RUN pip install requests pandas
+COPY algorithm.py /algorithm.py
+ENTRYPOINT ["python3", "/algorithm.py"]
+```
+
+Publish the Docker image:
+1. Build the image: `docker build -t your-image-name .`
+2. Push it to Docker Hub: `docker push your-dockerhub-username/your-image-name`
+
+## 3. Entrypoint
+
+The entrypoint is the command that initiates the algorithm execution within the compute environment. When publishing an algorithm, you’ll set the entrypoint directly in the publishing phase of the Pontus-X portal, which will override any entrypoint defined in the Dockerfile.
+
+- **Example**: `python3 $ALGO`
+
+<Callout type="note">
+**Explanation of `$ALGO`**: The `$ALGO` variable represents the main algorithm file that was published through the portal. It is dynamically replaced with the actual file path of the algorithm within the compute environment, allowing the compute job to locate and execute the published algorithm code. By using `$ALGO` in the entrypoint, you ensure that the container runs the algorithm as specified in the publishing phase, regardless of the exact file path.
+</Callout>
+
+By setting `$ALGO` as part of the entrypoint, you guarantee that the compute environment starts with the correct algorithm, making the setup process more flexible and reliable.
+
+<Callout type="info">
+**Note on Entrypoint Behavior**: The entrypoint set in the Dockerfile will be automatically **overwritten** by the entrypoint specified on the Pontus-X portal publishing phase. This ensures that the algorithm starts with the correct logic and configuration to process the dataset as intended.
+</Callout>
+
+### 3.1 Using a Custom Entrypoint
+
+You can also specify a custom path within your container for the entrypoint in the publishing phase, such as `/app/script.py`, if your container includes the algorithm code directly in a specific location.
+
+
+<Callout type="warning">
+**Important:** If the container is publicly accessible, ensure that sensitive information such as secrets, API keys, or private credentials are not included in the algorithm code, environment variables, or file paths within the container.
+</Callout>
+
+By setting the entrypoint in the publishing phase, you ensure that the algorithm’s execution begins with the logic and configuration specified at publish time, securely and without unintended exposure of sensitive information.
+
+
+## 4. Environment Configuration
+
+When publishing an algorithm, you can define the Docker environment settings directly through the Pontus-X portal. During the publishing phase, you can:
+
+1. **Select the Docker Image**: Choose from pre-configured options (such as `python:latest` or `node:latest`) or specify a custom Docker image URL if your algorithm requires specific dependencies.
+
+2. **Specify the Entrypoint**: Define the entrypoint that will initiate the execution of your algorithm within the container. Note that any entrypoint set here will override the entrypoint specified in the Dockerfile.
+
+3. **Set Custom Parameters**: You can provide custom parameters to configure the algorithm’s behavior within the container. These parameters are saved in a JSON file accessible to the algorithm.
+
+### 4.1 Accessing Custom Parameters in the Algorithm
+
+Algorithms will have access to a JSON file located at `/data/inputs/algoCustomData.json`, which contains the key-value pairs for the input data required. This allows the algorithm to use parameters specified during the publishing phase. An example of the contents of `algoCustomData.json`:
+
+```json
+{
+    "hometown": "São Paulo",
+    "age": 10,
+    "developer": true,
+    "languagePreference": "nodejs",
+    "threshold": 25
+}
+```
+<Callout type="note">
+**Important:** When using custom parameters, ensure that the algorithm code includes validation logic to handle potential user errors. For example, if a parameter (such as `threshold`) should be within a range of `1-50`, validate this within the code, and default to a standard value if the input is out of range. This helps maintain algorithm stability and ensures reliable execution even with incorrect user input.
+</Callout>
+
+By configuring these options in the publishing phase, you ensure that your algorithm container is correctly set up with the necessary environment, secure access to custom parameters, and input validation.
+
+### 4.2 Environment Variables Available in Compute-to-Data
+
+The following environment variables are available in each algorithm pod, enabling interaction with datasets and the CtD environment:
+
+- **DIDS**: A JSON array of Dataset Identifiers (DIDs) for input datasets.
+  - **Example**: `ENV DIDS='["87bdaabb33354d2eb014af5091c604fb4b0f67dc6cca4d18a96547bffdc27bcf"]'`
+- **TRANSFORMATION_DID**: The DID of the algorithm, identifying the transformation applied.
+
+These variables can be accessed programmatically within the algorithm code:
+  - *Python*: `DIDS = json.loads(os.getenv("DIDS"))`
+  - *Node.js*: `const DIDS = JSON.parse(process.env.DIDS);`
+
+## 5. Data Storage in Compute Pods
+
+Each algorithm in a compute job runs within a Kubernetes (K8s) pod with specific volumes mounted for data storage:
+
+- **/data/inputs**: Contains input datasets that the algorithm accesses, organized by dataset ID.
+- **/data/ddos**: Contains metadata on the datasets and algorithms (in DDO JSON format).
+- **/data/outputs**: Contains all output files generated by the algorithm.
+- **/data/logs**: Stores logs generated during algorithm execution.
+- **/data/inputs/algoCustomData.json**: Holds the `algoCustomData` values which can be defined during the publishing phase. These values are accessible to the algorithm and can be used to customize its behavior.
+
+<Callout type="warning">
+**Note:** Avoid logging sensitive or confidential data. If specific log outputs are needed, save them to `/data/outputs/"LOGNAME"`.
+</Callout>
+
+## 6. Writing the Algorithm Code
+
+The algorithm code should:
+1. Load the required data from `/data/inputs`.
+2. Access custom parameters from `/data/inputs/algoCustomData.json`.
+3. Validate custom parameters (e.g., check if `threshold` is within the range of 1-50).
+4. Perform computations or transformations.
+5. Save results to `/data/outputs`.
+
+### 6.1 Python Algorithm Example
+
+```python
+# Python script for the algorithm
+import requests
+import json
+import os
+
+# Load DIDs and custom parameters
+DIDS = json.loads(os.getenv("DIDS"))
+DID = DIDS[0]
+payload_file_path = f'/data/inputs/{DID}/0'
+
+# Load custom parameters from algoCustomData.json
+custom_params_path = '/data/inputs/algoCustomData.json'
+with open(custom_params_path, 'r') as params_file:
+    custom_params = json.load(params_file)
+
+# Retrieve and validate the 'threshold' parameter
+threshold = custom_params.get("threshold", 10)  # Default to 10 if not provided
+if not (1 <= threshold <= 50):
+    print(f"Invalid threshold value {threshold}. Setting to default 10.")
+    threshold = 10
+
+# Define API endpoint and headers
+API_URL = "https://api.example.com/data"
+HEADERS = {
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+    "Content-Type": "application/json"
+}
+
+# Read payload data from the dataset file
+with open(payload_file_path, "r") as payload_file:
+    payload = json.load(payload_file)
+
+# Include threshold in the payload if required
+payload['threshold'] = threshold
+
+# Execute the API request and handle response
+try:
+    response = requests.post(API_URL, headers=HEADERS, json=payload)
+    response.raise_for_status()
+    result = response.json()
+
+    # Save results to output file
+    with open("/data/outputs/results.csv", "w") as f:
+        json.dump(result, f)
+except requests.exceptions.RequestException as e:
+    print(f"API request failed: {e}")
+    with open("/data/logs/error.log", "w") as log_file:
+        log_file.write(str
+
+(e))
+```
+
+### 6.2 Node.js Algorithm Example
+
+```javascript
+// Node.js script for the algorithm
+const fs = require('fs');
+const fetch = require('node-fetch');
+
+// Load DIDs and custom parameters
+const DIDS = JSON.parse(process.env.DIDS);
+const DID = DIDS[0];
+const payloadFilePath = `/data/inputs/${DID}/0`;
+
+// Load custom parameters from algoCustomData.json
+const customParamsPath = '/data/inputs/algoCustomData.json';
+const customParams = JSON.parse(fs.readFileSync(customParamsPath, 'utf-8'));
+
+// Retrieve and validate the 'threshold' parameter
+let threshold = customParams.threshold !== undefined ? customParams.threshold : 10;  // Default to 10 if not provided
+if (threshold < 1 || threshold > 50) {
+    console.log(`Invalid threshold value ${threshold}. Setting to default 10.`);
+    threshold = 10;
+}
+
+// Define API endpoint and headers
+const API_URL = "https://api.example.com/data";
+const HEADERS = {
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+    "Content-Type": "application/json"
+};
+
+(async () => {
+    try {
+        // Read payload data from the dataset file
+        const payload = JSON.parse(fs.readFileSync(payloadFilePath, 'utf-8'));
+
+        // Include threshold in the payload if required
+        payload.threshold = threshold;
+
+        // Execute the API request and handle response
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: HEADERS,
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+
+            // Save results to output file
+            fs.writeFileSync('/data/outputs/results.csv', JSON.stringify(result));
+        } else {
+            console.error('API request failed:', response.status);
+            fs.writeFileSync('/data/logs/error.log', `Error ${response.status}`);
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
+})();
+```
+
+### 6.3 Choosing a Docker Container
+
+For Compute-to-Data (CtD), you can use either default Docker containers or specify a custom one with the necessary dependencies.
+
+**Example Containers**:
+- **Python**: `python:3.8`
+- **Node**: `node:14`
+
+If your algorithm requires additional libraries, use a custom Dockerfile and publish it on Docker Hub as shown above.
+
+
+<Callout type="note">
+> **Important:** Note on Using `latest` **Tags**: If you specify a container with the `latest` tag (e.g., `python:latest` or `node:latest`), be aware that CtD may fail to run if the container version updates and its hash changes. This is due to security requirements: CtD relies on the exact container hash to ensure that the algorithm has not been altered or tampered with. When the `latest` tag updates to a new version, the hash will change, causing every dataset previously allowed to run with this algorithm to fail, as the algorithm’s hash no longer matches the published version.
+</Callout>
+
+<Callout type="info">
+> **Best Practice**: To avoid this, specify an explicit version (e.g., `python:3.8` or `node:14`) instead of using `latest`. This approach ensures that the CtD environment remains stable and avoids unexpected failures due to container updates.
+</Callout>
+
+By following these guidelines, you ensure that your algorithm’s environment is predictable, secure, and compatible with published datasets for CtD execution.
+
+## 7. Logging and Error Handling
+
+All outputs generated by the algorithm script, including logs, will be accessible to the consumer of the algorithm. If you need to log specific outputs, write them to `/data/outputs/`.
+
+<Callout type="warning">
+**Important:** Do **not** log any sensitive or secure information, such as API keys, access tokens, or confidential dataset details. All logs are accessible to the end consumer, so exposing sensitive information could lead to security risks. Always sanitize log entries to ensure they only contain necessary, non-sensitive information.
+</Callout>
+
+By following these guidelines, you can ensure transparency and security in your algorithm’s output while protecting sensitive information.
