@@ -1,7 +1,21 @@
 # DDO Schema
 
 ![OE Verifiable Presentation](/images/DDO/diagrams/w3c_presentation.svg)
+```
+classDiagram
+    class `W3C Verifiable Presentation` {
+    }
+    class `OE Service Credential` {
+    }
+    class `W3C Verifiable Credential` {
+    }
+    class CredentialSubject {
+    }
 
+    `W3C Verifiable Presentation` "1" --> "1..*" `OE Service Credential` : contains
+    `OE Service Credential` "1" --> "1" CredentialSubject : defines
+    `W3C Verifiable Credential` <|-- `OE Service Credential` : is a type of
+```
 
 ## Verifiable Presentation (off-chain metadata object)
 
@@ -30,7 +44,45 @@ This is a W3C verifiable credential.
 ## credentialSubject
 
 ![CredentialSubject](/images/DDO/diagrams/credential_subject.svg)
+```
+---
+title: CredentialSubject
+---
+classDiagram
 
+    class CredentialSubject {
+    }
+
+    class Metadata {
+    }
+    class Credentials {
+    }
+
+    class AlgorithmMetadata["AlgorithmMetadata\n(for algorithm type)"] {
+    }
+
+    class Container {
+    }
+    class Service {
+    }
+    class ConsumerParameters["Consumer\nParameters"] {
+    }
+    class Compute {
+    }
+
+    CredentialSubject "1" --> "1" Metadata
+    CredentialSubject "1" --> "0..*" Credentials
+    CredentialSubject "1" --> "1..*" Service
+
+    Metadata "1" --> "0..1" AlgorithmMetadata
+    AlgorithmMetadata "1" --> "1" Container
+    AlgorithmMetadata "1" --> "0..*" ConsumerParameters
+
+    Service "1" --> "0..1" Compute
+    Service "1" --> "0..*" ConsumerParameters
+
+
+```
 
 | Attribute     | Type                                          | Description                                                                                                                                                                                                                                                                                                                                                                                                          | Required                                                                              |
 | ------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
