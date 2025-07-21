@@ -88,11 +88,17 @@ When publishing an algorithm, you can define the Docker environment settings dir
 
 2. **Specify the Entrypoint**: Define the entrypoint that will initiate the execution of your algorithm within the container. Note that any entrypoint set here will override the entrypoint specified in the Dockerfile.
 
-3. **Set Custom Parameters**: You can provide custom parameters to configure the algorithm’s behavior within the container. These parameters are saved in a JSON file accessible to the algorithm.
+3. **Set Custom Parameters (Optional)**  
+*This step is optional. Use it only if your algorithm needs custom parameters.*  
+You can define parameters that configure the algorithm’s behavior within the container. These parameters are stored in a JSON file accessible to the algorithm.
 
-### 4.1 Accessing Custom Parameters in the Algorithm
+### 4.1 Accessing Custom Parameters in the Algorithm (Optional)
 
-Algorithms will have access to a JSON file located at `/data/inputs/algoCustomData.json`, which contains the key-value pairs for the input data required. This allows the algorithm to use parameters specified during the publishing phase. An example of the contents of `algoCustomData.json`:
+This step is optional and only applies if your algorithm is configured to use custom parameters.
+
+Algorithms will have access to a JSON file located at `/data/inputs/algoCustomData.json`, which contains the key-value pairs for the input data specified during the publishing phase. This allows the algorithm to customize its behavior dynamically based on user-defined inputs.
+
+Example `algoCustomData.json` contents:
 
 ```json
 {
@@ -102,6 +108,7 @@ Algorithms will have access to a JSON file located at `/data/inputs/algoCustomDa
     "languagePreference": "nodejs",
     "threshold": 25
 }
+
 ```
 <Callout type="note">
 **Important:** When using custom parameters, ensure that the algorithm code includes validation logic to handle potential user errors. For example, if a parameter (such as `threshold`) should be within a range of `1-50`, validate this within the code, and default to a standard value if the input is out of range. This helps maintain algorithm stability and ensures reliable execution even with incorrect user input.
