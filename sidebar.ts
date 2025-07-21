@@ -42,6 +42,10 @@ export const sidebar = {
           link: "/docs/getting-started/Publication-guide",
         },
         {
+          text: "Custom Algorithms",
+          link: "/docs/getting-started/buildCustomAlgorithmsForPontusX",
+        },
+        {
           text: "Core Concepts",
           link: "/docs/getting-started/core-concepts",
         },
