@@ -13,31 +13,31 @@ export const sidebar = {
             {  text: "Core Concepts", link: "/docs/getting-started/core-concepts" }
           ],
         },
-        { text: "Getting Started", link: "" },
-        { text: "Glossary of Terms", link: "" },
-        { text: "FAQ for Decision Makers", link: "" },
+        { text: "Getting Started (WIP)", link: "" },
+        { text: "Glossary of Terms (WIP)", link: "" },
+        { text: "FAQ for Decision Makers (WIP)", link: "" },
         { text: "Gaia-X Commitment", link: "/docs/introduction/gaia-x-commitment" },
-        { text: "Why Adopt Pontus-X Now", link: "" },
-        { text: "Pontus-X Network", link: "/docs/introduction/network" }
+        { text: "Why Adopt Pontus-X Now (WIP)", link: "" },
+        { text: "What is the Pontus-X Network", link: "/docs/introduction/network" }
       ],
     },
     {
       text: "2. Key Concepts",
       collapsed: true,
       items: [
-        { text: "The Paradigm Shift", link: "" },
-        { text: "Data and IP Sovereignty", link: "" },
-        { text: "Gaia-X Trust Layer", link: "" },
-        { text: "Monetization & Economic Models", link: "" },
-        { text: "Data Sovereignty Business Opportunity", link: "" },
-        { text: "Compliance and Regulation", link: "" },
+        { text: "The Paradigm Shift (WIP)", link: "" },
+        { text: "Data and IP Sovereignty Mechanisms (WIP)", link: "" },
+        { text: "Gaia-X Trust Layer (WIP)", link: "" },
+        { text: "Monetization & Economic Models (WIP)", link: "" },
+        { text: "Data Sovereignty Business Opportunity (WIP)", link: "" },
+        { text: "Compliance and Regulation (WIP)", link: "" },
         {
           text: "Interoperability",
           collapsed: true,
           items: [
-            { text: "Interoperability of Pontus-X Ecosystem", link: "" },
-            { text: "Gaia-X Semantic Interoperability", link: "" },
-            { text: "General Dataspace Interoperability", link: "" }
+            { text: "Interoperability of Pontus-X Ecosystem (WIP)", link: "" },
+            { text: "Gaia-X Semantic Interoperability (WIP)", link: "" },
+            { text: "General Dataspace Interoperability (WIP)", link: "" }
           ],
         },
       ],
@@ -46,23 +46,23 @@ export const sidebar = {
       text: "3. Use Cases & Business Value",
       collapsed: true,
       items: [
-        { text: "Build Your Own Pontus-X Data Space", link: "" },
-        { text: "Join an Existing Pontus-X Data Space", link: "" },
-        { text: "Consume Data to Enhance Data Products", link: "" },
-        { text: "Share Data, Stay in Full Control", link: "" },
-        { text: "Monetize Data", link: "" },
-        { text: "Share/Monetize SaaS Offerings", link: "" },
-        { text: "Build New Data Products", link: "" },
-        { text: "Data Collaboration for Research & Industry", link: "" },
-        { text: "Use Case Examples",
+        { text: "Build Your Own Pontus-X Data Space (WIP)", link: "" },
+        { text: "Join an Existing Pontus-X Data Space (WIP)", link: "" },
+        { text: "Consume Data to Enhance Data Products (WIP)", link: "" },
+        { text: "Share Data, Stay in Full Control (WIP)", link: "" },
+        { text: "Monetize Data (WIP)", link: "" },
+        { text: "Share/Monetize SaaS Offerings (WIP)", link: "" },
+        { text: "Build New Data Products (WIP)", link: "" },
+        { text: "Data Collaboration for Research & Industry (WIP)", link: "" },
+        { text: "Use Case Examples (WIP)",
           collapsed: true,
           items: [
-            { text: "Manufacturing", link: "" },
-            { text: "Agriculture",link: "" },
-            { text: "Aerospace", link: "" },
-            { text: "Mobility", link: "" },
-            { text: "Smart City", link: "" },
-            { text: "Open Science", link: "" }
+            { text: "Manufacturing (WIP)", link: "" },
+            { text: "Agriculture (WIP)",link: "" },
+            { text: "Aerospace (WIP)", link: "" },
+            { text: "Mobility (WIP)", link: "" },
+            { text: "Smart City (WIP)", link: "" },
+            { text: "Open Science (WIP)", link: "" }
           ],
         },
       ],
@@ -71,24 +71,24 @@ export const sidebar = {
       text: "4. Competitive Advantages and ROI",
       collapsed: true,
       items: [
-        { text: "Case for Competitiveness", link: "" },
-        { text: "Calculating ROI: Tools and Examples", link: "" },
-        { text: "Risk Mitigation: Staying Ahead of Competitors", link: "" }
+        { text: "Boosting Market Position. Case for Competitiveness (WIP)", link: "" },
+        { text: "Calculating ROI: Tools and Examples (WIP)", link: "" },
+        { text: "Risk Mitigation: Staying Ahead of Competitors (WIP)", link: "" }
       ],
     },
     {
       text: "5. Compliance & Regulation",
       collapsed: true,
       items: [
-        { text: "Data Act",
+        { text: "Data Act (WIP)",
           collapsed: true,
           items: [
-            { text: "Implications for Industry", link: "" },
-            { text: "Pontus-X for Data Act Compliance", link: "" }
+            { text: "Implications for Industry (WIP)", link: "" },
+            { text: "Pontus-X for Data Act Compliance (WIP)", link: "" }
         ],
     },
-        { text: "GDPR", link: "" },
-        { text: "Other EU Regulations", link: "" }
+        { text: "GDPR (WIP)", link: "" },
+        { text: "Other EU Regulations (WIP)", link: "" }
       ],
     },
     {
@@ -97,28 +97,28 @@ export const sidebar = {
         items: [
           { text: "Participants",
            items: [
-            { text: "Benefits of Participation", link: "" },
-            { text: "Participant Registry", link: "" }
+            { text: "Benefits of Participation (WIP)", link: "" },
+            { text: "Participant Registry", link: "/docs/participants-and-federators/ecosystem-participants" }
            ]
           },
           { text: "Operators",
            items: [
-            { text: "Benefits of Operation", link: "" },
-            { text: "Portals & Marketplaces", link: "" },
-            { text: "Validators", link: "" }    
+            { text: "Benefits of Operation (WIP)", link: "" },
+            { text: "Portals & Marketplaces (WIP)", link: "" },
+            { text: "Validators", link: "/docs/participants-and-federators/federators" }    
            ]
           },
           { text: "Governance Model",
            items: [
-            { text: "Benefits of Governance", link: "" },
-            { text: "Pontus-X Governance", link: "" },
-            { text: "Ocean Enterprise Governance", link: "" }, 
-            { text: "Gaia-X Governance", link: "" }    
+            { text: "Benefits of Governance (WIP)", link: "" },
+            { text: "Pontus-X Governance (WIP)", link: "" },
+            { text: "Ocean Enterprise Governance (WIP)", link: "" }, 
+            { text: "Gaia-X Governance (WIP)", link: "" }    
            ]
           },
           { text: "How to contribute", link: "/docs/contribute/overview" },
           { text: "Repositories", link: "/docs/contribute/repositories" },
-          { text: "Feedback and Iteration", link: "" }
+          { text: "Feedback and Iteration (WIP)", link: "" }
         ],
       },
     {
@@ -131,8 +131,8 @@ export const sidebar = {
             { text: "Pontus-X Ecosystem", link: "/docs/getting-started/pontus-x-ecosystem" },
             { text: "Publication Guide", link: "/docs/getting-started/Publication-guide" },
             { text: "Data Service Offerings", link: "/docs/getting-started/data-service-offerings" },
-            { text: "Consume Your First Asset", link: "" },
-            { text: "Join an Existing Data Space", link: "" },
+            { text: "Consume Your First Asset (WIP)", link: "" },
+            { text: "Join an Existing Data Space (WIP)", link: "" },
             { text: "Standard Use Cases",
                 collapsed: true, 
                 items: [
@@ -162,7 +162,7 @@ export const sidebar = {
                 collapsed: true, 
                 items: [
                     { text: "Nautilus", link: "https://nautilus.delta-dao.com/" },
-                    { text: "Pontus-X CLI", link: "" }
+                    { text: "Pontus-X CLI (WIP)", link: "" }
                 ],
             },
             { text: "Pontus-X Networks",
@@ -188,8 +188,8 @@ export const sidebar = {
             { text: "Access Controller", link: "/docs/technical-architecture/access-controller"},
             { text: "Service Catalogue - Metadata Cache (Aquarius)", link: "/docs/technical-architecture/aquarius" },
             { text: "Subgraph - Transaction Cache", link: "/docs/technical-architecture/subgraph" },
-            { text: "Distributed Ledger", link: ""},
-            { text: "Smart Contracts", link: ""},
+            { text: "Distributed Ledger (WIP)", link: ""},
+            { text: "Smart Contracts (WIP)", link: ""},
           ],
         },
         {
@@ -248,25 +248,25 @@ export const sidebar = {
             },
           ],
         },
-        { text: "API and Integration Reference", link: "" },
-        { text: "Repositories", link: "" }
+        { text: "API and Integration Reference (WIP)", link: "" },
+        { text: "Repositories (WIP)", link: "" }
       ],
     },
     {
         text: "10. Going Live",
         items: [
-          { text: "Overview", link: "" },
-          { text: "Mainnet Migration", link: "" },
-          { text: "Scaling and Best Practices", link: "" },
-          { text: "Monitoring and Operations", link: "" },
-          { text: "FAQ", link: "" }
+          { text: "Overview (WIP)", link: "" },
+          { text: "Mainnet Migration (WIP)", link: "" },
+          { text: "Scaling and Best Practices (WIP)", link: "" },
+          { text: "Monitoring and Operations (WIP)", link: "" },
+          { text: "FAQ (WIP)", link: "" }
         ],
     },
     {
         text: "11. External Resources & Roadmap",
         items: [
-          { text: "Research Papers & Whitepapers", link: "" },
-          { text: "Future Outlook", link: "" }
+          { text: "Research Papers & Whitepapers (WIP)", link: "" },
+          { text: "Future Outlook (WIP)", link: "" }
         ],
     },  
     {
