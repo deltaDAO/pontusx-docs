@@ -67,15 +67,7 @@ export const sidebar = {
         },
       ],
     },
-    {
-      text: "4. Competitive Advantages and ROI",
-      collapsed: true,
-      items: [
-        { text: "Boosting Market Position. Case for Competitiveness (WIP)", link: "" },
-        { text: "Calculating ROI: Tools and Examples (WIP)", link: "" },
-        { text: "Risk Mitigation: Staying Ahead of Competitors (WIP)", link: "" }
-      ],
-    },
+    { text: "4. Competitive Advantages and ROI", link: "" },
     {
       text: "5. Compliance & Regulation",
       collapsed: true,
