@@ -14,24 +14,16 @@ export const sidebar = {
         {
           text: 'Core Value Propositon',
           items: [
-            {
-              text: 'Core Concepts',
-              link: '/docs/getting-started/core-concepts'
-            }
+            { text: 'Core Value Propositions', link: '/docs/introduction/core-value-proposition' },
+            { text: 'Core Concepts', link: '/docs/getting-started/core-concepts'}
           ]
         },
         { text: 'Getting Started (WIP)', link: '' },
         { text: 'Glossary of Terms (WIP)', link: '' },
         { text: 'FAQ for Decision Makers (WIP)', link: '' },
-        {
-          text: 'Gaia-X Commitment',
-          link: '/docs/introduction/gaia-x-commitment'
-        },
+        { text: 'Gaia-X Commitment', link: '/docs/introduction/gaia-x-commitment'},
         { text: 'Why Adopt Pontus-X Now (WIP)', link: '' },
-        {
-          text: 'What is the Pontus-X Network',
-          link: '/docs/introduction/network'
-        }
+        { text: 'What is the Pontus-X Network', link: '/docs/introduction/network'}
       ]
     },
     {
