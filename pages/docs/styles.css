@@ -14,3 +14,183 @@
 #home-install .vocs_Code {
     font-size: 18px;
 }
+
+/* Feature Cards - Flowing Modern Design */
+.feature-card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1rem;
+    height: 100%;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    opacity: 0.6;
+    transition: opacity 0.4s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+/* Cyan/Teal Card */
+.feature-card-blue {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(8, 145, 178, 0.08) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.feature-card-blue::before {
+    background: linear-gradient(90deg, #06b6d4, #0891b2, #22d3ee);
+}
+
+.feature-card-blue:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(8, 145, 178, 0.12) 100%);
+    box-shadow: 0 20px 40px -12px rgba(6, 182, 212, 0.25);
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+/* Teal/Cyan Card */
+.feature-card-purple {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.05) 0%, rgba(59, 130, 246, 0.08) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+.feature-card-purple::before {
+    background: linear-gradient(90deg, #14b8a6, #3b82f6, #22d3ee);
+}
+
+.feature-card-purple:hover {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.08) 0%, rgba(59, 130, 246, 0.12) 100%);
+    box-shadow: 0 20px 40px -12px rgba(20, 184, 166, 0.25);
+    border-color: rgba(20, 184, 166, 0.3);
+}
+
+/* Teal/Blue Card */
+.feature-card-green {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.05) 0%, rgba(6, 182, 212, 0.08) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+.feature-card-green::before {
+    background: linear-gradient(90deg, #14b8a6, #06b6d4, #22d3ee);
+}
+
+.feature-card-green:hover {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.08) 0%, rgba(6, 182, 212, 0.12) 100%);
+    box-shadow: 0 20px 40px -12px rgba(20, 184, 166, 0.25);
+    border-color: rgba(20, 184, 166, 0.3);
+}
+
+/* Dark mode - deeper colors */
+.dark .feature-card-blue {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(8, 145, 178, 0.15) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.dark .feature-card-blue:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(8, 145, 178, 0.2) 100%);
+    border-color: rgba(6, 182, 212, 0.4);
+}
+
+.dark .feature-card-purple {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(59, 130, 246, 0.15) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.3);
+}
+
+.dark .feature-card-purple:hover {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, rgba(59, 130, 246, 0.2) 100%);
+    border-color: rgba(20, 184, 166, 0.4);
+}
+
+.dark .feature-card-green {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(6, 182, 212, 0.15) 100%);
+    border: 1px solid rgba(20, 184, 166, 0.3);
+}
+
+.dark .feature-card-green:hover {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, rgba(6, 182, 212, 0.2) 100%);
+    border-color: rgba(20, 184, 166, 0.4);
+}
+
+.feature-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.feature-card-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.feature-card-blue .feature-card-icon {
+    background: linear-gradient(135deg, #06b6d4, #22d3ee);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.feature-card-purple .feature-card-icon {
+    background: linear-gradient(135deg, #14b8a6, #3b82f6);
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
+.feature-card-green .feature-card-icon {
+    background: linear-gradient(135deg, #14b8a6, #22d3ee);
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
+.feature-card-link {
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.feature-card-blue .feature-card-link {
+    color: #0891b2;
+}
+
+.feature-card-purple .feature-card-link {
+    color: #0891b2;
+}
+
+.feature-card-green .feature-card-link {
+    color: #0d9488;
+}
+
+.feature-card-link:hover {
+    transform: translateX(4px);
+}
+
+.dark .feature-card-blue .feature-card-link {
+    color: #22d3ee;
+}
+
+.dark .feature-card-purple .feature-card-link {
+    color: #22d3ee;
+}
+
+.dark .feature-card-green .feature-card-link {
+    color: #2dd4bf;
+}
