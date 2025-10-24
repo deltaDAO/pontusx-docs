@@ -14,3 +14,107 @@
 #home-install .vocs_Code {
     font-size: 18px;
 }
+
+/* Feature Cards - Clean Professional Design */
+.feature-card {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0.75rem;
+    height: 100%;
+    background: white;
+    border: 1px solid #e5e7eb;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    border-color: #d1d5db;
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode */
+.dark .feature-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+.dark .feature-card:hover {
+    border-color: rgba(71, 85, 105, 0.5);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.3);
+}
+
+
+.feature-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.feature-card-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.feature-card-blue .feature-card-icon {
+    background: linear-gradient(135deg, #004967, #006989);
+    box-shadow: 0 2px 8px rgba(0, 73, 103, 0.2);
+}
+
+.feature-card-purple .feature-card-icon {
+    background: linear-gradient(135deg, #004967, #006989);
+    box-shadow: 0 2px 8px rgba(0, 73, 103, 0.2);
+}
+
+.feature-card-green .feature-card-icon {
+    background: linear-gradient(135deg, #004967, #006989);
+    box-shadow: 0 2px 8px rgba(0, 73, 103, 0.2);
+}
+
+.feature-card-link {
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.feature-card-blue .feature-card-link {
+    color: #004967;
+}
+
+.feature-card-purple .feature-card-link {
+    color: #004967;
+}
+
+.feature-card-green .feature-card-link {
+    color: #004967;
+}
+
+.feature-card-link:hover {
+    transform: translateX(4px);
+    opacity: 0.8;
+}
+
+.dark .feature-card-blue .feature-card-link {
+    color: #67e8f9;
+}
+
+.dark .feature-card-purple .feature-card-link {
+    color: #67e8f9;
+}
+
+.dark .feature-card-green .feature-card-link {
+    color: #67e8f9;
+}

@@ -63,37 +63,47 @@ import { HomePage } from "vocs/components";
       </div>
     </div>
 
-    <div className="flex justify-between flex-wrap mt-16 max-sm:hidden">
-      <div className="pr-2 w-1/3 max-lg:pb-3 max-sm:px-0 max-lg:w-1/2 max-sm:w-full z-0">
-        <div className="relative w-full h-[220px] max-lg:h-[142px] overflow-hidden">
-          <div className="border-black/10 dark:border-white/10 border border-solid rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
-            <div className="text-xl font-medium text-black dark:text-white">Data Sovereignty</div>
-            <div className="text-[17px] text-[#919193]">[Pontus-X](http://portal.pontus-x.eu) provides full visibility and control over how your data is used and shared, allowing data to be stored and processed within the control domain and jurisdiction of the data provider.</div>
+    <div className="flex mt-16 max-sm:hidden" style={{gap: '24px'}}>
+      <div style={{flex: '1'}}>
+        <div className="feature-card feature-card-blue p-8 flex flex-col">
+          <div className="feature-card-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
           </div>
-          <div className="absolute left-0 right-0 top-0 bottom-0 dark:bg-[#313136] opacity-20 z-0" />
-          <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-filter backdrop-blur-[2px] z-0" />
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Data Sovereignty</h3>
+          <p className="text-gray-700 dark:text-gray-300 flex-1 leading-relaxed">Pontus-X ensures data providers retain full control and visibility over their data's usage, processing, and sharing, all within their own jurisdiction.</p>
+          <a href="/docs/introduction/core-value-proposition" className="feature-card-link">Learn More →</a>
         </div>
       </div>
-      <div className="pl-2 pr-2 max-sm:px-0 max-lg:pb-3 max-lg:pr-0 w-1/3 max-lg:w-1/2 max-sm:w-full z-0">
-        <div className="relative w-full h-[220px] max-lg:h-[142px]">
-          <div className="border-black/10 dark:border-white/10 border border-solid rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
-            <div className="text-xl font-medium text-black dark:text-white">Privacy and IP-Protection</div>
-            <div>
-            <div className="text-[17px] text-[#919193]">Protect your data with [Pontus-X](http://pontus-x.eu) using modern paradigms like Compute-to-Data for local data processing and granular access control.</div>
-            </div>
+      <div style={{flex: '1'}}>
+        <div className="feature-card feature-card-purple p-8 flex flex-col">
+          <div className="feature-card-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
           </div>
-          <div className="absolute left-0 right-0 top-0 bottom-0 dark:bg-[#313136] opacity-20 z-0" />
-          <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-filter backdrop-blur-[2px] z-0" />
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Privacy & IP Protection</h3>
+          <p className="text-gray-700 dark:text-gray-300 flex-1 leading-relaxed">Leverage paradigms like Compute-to-Data for secure, local processing and granular access controls, safeguarding your intellectual property.</p>
+          <a href="/docs/use-cases/compute" className="feature-card-link">Discover Solutions →</a>
         </div>
       </div>
-      <div className="pl-2 w-1/3 max-lg:px-0 max-lg:w-full z-0">
-        <div className="relative w-full h-[220px] max-lg:h-[142px]">
-          <div className="border-black/10 dark:border-white/10 border border-solid rounded-lg h-full px-5 py-6 absolute z-10 flex flex-col justify-between w-full">
-            <div className="text-xl font-medium text-black dark:text-white">Collaboration Across Data Spaces</div>
-            <div className="text-[17px] text-[#919193]">[Pontus-X](http://pontus-x.eu) enables seamless collaboration across different data spaces using standardized and fully open-source protocols such as [Ocean Enterprise](https://github.com/OceanProtocolEnterprise).</div>
+      <div style={{flex: '1'}}>
+        <div className="feature-card feature-card-green p-8 flex flex-col">
+          <div className="feature-card-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="3"/>
+              <circle cx="6" cy="6" r="3"/>
+              <circle cx="18" cy="6" r="3"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="18" r="3"/>
+              <path d="M9 6h6M9 18h6M12 9v6M6 9v6M18 9v6"/>
+            </svg>
           </div>
-          <div className="absolute left-0 right-0 top-0 bottom-0 dark:bg-[#313136] opacity-20 z-0" />
-          <div className="absolute left-0 right-0 top-0 bottom-0 backdrop-filter backdrop-blur-[2px] z-0" />
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Seamless Collaboration</h3>
+          <p className="text-gray-700 dark:text-gray-300 flex-1 leading-relaxed">Facilitate effortless collaboration across diverse data spaces with standardized, open-source protocols like Ocean Enterprise.</p>
+          <a href="/docs/getting-started/pontus-x-ecosystem" className="feature-card-link">Explore Ecosystem →</a>
         </div>
       </div>
     </div>

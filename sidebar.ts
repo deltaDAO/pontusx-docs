@@ -145,35 +145,24 @@ export const sidebar = {
       collapsed: true,
       items: [
         {
-          text: 'Participants',
-          items: [
-            // { text: 'Benefits of Participation (WIP)', link: '' },
-            {
-              text: 'Participant Registry',
-              link: '/docs/participants-and-federators/ecosystem-participants'
-            }
-          ]
+          text: 'Participant Registry',
+          link: '/docs/participants-and-federators/ecosystem-participants'
         },
         {
-          text: 'Operators',
-          items: [
-            //{ text: 'Benefits of Operation (WIP)', link: '' },
-            // { text: 'Portals & Marketplaces (WIP)', link: '' },
-            {
-              text: 'Validators',
-              link: '/docs/participants-and-federators/federators'
-            }
-          ]
+          //{ text: 'Benefits of Operation (WIP)', link: '' },
+          // { text: 'Portals & Marketplaces (WIP)', link: '' },
+          text: 'Validators',
+          link: '/docs/participants-and-federators/federators'
         },
-        {
-          text: 'Governance Model',
-          items: [
-            /*  { text: 'Benefits of Governance (WIP)', link: '' },
+        // {
+        // text: 'Governance Model',
+        // items: [
+        /*  { text: 'Benefits of Governance (WIP)', link: '' },
             { text: 'Pontus-X Governance (WIP)', link: '' },
             { text: 'Ocean Enterprise Governance (WIP)', link: '' },
             { text: 'Gaia-X Governance (WIP)', link: '' } */
-          ]
-        },
+        //  ]
+        // },
         { text: 'How to contribute', link: '/docs/contribute/overview' },
         { text: 'Repositories', link: '/docs/contribute/repositories' }
         // { text: 'Feedback and Iteration (WIP)', link: '' }
@@ -338,9 +327,9 @@ export const sidebar = {
               ]
             }
           ]
-        },
-        { text: 'API and Integration Reference (WIP)', link: '' },
-        { text: 'Repositories (WIP)', link: '' }
+        }
+        // { text: 'API and Integration Reference (WIP)', link: '' },
+        // { text: 'Repositories (WIP)', link: '' }
       ]
     },
     /*{
