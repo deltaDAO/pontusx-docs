@@ -3,7 +3,7 @@ import type { Sidebar } from 'vocs'
 export const sidebar = {
   '/docs/': [
     {
-      text: '1. Introduction & Overview',
+      text: 'Introduction & Overview',
       collapsed: false,
       items: [
         { text: 'Overview', link: '/docs/introduction/overview' },
@@ -12,42 +12,46 @@ export const sidebar = {
           link: '/docs/introduction/vision-mission-values'
         },
         {
-          text: 'Core Value Propositon',
-          items: [
-            { text: 'Core Value Propositions', link: '/docs/introduction/core-value-proposition' },
-            { text: 'Core Concepts', link: '/docs/getting-started/core-concepts'}
-          ]
+          text: 'Core Value Propositions',
+          link: '/docs/introduction/core-value-proposition'
         },
-        { text: 'Getting Started (WIP)', link: '' },
-        { text: 'Glossary of Terms (WIP)', link: '' },
-        { text: 'FAQ for Decision Makers (WIP)', link: '' },
-        { text: 'Gaia-X Commitment', link: '/docs/introduction/gaia-x-commitment'},
-        { text: 'Why Adopt Pontus-X Now (WIP)', link: '' },
-        { text: 'What is the Pontus-X Network', link: '/docs/introduction/network'}
+        {
+          text: 'Core Concepts',
+          link: '/docs/getting-started/core-concepts'
+        },
+        // { text: 'Getting Started (WIP)', link: '' },
+        // { text: 'Glossary of Terms (WIP)', link: '' },
+        // { text: 'FAQ for Decision Makers (WIP)', link: '' },
+        {
+          text: 'Gaia-X Commitment',
+          link: '/docs/introduction/gaia-x-commitment'
+        }
+        //  { text: 'Why Adopt Pontus-X Now (WIP)', link: '' },
+        // { text: 'What is the Pontus-X Network', link: '/docs/introduction/network'}
       ]
     },
-    {
+    /*{
       text: '2. Key Concepts',
       collapsed: true,
       items: [
-        { text: 'The Paradigm Shift (WIP)', link: '' },
-        { text: 'Data and IP Sovereignty Mechanisms (WIP)', link: '' },
-        { text: 'Gaia-X Trust Layer (WIP)', link: '' },
-        { text: 'Monetization & Economic Models (WIP)', link: '' },
-        { text: 'Data Sovereignty Business Opportunity (WIP)', link: '' },
-        { text: 'Compliance and Regulation (WIP)', link: '' },
+        // { text: 'The Paradigm Shift (WIP)', link: '' },
+       //  { text: 'Data and IP Sovereignty Mechanisms (WIP)', link: '' },
+        // { text: 'Gaia-X Trust Layer (WIP)', link: '' },
+        // { text: 'Monetization & Economic Models (WIP)', link: '' },
+       //  { text: 'Data Sovereignty Business Opportunity (WIP)', link: '' },
+       //  { text: 'Compliance and Regulation (WIP)', link: '' },
         {
           text: 'Interoperability',
           collapsed: true,
           items: [
-            { text: 'Interoperability of Pontus-X Ecosystem (WIP)', link: '' },
-            { text: 'Gaia-X Semantic Interoperability (WIP)', link: '' },
-            { text: 'General Dataspace Interoperability (WIP)', link: '' }
+           //  { text: 'Interoperability of Pontus-X Ecosystem (WIP)', link: '' },
+           //  { text: 'Gaia-X Semantic Interoperability (WIP)', link: '' },
+           //  { text: 'General Dataspace Interoperability (WIP)', link: '' }
           ]
         }
       ]
-    },
-    {
+    },*/
+    /*{
       text: '3. Use Cases & Business Value',
       collapsed: true,
       items: [
@@ -72,9 +76,9 @@ export const sidebar = {
           ]
         }
       ]
-    },
-    { text: '4. Competitive Advantages and ROI', link: '' },
-    {
+    },*/
+    //{ text: 'Competitive Advantages and ROI', link: '' },
+    /* {
       text: '5. Compliance & Regulation',
       collapsed: true,
       items: [
@@ -89,48 +93,9 @@ export const sidebar = {
         { text: 'GDPR (WIP)', link: '' },
         { text: 'Other EU Regulations (WIP)', link: '' }
       ]
-    },
+    },*/
     {
-      text: '6. Community & Governance',
-      collapsed: true,
-      items: [
-        {
-          text: 'Participants',
-          items: [
-            { text: 'Benefits of Participation (WIP)', link: '' },
-            {
-              text: 'Participant Registry',
-              link: '/docs/participants-and-federators/ecosystem-participants'
-            }
-          ]
-        },
-        {
-          text: 'Operators',
-          items: [
-            { text: 'Benefits of Operation (WIP)', link: '' },
-            { text: 'Portals & Marketplaces (WIP)', link: '' },
-            {
-              text: 'Validators',
-              link: '/docs/participants-and-federators/federators'
-            }
-          ]
-        },
-        {
-          text: 'Governance Model',
-          items: [
-            { text: 'Benefits of Governance (WIP)', link: '' },
-            { text: 'Pontus-X Governance (WIP)', link: '' },
-            { text: 'Ocean Enterprise Governance (WIP)', link: '' },
-            { text: 'Gaia-X Governance (WIP)', link: '' }
-          ]
-        },
-        { text: 'How to contribute', link: '/docs/contribute/overview' },
-        { text: 'Repositories', link: '/docs/contribute/repositories' },
-        { text: 'Feedback and Iteration (WIP)', link: '' }
-      ]
-    },
-    {
-      text: '7. Getting started',
+      text: 'Getting started',
       collapsed: false,
       items: [
         { text: 'Quick Start', link: '/docs/getting-started/quick-start' },
@@ -148,8 +113,8 @@ export const sidebar = {
           text: 'Data Service Offerings',
           link: '/docs/getting-started/data-service-offerings'
         },
-        { text: 'Consume Your First Asset (WIP)', link: '' },
-        { text: 'Join an Existing Data Space (WIP)', link: '' },
+        //{ text: 'Consume Your First Asset (WIP)', link: '' },
+        // { text: 'Join an Existing Data Space (WIP)', link: '' },
         {
           text: 'Standard Use Cases',
           collapsed: true,
@@ -176,8 +141,47 @@ export const sidebar = {
       ]
     },
     {
-      text: '8. Developer Resources',
-      collapsed: false,
+      text: 'Community & Governance',
+      collapsed: true,
+      items: [
+        {
+          text: 'Participants',
+          items: [
+            // { text: 'Benefits of Participation (WIP)', link: '' },
+            {
+              text: 'Participant Registry',
+              link: '/docs/participants-and-federators/ecosystem-participants'
+            }
+          ]
+        },
+        {
+          text: 'Operators',
+          items: [
+            //{ text: 'Benefits of Operation (WIP)', link: '' },
+            // { text: 'Portals & Marketplaces (WIP)', link: '' },
+            {
+              text: 'Validators',
+              link: '/docs/participants-and-federators/federators'
+            }
+          ]
+        },
+        {
+          text: 'Governance Model',
+          items: [
+            /*  { text: 'Benefits of Governance (WIP)', link: '' },
+            { text: 'Pontus-X Governance (WIP)', link: '' },
+            { text: 'Ocean Enterprise Governance (WIP)', link: '' },
+            { text: 'Gaia-X Governance (WIP)', link: '' } */
+          ]
+        },
+        { text: 'How to contribute', link: '/docs/contribute/overview' },
+        { text: 'Repositories', link: '/docs/contribute/repositories' }
+        // { text: 'Feedback and Iteration (WIP)', link: '' }
+      ]
+    },
+    {
+      text: 'Developer Resources',
+      collapsed: true,
       items: [
         {
           text: 'Develop Algorithms for Compute-to-Data',
@@ -187,8 +191,8 @@ export const sidebar = {
           text: 'Use Pontus-X Libraries',
           collapsed: true,
           items: [
-            { text: 'Nautilus', link: 'https://nautilus.delta-dao.com/' },
-            { text: 'Pontus-X CLI (WIP)', link: '' }
+            { text: 'Nautilus', link: 'https://nautilus.delta-dao.com/' }
+            // { text: 'Pontus-X CLI (WIP)', link: '' }
           ]
         },
         {
@@ -210,7 +214,7 @@ export const sidebar = {
       ]
     },
     {
-      text: '9. Technical Reference',
+      text: 'Technical Reference',
       collapsed: true,
       items: [
         {
@@ -235,9 +239,9 @@ export const sidebar = {
             {
               text: 'Subgraph - Transaction Cache',
               link: '/docs/technical-architecture/subgraph'
-            },
-            { text: 'Distributed Ledger (WIP)', link: '' },
-            { text: 'Smart Contracts (WIP)', link: '' }
+            }
+            /* { text: 'Distributed Ledger (WIP)', link: '' },
+            { text: 'Smart Contracts (WIP)', link: '' } */
           ]
         },
         {
@@ -339,7 +343,7 @@ export const sidebar = {
         { text: 'Repositories (WIP)', link: '' }
       ]
     },
-    {
+    /*{
       text: '10. Going Live',
       items: [
         { text: 'Overview (WIP)', link: '' },
@@ -355,7 +359,7 @@ export const sidebar = {
         { text: 'Research Papers & Whitepapers (WIP)', link: '' },
         { text: 'Future Outlook (WIP)', link: '' }
       ]
-    },
+      },*/
     {
       text: 'Legal',
       items: [
