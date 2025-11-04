@@ -1,14 +1,14 @@
 # Vision, Mission and Values
 
-Pontus-X is a decentralized digital ecosystem that aims to enable secure, compliant, and innovative data sharing, AI services and monetization across Europe within the Gaia-X framework.
+[Pontus-X](https://www.pontus-x.eu/) is a decentralized digital ecosystem that aims to enable secure, compliant, and innovative data sharing, AI services and monetization across Europe, based on [Ocean Enterprise](https://www.oceanenterprise.io/), and within the [Gaia-X Framework](https://docs.gaia-x.eu/).
 
 ## Vision
 
-Our vision is to be Europe's premier decentralized digital ecosystem, facilitating seamless collaboration and innovation across diverse industries. We envision a future where organizations can securely exchange and monetize their data, driving economic growth and digital transformation while maintaining control over their data.
+Our vision is to be Europe's premier decentralized data space ecosystem, facilitating seamless collaboration and innovation across diverse industries. We envision a future where organizations can securely exchange and monetize their data, driving economic growth and digital transformation while maintaining control over their data.
 
 ## Mission
 
-Enable secure, decentralized, and compliant data sharing and digital service monetization across Europe. We aim to empower organizations with cutting-edge infrastructure that enables data sovereignty and privacy through innovative paradigms like Compute-to-Data (CtD). Pontus-X is committed to fostering a sustainable and competitive ecosystem for digital services within the Gaia-X framework, promoting trust and transparency in the digital economy.
+Enable secure, decentralized, and compliant data sharing and digital service monetization across Europe. We aim to empower organizations with cutting-edge infrastructure that enables data sovereignty and privacy through innovative paradigms like Compute-to-Data (CtD). [Pontus-X](https://www.pontus-x.eu/) is committed to fostering a sustainable and competitive ecosystem for digital services within the [Gaia-X Framework](https://docs.gaia-x.eu/), promoting trust and transparency in the digital economy.
 
 ## Core Values
 
