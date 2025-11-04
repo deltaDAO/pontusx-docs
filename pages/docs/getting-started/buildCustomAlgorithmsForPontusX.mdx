@@ -34,7 +34,7 @@ A Docker image encapsulates the algorithm code and its runtime dependencies. It 
    - **Base Image**: Provides the underlying environment for the algorithm.
    - **Tag**: Identifies a specific version of the image.
 
-Common choices include `python:3.8` or `node:14` from Docker Hub, but you may create a custom Docker image if your algorithm has unique dependencies.
+Common choices include `python:3.15` or `node:24` from Docker Hub, but you may create a custom Docker image if your algorithm has unique dependencies.
 
 ### 2.1 Creating a Custom Docker Image
 
@@ -42,7 +42,7 @@ If your algorithm requires specific dependencies, create a `Dockerfile`:
 
 ```dockerfile
 # Sample Dockerfile
-FROM python:3.8
+FROM python:3.15
 RUN pip install requests pandas
 COPY algorithm.py /algorithm.py
 ENTRYPOINT ["python3", "/algorithm.py"]
@@ -201,9 +201,7 @@ try:
 except requests.exceptions.RequestException as e:
     print(f"API request failed: {e}")
     with open("/data/logs/error.log", "w") as log_file:
-        log_file.write(str
-
-(e))
+        log_file.write(str(e))
 ```
 
 ### 6.2 Node.js Algorithm Example
@@ -271,8 +269,8 @@ const HEADERS = {
 For Compute-to-Data (CtD), you can use either default Docker containers or specify a custom one with the necessary dependencies.
 
 **Example Containers**:
-- **Python**: `python:3.8`
-- **Node**: `node:14`
+- **Python**: `python:3.15`
+- **Node**: `node:24`
 
 If your algorithm requires additional libraries, use a custom Dockerfile and publish it on Docker Hub as shown above.
 
@@ -282,7 +280,7 @@ If your algorithm requires additional libraries, use a custom Dockerfile and pub
 </Callout>
 
 <Callout type="info">
-> **Best Practice**: To avoid this, specify an explicit version (e.g., `python:3.8` or `node:14`) instead of using `latest`. This approach ensures that the CtD environment remains stable and avoids unexpected failures due to container updates.
+> **Best Practice**: To avoid this, specify an explicit version (e.g., `python:3.15` or `node:24`) instead of using `latest`. This approach ensures that the CtD environment remains stable and avoids unexpected failures due to container updates.
 </Callout>
 
 By following these guidelines, you ensure that your algorithm’s environment is predictable, secure, and compatible with published datasets for CtD execution.
