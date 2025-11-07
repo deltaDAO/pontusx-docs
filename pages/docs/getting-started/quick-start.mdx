@@ -66,27 +66,37 @@ curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","metho
 ### Testnet
 
 ```json
-"Ocean": "0x5B190F9E2E721f8c811E4d584383E3d57b865C69",
-"OPFCommunityFeeCollector": "0xACC8d1B2a0007951fb4ed622ACB1C4fcCAbe778D",
-"Router": "0x8947Ff0B317F7b1B6B81F7678CBA8D745B06866C",
-"FixedPrice": "0xcE0F39abB6DA2aE4d072DA78FA0A711cBB62764E",
-"ERC20Template": ["0x6BFd85ABC2E824D4b64d524c89e353D6a3598Db0", "0x50dDFD6F2dD02e94d42F6058E2fa28Be9e43D2BF"],
-"ERC721Template": ["0xC457Ae9f27E6a1DBdbA3A007895994c2542eC929"]
-"Dispenser": "0xaB5B68F88Bc881CAA427007559E9bbF8818026dE",
-"ERC721Factory": "0x2C4d542ff791890D9290Eec89C9348A4891A6Fd2"
+{
+  "Ocean": "0x5B190F9E2E721f8c811E4d584383E3d57b865C69",
+  "OPFCommunityFeeCollector": "0xACC8d1B2a0007951fb4ed622ACB1C4fcCAbe778D",
+  "Router": "0x8947Ff0B317F7b1B6B81F7678CBA8D745B06866C",
+  "FixedPrice": "0xcE0F39abB6DA2aE4d072DA78FA0A711cBB62764E",
+  "ERC20Template": [
+    "0x6BFd85ABC2E824D4b64d524c89e353D6a3598Db0",
+    "0x50dDFD6F2dD02e94d42F6058E2fa28Be9e43D2BF"
+  ],
+  "ERC721Template": ["0xC457Ae9f27E6a1DBdbA3A007895994c2542eC929"],
+  "Dispenser": "0xaB5B68F88Bc881CAA427007559E9bbF8818026dE",
+  "ERC721Factory": "0x2C4d542ff791890D9290Eec89C9348A4891A6Fd2"
+}
 ```
 
 ### Devnet
 
 ```json
-"Ocean": "0xdF171F74a8d3f4e2A789A566Dce9Fa4945196112",
-"OPFCommunityFeeCollector": "0x1f84fB438292269219f9396D57431eA9257C23d4",
-"Router": "0x4Ede1776D6B75de6c907172Abc0453a3C8AB372a",
-"FixedPrice": "0x8372715D834d286c9aECE1AcD51Da5755B32D505",
-"ERC20Template": ["0x02eCd3850B53b1BA8dbCdD146C963cC27f27Dd3C", "0x23Efb300c8778d6842bB0cCBD07D356eCeB97070"],
-"ERC721Template": ["0x5B0cc649134791c2357c93868d6e8D325A31aE29"]
-"Dispenser": "0x5461b629E01f72E0A468931A36e039Eea394f9eA",
-"ERC721Factory": "0xFdC4a5DEaCDfc6D82F66e894539461a269900E13",
+{
+  "Ocean": "0xdF171F74a8d3f4e2A789A566Dce9Fa4945196112",
+  "OPFCommunityFeeCollector": "0x1f84fB438292269219f9396D57431eA9257C23d4",
+  "Router": "0x4Ede1776D6B75de6c907172Abc0453a3C8AB372a",
+  "FixedPrice": "0x8372715D834d286c9aECE1AcD51Da5755B32D505",
+  "ERC20Template": [
+    "0x02eCd3850B53b1BA8dbCdD146C963cC27f27Dd3C",
+    "0x23Efb300c8778d6842bB0cCBD07D356eCeB97070"
+  ],
+  "ERC721Template": ["0x5B0cc649134791c2357c93868d6e8D325A31aE29"],
+  "Dispenser": "0x5461b629E01f72E0A468931A36e039Eea394f9eA",
+  "ERC721Factory": "0xFdC4a5DEaCDfc6D82F66e894539461a269900E13"
+}
 ```
 
 ## Portal Config File
@@ -102,7 +112,7 @@ metadataCacheUri: 'https://aquarius.pontus-x.eu',
 nodeUri: 'https://rpc.test.pontus-x.eu',
 providerUri: 'https://provider.test.pontus-x.eu',
 subgraphUri: 'https://subgraph.test.pontus-x.eu',
-explorerUri: 'https://explorer.pontus-x.eu/testnet/pontusx',
+explorerUri: 'https://explorer.pontus-x.eu/pontusx/test',
 oceanTokenAddress: '0x5B190F9E2E721f8c811E4d584383E3d57b865C69',
 oceanTokenSymbol: 'OCEAN',
 fixedRateExchangeAddress: '0xcE0F39abB6DA2aE4d072DA78FA0A711cBB62764E',
@@ -131,7 +141,7 @@ metadataCacheUri: 'https://aquarius.pontus-x.eu',
 nodeUri: 'https://rpc.dev.pontus-x.eu',
 providerUri: 'https://provider.dev.pontus-x.eu',
 subgraphUri: 'https://subgraph.dev.pontus-x.eu',
-explorerUri: 'https://explorer.pontus-x.eu/testnet/pontusx',
+explorerUri: 'https://explorer.pontus-x.eu/pontusx/dev',
 oceanTokenAddress: '0xdF171F74a8d3f4e2A789A566Dce9Fa4945196112',
 oceanTokenSymbol: 'OCEAN',
 fixedRateExchangeAddress: '0x8372715D834d286c9aECE1AcD51Da5755B32D505',
