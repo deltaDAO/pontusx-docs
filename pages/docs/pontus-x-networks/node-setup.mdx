@@ -29,14 +29,14 @@ Download the genesis file, Oasis node, and runtimes:
 
 ```bash
 wget https://github.com/oasisprotocol/testnet-artifacts/releases/download/2023-10-12/genesis.json -P /node/etc/
-wget https://github.com/oasisprotocol/oasis-core/releases/download/v24.0/oasis_core_24.0_linux_amd64.tar.gz -P /
+wget https://github.com/oasisprotocol/oasis-core/releases/download/v25.4/oasis_core_25.4_linux_amd64.tar.gz -P /node/bin
 wget https://github.com/oasisprotocol/pontusx-paratime/releases/download/v0.0.2-testnet/pontusx-paratime.orc -P /node/runtimes/
 ```
 
 Download the attestation tool:
 
 ```bash
-wget https://github.com/oasisprotocol/tools/releases/download/attestation-tool-0.3.3/attestation-tool
+wget https://github.com/oasisprotocol/tools/releases/download/attestation-tool-0.3.4/attestation-tool
 ```
 
 ## SGX Installation
@@ -60,13 +60,16 @@ common:
       default: debug
     format: JSON
 consensus:
+  prune:
+      strategy: keep_n
+      num_kept: 10000
   external_address: tcp://${SERVER_IP}:26656
   listen_address: tcp://0.0.0.0:26656
   state_sync:
     enabled: true
     trust_period: 720h
-    trust_height: 21051680
-    trust_hash: cdd2f4d7a656b0b64bc13ab0db8410cb53d35102bc813713eadc07a2776faf50
+    trust_height: <! Latest - 200.000 !>
+    trust_hash: <! Hash from Blocknumber above !>
 genesis:
   file: /node/etc/genesis.json
 ias:
@@ -118,7 +121,7 @@ WantedBy=multi-user.target
 Download the Oasis Web3 Gateway:
 
 ```bash
-wget https://github.com/oasisprotocol/oasis-web3-gateway/releases/download/v5.0.1/oasis_web3_gateway_5.0.1_linux_amd64.tar.gz -P /node/web3_gateway/
+wget https://github.com/oasisprotocol/oasis-web3-gateway/releases/download/v5.3.4/oasis_web3_gateway_5.3.4_linux_amd64.tar.gz -P /node/web3_gateway/
 ```
 
 Create the directory for Docker setup:
@@ -143,7 +146,7 @@ services:
       ]
     environment:
       POSTGRES_USER: pontusx_admin
-      POSTGRES_PASSWORD: "xxxxxxxx"
+      POSTGRES_PASSWORD: "${PASSWORD}"
       POSTGRES_DB: pontusx
       PGDATA: "/var/lib/postgresql/data"
     volumes:
