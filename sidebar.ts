@@ -101,6 +101,7 @@ export const sidebar = {
         { text: 'Quick Start', link: '/docs/getting-started/quick-start' },
         { text: 'Introduction', link: '/docs/getting-started/introduction' },
         { text: 'Wallet Setup', link: '/docs/getting-started/wallet-setup' },
+        { text: 'Quick Links', link: '/docs/quick_links' },
         {
           text: 'Pontus-X Ecosystem',
           link: '/docs/getting-started/pontus-x-ecosystem'
