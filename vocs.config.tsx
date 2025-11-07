@@ -7,7 +7,7 @@ export default defineConfig({
   title: 'Pontus-X Docs',
   titleTemplate: '%s · Pontus-X Docs',
   description:
-    'The official documentation for Pontus-X, a decentralized data and ai ecosystem.',
+    'The official documentation for Pontus-X, a decentralized data and AI ecosystem.',
   head() {
     return (
       <>
