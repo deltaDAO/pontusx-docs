@@ -1,10 +1,23 @@
-# Registry - List of Pontus-X Participants
+import ParticipantsList from '../_components/ParticipantsList'
+
+# Ecosystem Participant Registry
 
 The list of Pontus-X participants keeps track of the onboarded and identified legal persons that are able to use the Pontus-X ecosystem. It summarizes the information collected in the Gaia-X participant credentials that have been issued over various versions of the [Gaia-X Trust Framework](https://docs.delta-dao.com/policy-rules-committee/trust-framework/22.10/) and onboarding workshops with Gaia-X Hubs across Europe.
 
 Within the [Pontus-X ecosystem](https://portal.pontus-x.eu/) participants are primarily identified through their public addresses which are derived from their public (and respective private) key. This information is also used for the [Pontus-X logging service](https://explorer.pontus-x.eu) and audit trails. Within the participant credentials you will find the information required by the [Gaia-X Trust Framework](https://docs.delta-dao.com/policy-rules-committee/trust-framework/22.10/) combined with the public address to bind identities across ecosystems together.
 
 If you notice a credential being outdated or an address missing here, please let us know via contact@delta-dao.com.
+
+## Registry 2.0
+
+The new **Registry 2.0** brings the ecosystem to maturity by leveraging on-chain data as the source of truth. Data is dynamically loaded via a cached REST API, ensuring real-time updates without manual maintenance. This approach eliminates dependency on hardcoded data and enables a scalable, decentralized registry system.
+
+<ParticipantsList cacheBaseUrl={"https://cache.registry.staging.pontus-x.eu"} />
+
+
+## Registry 1.0 (Deprecated)
+
+Our initial registry relied on hardcoded data manually maintained within the codebase, making it difficult to scale and prone to synchronization issues. This approach has been deprecated in favor of Registry 2.0's on-chain, automated approach.
 
 | Participant (Gaia-X Loire)                                                                                                  | Public Address                             | Status      | Gaia-X Participant 22.10 Credential                                                              |
 | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------ |

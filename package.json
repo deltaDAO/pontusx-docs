@@ -8,9 +8,11 @@
     "preview": "vocs preview"
   },
   "dependencies": {
+    "@deltadao/pontusx-registry-hooks": "^0.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "remark-gemoji": "^8.0.0",
+    "swr": "^2.3.7",
     "vocs": "^1.0.13"
   },
   "devDependencies": {
