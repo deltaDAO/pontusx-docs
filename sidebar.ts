@@ -99,7 +99,7 @@ export const sidebar = {
       collapsed: false,
       items: [
         { text: 'Quick Start', link: '/docs/getting-started/quick-start' },
-        { text: 'Introduction', link: '/docs/getting-started/introduction' },
+        { text: 'Onboarding Guide', link: '/docs/getting-started/Onboarding-Guide' },
         { text: 'Wallet Setup', link: '/docs/getting-started/wallet-setup' },
         { text: 'Quick Links', link: '/docs/quick_links' },
         {
