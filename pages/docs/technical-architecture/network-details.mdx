@@ -1,10 +1,13 @@
 # Network Details
+
 This page contains all the necessary configuration details,contract addresses and middleware endpoints for connecting to the Pontus-X Testnet and Devnet.
 
 ## MetaMask Parameters
+
 Use these parameters to add the Pontus-X Testnet and Devnet to your MetaMask wallet.
 
 ### Testnet
+
 - Network name: Pontus-X Testnet
 - RPC URL: https://rpc.test.pontus-x.eu/
 - Chain ID: 32457
@@ -12,6 +15,7 @@ Use these parameters to add the Pontus-X Testnet and Devnet to your MetaMask wal
 - Block Explorer URL: [https://explorer.pontus-x.eu/pontusx/test](https://explorer.pontus-x.eu/pontusx/test)
 
 ### Devnet
+
 - Network name: Pontus-X Devnet
 - RPC URL: https://rpc.dev.pontus-x.eu/
 - Chain ID: 32456
@@ -23,7 +27,7 @@ You can use the Pontus-X Devnet and Testnet without Metamask. See chapter [Walle
 :::
 
 :::info
-  You can also operate your custom RPC node and Explorer and use it instead.
+You can also operate your custom RPC node and Explorer and use it instead.
 :::
 
 ## ERC20 Token Smart Contracts for Payments
@@ -31,16 +35,16 @@ You can use the Pontus-X Devnet and Testnet without Metamask. See chapter [Walle
 The fee token will be automatically added to your wallet when adding the network. The payment tokens need to be manually imported to be visible as your wallet balance. For this use "import token" and use the below smart contract address.
 
 :::info
-  **Note** that [EURAU](https://allunity.com/) is also used as a network fee token and is not identical with the ERC-20 EURAU token. The formerly used [EUROe](https://www.euroe.com/) token is deprecated.
+**Note** that [EURAU](https://allunity.com/) is also used as a network fee token and is not identical with the ERC-20 EURAU token. The formerly used [EUROe](https://www.euroe.com/) token is deprecated.
 :::
 
 ### Testnet
 
-| Token Name                           | Smart Contract Address                     | Comment       |
-| ------------------------------------ | ------------------------------------------ | ------------- |
-| [EURAU](https://allunity.com/)       | 0xE158265FD2be5BCc208621f2c0f8AfCF11aC8408 | Payment Token |
-| [EUROe](https://www.euroe.com/)      | 0xdd0a0278f6BAF167999ccd8Aa6C11A9e2fA37F0a | Payment Token |
-| [Ocean](https://oceanprotocol.com/)  | 0x5B190F9E2E721f8c811E4d584383E3d57b865C69 | Payment Token |
+| Token Name                          | Smart Contract Address                     | Comment       |
+| ----------------------------------- | ------------------------------------------ | ------------- |
+| [EURAU](https://allunity.com/)      | 0xE158265FD2be5BCc208621f2c0f8AfCF11aC8408 | Payment Token |
+| [EUROe](https://www.euroe.com/)     | 0xdd0a0278f6BAF167999ccd8Aa6C11A9e2fA37F0a | Payment Token |
+| [Ocean](https://oceanprotocol.com/) | 0x5B190F9E2E721f8c811E4d584383E3d57b865C69 | Payment Token |
 
 ### Devnet
 
@@ -50,8 +54,8 @@ The fee token will be automatically added to your wallet when adding the network
 | [EUROe](https://www.euroe.com/)     | 0x8A4826071983655805bF4f29828577Cd6b1aC0cB | Payment Token |
 | [Ocean](https://oceanprotocol.com/) | 0xdF171F74a8d3f4e2A789A566Dce9Fa4945196112 | Payment Token |
 
-
 ## Query from Nodes and Validators
+
 Use these curl commands to directly query the public RPC nodes to verify their status or retrieve block data.
 
 ### Get latest block
@@ -67,9 +71,11 @@ curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","metho
 ```
 
 # Pontus-X Infrastructure
+
 This section provides the addresses for all core Pontus-X infrastructure components, including deployed Ocean Protocol contracts and middleware service endpoints.
 
 ## Ocean Protocol Contracts
+
 Here are the deployed addresses of the core Ocean Protocol smart contracts on each network.
 
 ### Testnet
@@ -109,7 +115,9 @@ Here are the deployed addresses of the core Ocean Protocol smart contracts on ea
 ```
 
 ## Portal Config File
+
 This is the `chains.config.js` object used by the Pontus-X Portal front-end to connect to the Pontus-X infrastructure.
+
 ### Testnet
 
 ```javascript
@@ -137,7 +145,6 @@ providerAddress: '0x9546d39CE3E48BC942f0be4AA9652cBe0Aff3592'
 ```
 
 Source: https://github.com/deltaDAO/mvg-portal/blob/development/chains.config.js
-
 
 ### Devnet
 
@@ -167,12 +174,12 @@ providerAddress: '0x68C24FA5b2319C81b34f248d1f928601D2E5246B'
 
 Source: https://github.com/deltaDAO/mvg-portal/blob/development/chains.config.js
 
-
 ## Middleware Components
+
 These are the public API endpoints for the core middleware services (Provider, Aquarius, and Subgraph) that power the ecosystem.
 
 :::info
-  You also have the option to run your custom middleware components. These publicly available components are available for quick onboarding and less resource-intensive testing.
+You also have the option to run your custom middleware components. These publicly available components are available for quick onboarding and less resource-intensive testing.
 :::
 
 ### Testnet
