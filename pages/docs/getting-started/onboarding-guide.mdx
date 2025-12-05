@@ -1,0 +1,79 @@
+# Onboarding Guide
+
+Welcome to the Pontus-X data & AI ecosystem onboarding guide. This guide is designed to facilitate your onboarding process to the Gaia-X Lighthouse Data Space, ensuring you have all the necessary tools and information to become an active participant in the Pontus-X data space and the wider Gaia-X ecosystem of ecosystems.
+
+## Quick Start - Onboarding in Minutes
+
+Get onboarded to the largest publicly available Gaia-X Data Space Ecosystem in just minutes through our streamlined onboarding application at https://onboarding.delta-dao.com/
+
+The application allows legal participants to join the ecosystem through a simple four-step process without the need to deploy any infrastructure:
+
+- Register your Organisation - Provide your legal entity information
+- Create or Add Wallets - Create and/or connect your keys for ecosystem interaction
+- Request Onboarding to the Ecosystem - Submit your onboarding request for verification and receive your Gaia-X Credentials
+- Start Using the Ecosystem - Once verified and approved, directly access the portal at https://portal.pontus-x.eu/ or any other ecosystem portal.
+
+## Onboarding Requirements
+
+Here’s what you’ll need to get started.
+
+### Mandatory (For All Pontus-X Participants)
+
+- A modern browser (Chrome, Brave, or Firefox).
+- A legal identifier of your Organization (e.g., VAT ID, EORI, or LEI Code).
+- An institutional e-mail address (for domain validation).
+- A private-public keypair (SECP256K1 key).
+  - This can be created within the onboarding application itself.
+  - Alternatively, you can use any suitable existing wallet solution.
+
+### Optional (For Full Gaia-X Compliance)
+
+> **Note:** Full Gaia-X compliance is **optional**, but **natively supported as de-facto standard** within the Pontus-X ecosystem. The mandatory steps above are all you need to get started.
+
+For participants who wish to test or achieve full Gaia-X compliance, the following items are typically required:
+
+- An X.509 certificate with a certificate chain leading to a Gaia-X accredited Trust Anchor.
+- A private RSA key linked to your X.509 certificate and organization.
+- A web-hosting solution to store your participant and service credentials (as JSON documents).
+- A web-hosting solution to store your DID (Decentralized Identifier) document.
+
+---
+
+## What You Can Do After Onboarding
+
+Once you are onboarded, you will be identified as a verified participant in the ecosystem, allowing you to:
+
+- Discover, consume, publish, and manage data, software, and infrastructure services.
+- Offer federation services to other participants.
+- Manage your digital identity and credentials.
+- Transfer funds (using virtual test currency) and settle business transactions in Pontus-X.
+
+---
+
+## How Onboarding and Identification Work
+
+### The Simple Pontus-X Onboarding
+
+Our goal is to create a trustworthy and transparent environment. The onboarding application handles the basic identification for you:
+
+1.  **Identity Verification:** You provide your legal entity information (like your VAT ID) and a business email. deltaDAO performs a basic validation to verify your organization is a legitimate and properly registered organization. This ensures a high base level of trust in the Pontus-X ecosystem.
+2.  **Key Creation:** You will create a new or add an existing wallet (a SECP256K1 keypair). This acts as your digital signature to interact with the ecosystem.
+3.  **Registration:** Once verified, you are registered in the Ecosystem Registry.
+
+This simple process makes you a **verified participant** in Pontus-X, allowing you to start building and testing immediately.
+
+### Optional: The Path to Full Gaia-X Compliance
+
+For participants who want to achieve full Gaia-X compliance for own service offerings (as defined by the Gaia-X Trust Framework and Complianc Document), a more formal process is needed. This involves creating a set of sovereign self-signed verifiable credentials that prove specific claims about your organization.
+
+This process typically includes:
+
+1. **Creating Credentials:** You must prepare self-sovereign credential payloads for your legal identity (name, registration number, address) and for your organizations acceptance of the Gaia-X Terms and Conditions.
+2. **Getting Signed:** These credentials must be cryptographically signed by your organization and an accredited Gaia-X Digital Clearing House (GXDCH) to be considered valid Verifiable Credentials.
+3. **Hosting Credentials:** You must host these credentials on your own web server (often in a `.well-known` directory) or SSI wallet solution.
+
+For testing purposes and get started quickly within the Pontus-X ecosystem, deltaDAO can act as a Trust Anchor to help you create and validate these credentials. This is a primary feature of the ["Fast Track" Onboarding Application](https://onboarding.delta-dao.com/).
+
+#### Future Support for Gaia-X Loire
+
+The "Fast Track" Onboarding Application is continuously evolving. A future iteration will include support for creating self-sovereign **Gaia-X Participant Credentials, based on Loire (v2)** directly within the application, further simplifying the path to full compliance.
