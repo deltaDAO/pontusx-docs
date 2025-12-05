@@ -98,7 +98,6 @@ export const sidebar = {
       text: 'Getting started',
       collapsed: false,
       items: [
-        { text: 'Quick Start', link: '/docs/getting-started/quick-start' },
         { text: 'Onboarding Guide', link: '/docs/getting-started/onboarding-guide' },
         { text: 'Wallet Setup', link: '/docs/getting-started/wallet-setup' },
         { text: 'Quick Links', link: '/docs/quick_links' },
@@ -328,7 +327,8 @@ export const sidebar = {
               ]
             }
           ]
-        }
+        },
+        { text: 'Network Details', link: '/docs/technical-architecture/network-details' }
         // { text: 'API and Integration Reference (WIP)', link: '' },
         // { text: 'Repositories (WIP)', link: '' }
       ]
