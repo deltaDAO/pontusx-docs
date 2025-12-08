@@ -1,3 +1,5 @@
 * @deltaDAO/frontend
 
 *.mdx @deltaDAO/documentation @deltaDAO/frontend
+
+pages/privacy.mdx @deltaDAO/privacy
