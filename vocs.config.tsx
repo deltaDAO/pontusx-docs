@@ -3,7 +3,6 @@ import { sidebar } from './sidebar'
 import remarkGemoji from 'remark-gemoji'
 
 export default defineConfig({
-  baseUrl: 'https://docs.pontus-x.eu',
   title: 'Pontus-X Docs',
   titleTemplate: '%s · Pontus-X Docs',
   description:
@@ -19,13 +18,7 @@ export default defineConfig({
       </>
     )
   },
-  ogImageUrl: {
-    '/': '/og-image.png',
-    '/docs':
-      'https://vocs.dev/api/og?logo=%logo&title=%title&description=%description',
-    '/op-stack':
-      'https://vocs.dev/api/og?logo=%logo&title=%title&description=%description',
-  },
+  ogImageUrl: '/og-image.png',
   iconUrl: { light: '/favicons/icon.png', dark: '/favicons/icon.png' },
   logoUrl: { light: '/icon-light.png', dark: '/icon-dark.png' },
   rootDir: '.',
