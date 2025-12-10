@@ -4,10 +4,6 @@ import { useMemo } from 'react'
 
 interface ParticipantsListProps {
   /**
-   * Optional contract address to filter by
-   */
-  contractAddress?: string
-  /**
    * Optional custom registry cache base URL
    * @default "https://cache.registry.pontus-x.eu"
    */
@@ -20,28 +16,16 @@ interface ParticipantsListProps {
 }
 
 export default function ParticipantsList({
-  contractAddress,
   cacheBaseUrl = 'https://cache.registry.pontus-x.eu/',
   explorerBaseUrl = 'https://explorer.pontus-x.eu/pontusx/test',
 }: ParticipantsListProps = {}) {
   const { data, error, isLoading } = usePontusXRegistry({ apiBaseUrl: cacheBaseUrl })
 
-  const identities = useMemo(() => data ?? [], [data])
-
-  // Filter by contract address if provided
-  const filteredIdentities = useMemo(()=> {
-    if(!identities || identities.length === 0) return []
-    return contractAddress
-    ? (identities as PontusXIdentity<'v1'>[]).filter(
-        (identity) =>
-          identity.contractAddress.toLowerCase() ===
-          contractAddress.toLowerCase()
-      )
-    : identities as PontusXIdentity<'v1'>[]
-  }, [identities]) 
+  // Cast to v1 identities as we do not include "deprecated" identities above
+  const identities = useMemo(() => data as PontusXIdentity<'v1'>[] ?? [], [data])
 
   // Sort by legal name (nulls last) and then by wallet address
-  const sortedIdentities = useMemo(() => [...filteredIdentities].sort((a, b) => {
+  const sortedIdentities = useMemo(() => [...identities].sort((a, b) => {
     if (a.legalName === null && b.legalName !== null) return 1
     if (a.legalName !== null && b.legalName === null) return -1
     if (a.legalName && b.legalName) {
@@ -49,7 +33,7 @@ export default function ParticipantsList({
       if (nameComparison !== 0) return nameComparison
     }
     return a.walletAddress.localeCompare(b.walletAddress)
-  }), [filteredIdentities])
+  }), [identities])
 
   if (error) {
     return (
