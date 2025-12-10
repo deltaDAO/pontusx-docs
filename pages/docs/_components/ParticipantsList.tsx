@@ -24,27 +24,9 @@ export default function ParticipantsList({
   cacheBaseUrl = 'https://cache.registry.pontus-x.eu/',
   explorerBaseUrl = 'https://explorer.pontus-x.eu/pontusx/test',
 }: ParticipantsListProps = {}) {
-  const { data: identities, error, isLoading } = usePontusXRegistry({ apiBaseUrl: cacheBaseUrl })
+  const { data, error, isLoading } = usePontusXRegistry({ apiBaseUrl: cacheBaseUrl })
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-red-600 dark:text-red-400">
-          Error loading registry: {error.message}
-        </div>
-      </div>
-    )
-  }
-
-  if (!isLoading && (!identities || identities.length === 0)) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-gray-600 dark:text-gray-400">
-          No participants found
-        </div>
-      </div>
-    )
-  }
+  const identities = useMemo(() => data ?? [], [data])
 
   // Filter by contract address if provided
   const filteredIdentities = useMemo(()=> {
@@ -68,6 +50,26 @@ export default function ParticipantsList({
     }
     return a.walletAddress.localeCompare(b.walletAddress)
   }), [filteredIdentities])
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-red-600 dark:text-red-400">
+          Error loading registry: {error.message}
+        </div>
+      </div>
+    )
+  }
+
+  if (!isLoading && (!identities || identities.length === 0)) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-gray-600 dark:text-gray-400">
+          No participants found
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="overflow-x-auto">
