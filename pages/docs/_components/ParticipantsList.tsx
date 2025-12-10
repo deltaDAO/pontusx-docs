@@ -1,3 +1,4 @@
+'use client'
 import { PontusXIdentity, usePontusXRegistry } from '@deltadao/pontusx-registry-hooks'
 import { useMemo } from 'react'
 
