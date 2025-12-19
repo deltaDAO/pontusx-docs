@@ -1,0 +1,47 @@
+# Pontus-X Ecosystem Changelog
+## December 1–20, 2025
+
+**Period Summary**: 14 repositories active | 84 PRs merged | 268 commits | 22 contributors. Focus on onboarding automation, identity remediation, registry integration, and Ocean Node reliability improvements. Advances fast-track onboarding via Gaia-X identity support and strengthens compute-to-data interoperability.
+
+---
+
+### Highlights
+
+- 🚀 **Identity Remediation & Verification** — Platform API now supports remediation workflows with user email tracking and admin-triggered credential creation; enables streamlined participant verification.
+- 💫 **Registry 2.0 Hooks** — Pontus-X Registry React Hooks introduced via npm to render registry entries without custom API glue. [npm](https://www.npmjs.com/package/@deltadao/pontusx-registry-hooks)
+- 🧩 **Registry 2.0 Integration** — Pontus-X Docs now dynamically retrieves and displays participants from Registry 2.0 via caching layer; improves transparency and participant discoverability. [#163](https://github.com/deltaDAO/pontusx-docs/pull/163)
+- ⚙️ **Ocean Node Smart Wallet Support** — Added ERC-1271 signature validation for smart account (contract-based) wallets; enables account abstraction and gas sponsorship workflows. [#1105](https://github.com/oceanprotocol/ocean-node/pull/1105) [#1124](https://github.com/oceanprotocol/ocean-node/pull/1124)
+- ⚙️ **WebSocket Security for Ocean Nodes** — Introduced WSS (WebSocket Secure) support with auto-TLS; strengthens browser-to-node communication for decentralized compute networks. [#1111](https://github.com/oceanprotocol/ocean-node/pull/1111)
+- 🧱 **Onboarding Portal Enhancement** — Refactored final step with wallet instructions and reusable step components; reduces friction for new participants.
+
+---
+
+### Improvements
+
+- **Compute Environment Min Duration** — Ocean Node now supports `minJobDuration` configuration for compute environments; prevents resource waste on short-lived jobs. [#1117](https://github.com/oceanprotocol/ocean-node/pull/1117)
+- **Onboarding Documentation** — Comprehensive docs refresh with updated guides, network details, color scheme system support, and Gaia-X compliance language; clarifies participant journey. [#157](https://github.com/deltaDAO/pontusx-docs/pull/157) [#156](https://github.com/deltaDAO/pontusx-docs/pull/156) [#162](https://github.com/deltaDAO/pontusx-docs/pull/162)
+- **Organization Creation** — Fixed unique constraint blocking on authId placeholders; resolves onboarding failures for bulk participant registration. [#281](https://github.com/deltaDAO/platform-monorepo/pull/281)
+- **Registry Name Resolution** — MVG Portal now correctly resolves participant names against new registry hook in publish flow; prevents address lookup errors. [#825](https://github.com/deltaDAO/mvg-portal/pull/825)
+- **Kubernetes Flux Upgrade** — Migrated from Flux v2.4 to v2.7; improves GitOps stability and adds microservice registry caching automation. [#19](https://github.com/deltaDAO/kubernetes-ocean-stack-flux/pull/19) [#18](https://github.com/deltaDAO/kubernetes-ocean-stack-flux/pull/18)
+- **Ocean Node Admin Validation** — Enhanced logging and ERC-1271 fallback for smart wallet signature verification; improves debuggability and AA compatibility. [#1124](https://github.com/oceanprotocol/ocean-node/pull/1124)
+
+---
+
+### Integrations
+
+- **Registry Cache Integration** — Pontus-X Docs now calls production registry cache at `https://cache.registry.pontus-x.eu` for live participant list; decouples documentation from manual updates. [#163](https://github.com/deltaDAO/pontusx-docs/pull/163)
+- **Participant Onboarding (AgrospAI Ecosystem)** — MVG Portal onboarded 9 new agricultural data participants (DTComunicacio, PAUONAADA, DISITALENT, EconutrientsBiomarkets, FORMATE, Martirbas, Avicola Subirats, PROLEC, PecusVet); expands sector-specific data sharing. [#821](https://github.com/deltaDAO/mvg-portal/pull/821) [#819](https://github.com/deltaDAO/mvg-portal/pull/819)
+
+---
+
+### Infrastructure & Operations
+
+- **Dependency Security Updates** — Ocean.js and Ocean Node dependencies updated (tsx, mocha, min-document, js-yaml, jws, next); addresses prototype pollution and Node 25+ compatibility. [#1997](https://github.com/oceanprotocol/ocean.js/pull/1997) [#1999](https://github.com/oceanprotocol/ocean.js/pull/1999) [#2012](https://github.com/oceanprotocol/ocean.js/pull/2012) [#2015](https://github.com/oceanprotocol/ocean.js/pull/2015) [#2019](https://github.com/oceanprotocol/ocean.js/pull/2019) [#211](https://github.com/oceanprotocol/nodes-dashboard/pull/211)
+- **Privacy Policy Updates** — Pontusx-docs and platform-monorepo privacy policies updated to reflect cookie usage and registry cache calls; ensures GDPR compliance. [#164](https://github.com/deltaDAO/pontusx-docs/pull/164) [#166](https://github.com/deltaDAO/pontusx-docs/pull/166) [#163](https://github.com/deltaDAO/pontusx-docs/pull/163)
+
+---
+
+### Bug Fixes
+
+- **Explorer Links** — Corrected explorer navigation links in MVG Portal; restores blockchain explorer integration. [#826](https://github.com/deltaDAO/mvg-portal/pull/826)
+- **Redirect Configuration** — Removed base URL from docs config to fix preview redirects; resolves staging environment routing. [#165](https://github.com/deltaDAO/pontusx-docs/pull/165)
