@@ -30,6 +30,10 @@ export const sidebar = {
         // { text: 'What is the Pontus-X Network', link: '/docs/introduction/network'}
       ]
     },
+    {
+      text: 'Changelog',
+      link: '/docs/changelog'
+    },
     /*{
       text: '2. Key Concepts',
       collapsed: true,
