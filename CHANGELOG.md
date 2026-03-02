@@ -1,3 +1,9 @@
+# 0.7.0
+
+- **Registry 2.0**: Participant list now groups wallet addresses by company; addresses are hidden by default and expandable per company row
+- **Registry 2.0**: Multiple credentials across addresses for the same company are surfaced as an info indicator
+- **Registry 1.0**: Removed the deprecated static participant table from the docs; a reference link to the archived source is retained
+
 # 0.6.0
 
 - **Deprecated**: The old Registry (1.0) (/docs/participants-and-federators/ecosystem-participants) has been deprecated
