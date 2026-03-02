@@ -1,3 +1,5 @@
+'use client'
+
 interface HighlightTextProps {
   text: string
   query: string

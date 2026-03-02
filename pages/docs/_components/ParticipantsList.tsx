@@ -1,4 +1,5 @@
 'use client'
+
 import { usePontusXRegistry, PontusXIdentity } from '@deltadao/pontusx-registry-hooks'
 import { useMemo, useState } from 'react'
 import InfoIcon from './icons/Info'
