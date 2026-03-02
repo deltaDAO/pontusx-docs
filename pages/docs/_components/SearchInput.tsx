@@ -71,7 +71,7 @@ interface SearchInputProps {
 export default function SearchInput({
   value,
   onChange,
-  placeholder = 'Search by company name or addresses...',
+  placeholder = 'Search by institution name or addresses...',
 }: SearchInputProps) {
   return (
     <div className="relative mb-3">

@@ -105,7 +105,7 @@ export default function ParticipantsList({
         <thead className="bg-gray-50 dark:bg-gray-800 sticky top-0">
           <tr>
             <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-              Company
+              Institution
             </th>
             <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Addresses
