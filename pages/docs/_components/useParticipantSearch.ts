@@ -14,7 +14,7 @@ export function useParticipantSearch(
   query: string,
 ): UseParticipantSearchResult {
   return useMemo<UseParticipantSearchResult>(() => {
-    const trimmed = query.trim()
+    const trimmed = (query ?? '').trim()
 
     if (!trimmed) {
       return { filteredGroups: groups, addressMatchKeys: new Set(), matchedWalletAddresses: new Set() }

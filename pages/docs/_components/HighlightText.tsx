@@ -15,18 +15,22 @@ export default function HighlightText({
   className,
   highlightClassName = 'bg-yellow-200 dark:bg-yellow-500/40 text-yellow-900 dark:text-yellow-100 rounded-sm px-0.5',
 }: HighlightTextProps) {
-  if (!query.trim()) {
-    return <span className={className}>{text}</span>
+  const safeQuery = query ?? ''
+  const safeText = text ?? ''
+
+  if (!safeQuery.trim()) {
+    return <span className={className}>{safeText}</span>
   }
 
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const regex = new RegExp(`(${escaped})`, 'gi')
-  const parts = text.split(regex)
+  const escaped = safeQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  // Use a capturing group so split() interleaves non-match / match / non-match…
+  // Odd-indexed parts are the matches; avoids stateful regex.test() with the g flag.
+  const parts = safeText.split(new RegExp(`(${escaped})`, 'i'))
 
   return (
     <span className={className}>
       {parts.map((part, i) =>
-        regex.test(part) ? (
+        i % 2 !== 0 ? (
           <mark key={i} className={highlightClassName}>
             {part}
           </mark>
