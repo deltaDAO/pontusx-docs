@@ -104,7 +104,7 @@ export default function ParticipantsList({
               Company
             </th>
             <th scope="col" className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-              Identities
+              Addresses
             </th>
             <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Credential
@@ -279,9 +279,9 @@ export default function ParticipantsList({
         ) : (
           <>
             <span>
-              {companyGroups.length} compan{companyGroups.length !== 1 ? 'ies' : 'y'}
+              {companyGroups.length} institution{companyGroups.length !== 1 ? 's' : ''}
               {' · '}
-              {totalAddresses} wallet address{totalAddresses !== 1 ? 'es' : ''}
+              {totalAddresses} address{totalAddresses !== 1 ? 'es' : ''}
             </span>
           </>
         )}
