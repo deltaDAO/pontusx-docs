@@ -4,10 +4,8 @@ import { usePontusXRegistry, PontusXIdentity } from '@deltadao/pontusx-registry-
 import { useMemo, useState } from 'react'
 import InfoIcon from './icons/Info'
 import ExternalLinkIcon from './icons/ExternalLink'
-import SearchInput from './SearchInput'
+import SearchInput, { useParticipantSearch, type CompanyGroup } from './SearchInput'
 import HighlightText from './HighlightText'
-import { useParticipantSearch } from './useParticipantSearch'
-import type { CompanyGroup } from './types'
 
 interface ParticipantsListProps {
   /**
