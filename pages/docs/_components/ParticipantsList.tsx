@@ -60,6 +60,9 @@ export default function ParticipantsList({
   }, [identities])
 
   const { filteredGroups, addressMatchKeys, matchedWalletAddresses } = useParticipantSearch(companyGroups, query)
+  const filteredAddressCount = useMemo(() => {
+    return filteredGroups.reduce((s, g) => s + g.identities.length, 0)
+  }, [filteredGroups])
 
   // Effective expansion = manual + auto-expanded from address search
   const effectiveExpandedKeys = useMemo(
@@ -302,7 +305,7 @@ export default function ParticipantsList({
           <span>
             {filteredGroups.length} of {companyGroups.length} institution{companyGroups.length !== 1 ? 's' : ''}
             {' · '}
-            {filteredGroups.reduce((s, g) => s + g.identities.length, 0)} address{filteredGroups.reduce((s, g) => s + g.identities.length, 0) !== 1 ? 'es' : ''}
+            {filteredAddressCount} address{filteredAddressCount !== 1 ? 'es' : ''}
           </span>
         ) : (
           <span>
