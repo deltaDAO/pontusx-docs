@@ -1,8 +1,12 @@
 'use client'
-import { PontusXIdentity, usePontusXRegistry } from '@deltadao/pontusx-registry-hooks'
+import { usePontusXRegistry, PontusXIdentity } from '@deltadao/pontusx-registry-hooks'
 import { useMemo, useState } from 'react'
 import InfoIcon from './icons/Info'
 import ExternalLinkIcon from './icons/ExternalLink'
+import SearchInput from './SearchInput'
+import HighlightText from './HighlightText'
+import { useParticipantSearch } from './useParticipantSearch'
+import type { CompanyGroup } from './types'
 
 interface ParticipantsListProps {
   /**
@@ -17,23 +21,13 @@ interface ParticipantsListProps {
   explorerBaseUrl?: string
 }
 
-interface CompanyGroup {
-  legalName: string | null
-  /** Unique key for React / expansion state */
-  key: string
-  identities: PontusXIdentity<'v1'>[]
-  /** True when addresses within this group have differing presentationUrls */
-  hasMismatchedPresentations: boolean
-  /** Distinct non-null presentationUrls found in this group */
-  uniquePresentationUrls: string[]
-}
-
 export default function ParticipantsList({
   cacheBaseUrl = 'https://cache.registry.pontus-x.eu/',
   explorerBaseUrl = 'https://explorer.pontus-x.eu/pontusx/test',
 }: ParticipantsListProps = {}) {
   const { data, error, isLoading } = usePontusXRegistry({ apiBaseUrl: cacheBaseUrl })
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set())
+  const [query, setQuery] = useState('')
 
   // Cast to v1 identities — deprecated identities are excluded
   const identities = useMemo(() => data as PontusXIdentity<'v1'>[] ?? [], [data])
@@ -66,6 +60,14 @@ export default function ParticipantsList({
     })
   }, [identities])
 
+  const { filteredGroups, addressMatchKeys, matchedWalletAddresses } = useParticipantSearch(companyGroups, query)
+
+  // Effective expansion = manual + auto-expanded from address search
+  const effectiveExpandedKeys = useMemo(
+    () => new Set([...expandedKeys, ...addressMatchKeys]),
+    [expandedKeys, addressMatchKeys],
+  )
+
   const toggleGroup = (key: string) => {
     setExpandedKeys((prev) => {
       const next = new Set(prev)
@@ -76,6 +78,7 @@ export default function ParticipantsList({
   }
 
   const totalAddresses = companyGroups.reduce((sum, g) => sum + g.identities.length, 0)
+  const isFiltering = query.trim().length > 0
 
   if (error) {
     return (
@@ -96,7 +99,9 @@ export default function ParticipantsList({
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div>
+      <SearchInput value={query} onChange={setQuery} />
+      <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
         <thead className="bg-gray-50 dark:bg-gray-800 sticky top-0">
           <tr>
@@ -123,9 +128,15 @@ export default function ParticipantsList({
                 <td className="px-3 py-2"><div className="h-4 w-4 bg-gray-200 dark:bg-gray-700 rounded mx-auto" /></td>
               </tr>
             ))
+          ) : filteredGroups.length === 0 ? (
+            <tr>
+              <td colSpan={4} className="px-3 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                No results for <span className="font-medium">&ldquo;{query}&rdquo;</span>
+              </td>
+            </tr>
           ) : (
-            companyGroups.flatMap((group) => {
-              const isExpanded = expandedKeys.has(group.key)
+            filteredGroups.flatMap((group) => {
+              const isExpanded = effectiveExpandedKeys.has(group.key)
               // When all addresses share a single presentationUrl, surface it directly
               const sharedUrl = !group.hasMismatchedPresentations && group.uniquePresentationUrls.length === 1
                 ? group.uniquePresentationUrls[0]
@@ -204,22 +215,34 @@ export default function ParticipantsList({
                 </tr>
               )
 
+              // When the search hit wallet addresses, filter to only matching ones;
+              // for name-only matches show all addresses unfiltered
+              const addressFilter = isExpanded && addressMatchKeys.has(group.key) && matchedWalletAddresses.size > 0
+                ? group.identities.filter((id) => matchedWalletAddresses.has(id.walletAddress.toLowerCase()))
+                : group.identities
+
               const addressRows = isExpanded
-                ? [...group.identities]
+                ? [...addressFilter]
                     .sort((a, b) => a.walletAddress.localeCompare(b.walletAddress))
                     .map((identity) => {
                       const explorerUrl = `${explorerBaseUrl}/tx/${identity.txHash}?tab=tokentransfers`
                       const isMismatchedEntry = group.hasMismatchedPresentations
+                      const isAddressMatch = matchedWalletAddresses.has(identity.walletAddress.toLowerCase())
                       return (
                         <tr
                           key={`${identity.contractAddress}-${identity.walletAddress}`}
-                          className="bg-gray-50/70 dark:bg-gray-800/40"
+                          className={isAddressMatch
+                            ? 'bg-yellow-50/60 dark:bg-yellow-900/10'
+                            : 'bg-gray-50/70 dark:bg-gray-800/40'
+                          }
                         >
                           {/* Indented wallet address */}
                           <td className="pl-8 pr-3 py-1.5">
-                            <span className="font-mono text-xs text-gray-600 dark:text-gray-400 break-all">
-                              {identity.walletAddress}
-                            </span>
+                            <HighlightText
+                              text={identity.walletAddress}
+                              query={isAddressMatch ? query : ''}
+                              className="font-mono text-xs text-gray-600 dark:text-gray-400 break-all"
+                            />
                           </td>
 
                           {/* Token ID linking to explorer */}
@@ -276,15 +299,20 @@ export default function ParticipantsList({
       <div className="mt-0 px-3 py-2 bg-gray-50 dark:bg-gray-800 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between gap-4">
         {isLoading ? (
           <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-40 animate-pulse" />
+        ) : isFiltering ? (
+          <span>
+            {filteredGroups.length} of {companyGroups.length} institution{companyGroups.length !== 1 ? 's' : ''}
+            {' · '}
+            {filteredGroups.reduce((s, g) => s + g.identities.length, 0)} address{filteredGroups.reduce((s, g) => s + g.identities.length, 0) !== 1 ? 'es' : ''}
+          </span>
         ) : (
-          <>
-            <span>
-              {companyGroups.length} institution{companyGroups.length !== 1 ? 's' : ''}
-              {' · '}
-              {totalAddresses} address{totalAddresses !== 1 ? 'es' : ''}
-            </span>
-          </>
+          <span>
+            {companyGroups.length} institution{companyGroups.length !== 1 ? 's' : ''}
+            {' · '}
+            {totalAddresses} address{totalAddresses !== 1 ? 'es' : ''}
+          </span>
         )}
+      </div>
       </div>
     </div>
   )
