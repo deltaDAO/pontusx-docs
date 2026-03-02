@@ -136,6 +136,15 @@ export default function ParticipantsList({
                   key={group.key}
                   className="hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer select-none"
                   onClick={() => toggleGroup(group.key)}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isExpanded}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault()
+                      toggleGroup(group.key)
+                    }
+                  }}
                 >
                   {/* Company name + optional warning badge */}
                   <td className="px-3 py-2 font-medium">
