@@ -76,7 +76,6 @@ export default function ParticipantsList({
   }
 
   const totalAddresses = companyGroups.reduce((sum, g) => sum + g.identities.length, 0)
-  const anyMismatch = companyGroups.some((g) => g.hasMismatchedPresentations)
 
   if (error) {
     return (
