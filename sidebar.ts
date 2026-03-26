@@ -173,6 +173,32 @@ export const sidebar = {
       ]
     },
     {
+      text: 'EU Data Act',
+      collapsed: true,
+      items: [
+        {
+          text: 'Introduction',
+          link: '/docs/data-act/data-act-1-intro'
+        },
+        {
+          text: 'Detailed Analysis',
+          link: '/docs/data-act/data-act-2-detailed'
+        },
+        {
+          text: 'Data Sovereignty',
+          link: '/docs/data-act/data-act-3-sovereignty'
+        },
+        {
+          text: 'Strategic Opportunities',
+          link: '/docs/data-act/data-act-4-opportunities'
+        },
+        {
+          text: 'Implementation Guide',
+          link: '/docs/data-act/data-act-5-nextsteps'
+        }
+      ]
+    },
+    {
       text: 'Developer Resources',
       collapsed: true,
       items: [
