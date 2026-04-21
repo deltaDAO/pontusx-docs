@@ -155,7 +155,7 @@ export const sidebar = {
         {
           //{ text: 'Benefits of Operation (WIP)', link: '' },
           // { text: 'Portals & Marketplaces (WIP)', link: '' },
-          text: 'Validators',
+          text: 'Orchestrators',
           link: '/docs/participants-and-federators/federators'
         },
         // {
