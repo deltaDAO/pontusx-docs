@@ -1,93 +1,121 @@
-# Wallet Setup
+# Notes on Version Changes (v1 vs. v2)
 
-To get started as a participant in the ecosystem you need to take control over your private key(s) and insert it(them) in a wallet. The wallet allows you to perform interactions, such a signing and submitting transactions. 
+This part of the documentation has been updated to describe the updated wallet setup for Pontus-X (v1) which now includes a simple wallet file configuration flow for Pontus-X portals, but also to include updates for Ocean Enterprise stack (v2) introduced in 2026.
 
-You will either use your private SECP256K1 keys you have created yourself OR use a set of SECP256K1 keys we created for you during guided onboarding (shared keys).
+With v2, based on Ocean Enterprise, a dual wallet process has been introduced which includes:
 
-Your private key SECP256K1 will look like this (just an example): 
+1.  a participant agent wallet holding SECP256k1 keys for signing transactions and interacting with smart contracts and Ocean Enterprise components, such as the connector
+2. a SSI wallet holding Verifiable Credentials and RSA keys for the signature of Verifiable Credentials and Presentations to engage a with Policy Decision Point and to sign catalogue items in the updated catalogue components.
 
-- do not use! 0d9619d1702c7a4ff89ecf3720132812f0d124ca503a61c5f3a60e0451236365 do not use!
+When using Pontus-X v1 only the wallet file setup is relevant.
 
+When using Ocean Enterprise v2 the wallet file setup and the SSI wallet are relevant during the setup.
+
+# Wallet File Setup (v1 and v2)
+
+To get started as a participant in the ecosystem you need to take control over your private key(s) and insert it(them) in a wallet. The wallet file allows a participant to load private keys for signatures and smart contract interactions into a participant agent, e.g. a Portal,  to perform interactions, such a signing and submitting transactions. 
+
+You will either use your private SECP256K1 keys you have created yourself using an [offline wallet file generator](https://github.com/deltaDAO/wallet-generator) OR use a set of SECP256K1 keys you [created during guided onboarding](https://docs.onboarding.delta-dao.com/walkthrough#step-3-of-5---create-a-wallet) with the [Fast Track Application](https://onboarding.delta-dao.com/).
+
+Your private key SECP256K1 will look like this (just an example, not to be used!):
+
+`0d9619d1702c7a4ff89ecf3720132812f0d124ca503a61c5f3a60e0451236365`
+
+From this private key an account address will be derived, e.g.
+
+`0x29080D654eFD6AC00f8b26F4741E82CD0c2C0778`
+
+which will be a public and unique identifier of the controlled account.
+
+The wallet file is an AES-encrypted JSON file holding your private key, protected with a password.
+
+`{
+"address": "29080D654eFD6AC00f8b26F4741E82CD0c2C0778",
+"id": "16646b51-1b7e-4bb8-9d7a-6deb355e34a1",
+"version": 3,
+"crypto": {
+"cipher": "aes-128-ctr",
+"cipherparams": {
+"iv": "cb6539bdcc14e8d7dbc4124eb001fad2"
+},
+"ciphertext": "207281e6e4387ce9f1e1dd6ad09ed5020776f39c94d0dec1e6bc7368247be715",
+"kdf": "scrypt",
+"kdfparams": {
+"salt": "0cfe5cbc91124c7b55e0b730c8c79503b3568e7f81c488df32cbbd04406e5e45",
+"n": 131072,
+"dklen": 32,
+"p": 1,
+"r": 8
+},
+"mac": "ddb4c4573c50ccbad79b49e1d66736c7d71ffc7a116192fd628f3bfcfd4c28aa"
+}
+}`
 
 Some important notes before you continue:
 
-
 - This private key controls your identity in the ecosystem, create a secure offline backup.
 - Do not share it with anybody outside your organization , don't store it in the cloud.
-- If you received the key during guided onboarding and it is shared with us: We also have control over this private key for testing and to assist you during your first steps in the ecosystem so do not use it in any production system under any circumstances.
-- If you lose control over your private key please inform us immediately so that the Pontus-X federators can blacklist it for the network.
+- If you lose control over your private key please inform us immediately so that the Pontus-X federators can denylist it for the network and inform potential other data space authorities about it.
 - You are not allowed to store any personal information on the network , i.e., names, or e-mail addresses when publishing own service offerings on the network.
 
-In this ecosystem we use a Web3 wallet for interactions. Best for starters is MetaMask as browser extension. It allows you to sign transactions and test contracts with other ecosystem participants.
+The wallet file can also be imported into MetaMask, a commonly used Web3 wallet.
 
-MetaMask is a widely used Web3 browser and mobile wallet solution to store your keys and sign transactions with more than 10 million monthly active users (MAU) that is considered a secure "hot" wallet. There are also other open-source Web3 wallets available, but for this guide we continue with MetaMask.
+# Wallet File Usage (v1 and v2)
 
-### Step 1: Install MetaMask and setup a personal password for the wallet
+When opening your participant agent, e.g. a data space portal, you are prompted to configure the participant agent so that it represents you. This is done by loading your private key into the participant agent with the wallet file.
 
-You can just follow the instructions here https://metamask.io/download/
+![image.png](attachment:fcc2540b-979d-4aa4-aec0-21b406635c66:image.png)
 
-### Step 2: Importing Accounts (if you want to import a keypair)
+*Screenshot of the wallet selection in a v1 data space portal.*
 
-If you have set up your local MetaMask in your browser (Chromium-based or Firefox) and secured it with a password, you can import the private key we shared with you through the "import account" feature.
+![image.png](attachment:9c444c4f-c8c1-49af-8098-6e80a68b9611:image.png)
 
-![MetaMask Account overview](/images/onboarding/community_onboarding_2.jpg)
-![MetaMask Account import](/images/onboarding/community_onboarding_3.jpg)
+Screenshot of the wallet selection in a v2 data space portal.
 
+When selecting the wallet file and uploading it into the participant agent you will be prompted to insert the password to allow the decryption process.
 
-Once you have imported the account, you can select it through the icon in the upper right corner. You can give the account a custom name instead of "Account 2" by opening the menu indicated with the three dots and opening "Account details"
+![image.png](attachment:5b16c29e-c709-440e-a03f-8df9b79cbf3e:image.png)
 
-You can give the account a custom name instead of "Account 2" by opening the menu indicated with the three dots and opening "Account details"
+*Screenshot of the wallet decryption dialogue in a v1 data space portal.*
 
-![MetaMask Account Details Menu](/images/onboarding/community_onboarding_4.jpg)
+![image.png](attachment:947d05ef-c999-4e7b-8431-e3204e31b3c0:image.png)
 
-When you click the pen icon you can add a custom name for this account.
+*Screenshot of the wallet decrytion dialogue in a v2 data space portal.*
 
-![MetaMask Account Details](/images/onboarding/community_onboarding_5.jpg)
+Once the wallet file has been successfully decrypted and imported into the participant agent a short notification will appear and the public address can be verified through the indicator in the upper right corner of the interface.
 
-You will be able to confirm your selected account by checking the public address of this account matching the public address in your participant credential. Simply press the middle field displaying the address and it will be copied to your clipboard.
+![image.png](attachment:cb004a7f-5506-44d3-82fb-85d7ea66122d:image.png)
 
-### Step 3: Connecting to the right network
+*Screenshot of the Account Menu in a v1 data space portal.*
 
-Furthermore, you need to select the right network "Pontus-X testnet" by selecting it from the network field at the top of the wallet. You can add the Pontus-X test network manually under "settings" and "networks". For this route you need to following [network configuration](https://docs.pontus-x.eu/docs/Pontus-X%20Testnet/quick_start):
+![image.png](attachment:00c70ac5-9df9-4844-b30e-8de6b1f24076:image.png)
 
-- Network name: Pontus-X Testnet
-- New RPC URL: https://rpc.test.pontus-x.eu
-- Chain ID: 32457
-- Currency Symbol: EURAU (fee)
-- Block Explorer URL: [https://explorer.pontus-x.eu/pontusx/test](https://explorer.pontus-x.eu/pontusx/test)
+*Screenshot of the Account Menu in a v2 data space portal.*
 
-![MetaMask Network Settings](/images/onboarding/community_onboarding_6.jpg)
+## Funding the Wallet for Transactions (v1 and v2)
 
-Once you have added the network, selected the right network and address, and connected to the portal you can refresh the website and you will appear as logged in. When connecting for the very first time MetaMask will ask for permission to connect to a Portal which you should accept. You can use the https://v4.minimal-gaia-x.eu/ Portal as example or any other portal.
+To be able to perform writing transactions to the data space ecosystem and to conduct payments the account needs to be funded. In the development and testing systems this is done through a Faucet. Once connected to a Pontus-X Portal with a faucet integration an organization can request initial and additional funding through the faucet.
 
-First indicator of success is the portal showing your public address and Pontus-X Testnet selection now. 
+In the v1 network (Pontus-X Devnet and Testnet) fees will be covered through EURAU fee tokens and payments through EURAU payment tokens to simulate the fee and payment structures of a production environment, but without real economic value.
 
-![Portal Connection Indicator](/images/onboarding/community_onboarding_7.jpg)
+In the v2 network (Optimism Sepolia) fees will be covered through ETH and EURAU payment tokens to simulate the fee and payment structures of a production environment, but without real economic value.
 
-The wallet will also indicate this with a green dot.
+In the production implementation fees can be abstracted and payments can either be performed via e-money or via alternative payment channels.
 
-![MetaMaks Connection Indicator](/images/onboarding/community_onboarding_8.jpg)
+## Connecting the SSI Wallet with the Participant Agent (v2 only)
 
-Well done, the setup is completed. 
+In the v2 participant agent the user will be prompted to connect to an SSI wallet. For the connection the wallet file private key, just loaded into the participant agent, will be used.
 
+![image.png](attachment:a560e046-d859-4ae0-a8ac-8c5861601c9c:image.png)
 
+Screenshot of the SSI wallet connection dialogue in a v2 data space portal.
 
-### Step 4: Funding your wallet
+Here you configure your own SSI wallet which has been setup already and contains the necessary private keys, verifiable credentials and is linked to at least one DID:WEB. The setup of such a wallet (not the deployment) is discussed in the next chapter.
 
-Your public address will be associated with a public balance of ERC20 tokens that are used to pay for transaction fees, settlement in the network and managing access to services. 
+# SSI Wallet Setup (v2 only)
 
-If you have completed the onboarding with us and have been accepted in the ecosystem you will have received an initial balance of ERC20 tokens and the balance will be shown in your MetaMask wallet.
+To be described after public release of the v2 stack.
 
-![MetaMaks GX Balance](/images/onboarding/community_onboarding_9.jpg)
+![image.png](attachment:a4b8654d-e6a1-4f3e-abd3-e3b8cbba1436:image.png)
 
-You should now see some EURAU ERC20 tokens in your wallet. 0.1 EURAU enough for many of transactions in the network. If you don't see a balance here please check your network connection, if you have selected Pontus-X Testnet as network and if you selected the right public address.
-
-Other ERC20 tokens besides the basic fee token are not visible by default and you will need to add them manually. You can do so through the portal frontend under your profile section.
-
-Just open the top right menu and click "add EURAU" (0xE158265FD2be5BCc208621f2c0f8AfCF11aC8408) to make the corresponding smart contracts known to MetaMask and to query to balances from the network.
-
-![Portal Import Options](/images/onboarding/community_onboarding_10.jpg)
-
-Once you confirm the dialogue the balance will appear in your wallet.
-
-![MetaMask Import Tokens](/images/onboarding/community_onboarding_11.jpg)
+*Screenshot of [walt.id](http://walt.id) wallet as SSI wallet in the v2 stack.*
