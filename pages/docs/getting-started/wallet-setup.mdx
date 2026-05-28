@@ -19,7 +19,7 @@ You will either use your private SECP256K1 keys you have created yourself using 
 
 Your private key SECP256K1 will look like this (just an example, not to be used!):
 
-`0d9619d1702c7a4ff89ecf3720132812f0d124ca503a61c5f3a60e0451236365`
+`0d9619d1702c7a4ff89ecf37201TEST2f0d124ca503a61c5f3a60e0451236365`
 
 From this private key an account address will be derived, e.g.
 
@@ -29,27 +29,29 @@ which will be a public and unique identifier of the controlled account.
 
 The wallet file is an AES-encrypted JSON file holding your private key, protected with a password.
 
-`{
-"address": "29080D654eFD6AC00f8b26F4741E82CD0c2C0778",
-"id": "16646b51-1b7e-4bb8-9d7a-6deb355e34a1",
-"version": 3,
-"crypto": {
-"cipher": "aes-128-ctr",
-"cipherparams": {
-"iv": "cb6539bdcc14e8d7dbc4124eb001fad2"
-},
-"ciphertext": "207281e6e4387ce9f1e1dd6ad09ed5020776f39c94d0dec1e6bc7368247be715",
-"kdf": "scrypt",
-"kdfparams": {
-"salt": "0cfe5cbc91124c7b55e0b730c8c79503b3568e7f81c488df32cbbd04406e5e45",
-"n": 131072,
-"dklen": 32,
-"p": 1,
-"r": 8
-},
-"mac": "ddb4c4573c50ccbad79b49e1d66736c7d71ffc7a116192fd628f3bfcfd4c28aa"
+```json
+{
+  "address": "29080D654eFD6AC00f8b26F4741E82CD0c2C0778",
+  "id": "16646b51-1b7e-4bb8-9d7a-6deb355e34a1",
+  "version": 3,
+  "crypto": {
+    "cipher": "aes-128-ctr",
+    "cipherparams": {
+      "iv": "cb6539bdcc14e8d7dbc4124eb001fad2"
+    },
+    "ciphertext": "207281e6e4387ce9f1e1dd6ad09ed5020776f39c94d0dec1e6bc7368247be715",
+    "kdf": "scrypt",
+    "kdfparams": {
+      "salt": "0cfe5cbc91124c7b55e0b730c8c79503b3568e7f81c488df32cbbd04406e5e45",
+      "n": 131072,
+      "dklen": 32,
+      "p": 1,
+      "r": 8
+    },
+    "mac": "ddb4c4573c50ccbad79b49e1d66736c7d71ffc7a116192fd628f3bfcfd4c28aa"
+  }
 }
-}`
+```
 
 Some important notes before you continue:
 
