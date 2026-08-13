@@ -211,6 +211,30 @@ export const sidebar = {
           ]
         },
         {
+          text: 'Ocean Enterprise Automation (v2)',
+          collapsed: true,
+          items: [
+            {
+              text: 'Consume a Dataset',
+              collapsed: true,
+              items: [
+                {
+                  text: 'Overview',
+                  link: '/docs/oe-automation/consume/overview'
+                },
+                {
+                  text: 'With ocean.js',
+                  link: '/docs/oe-automation/consume/ocean-js'
+                },
+                {
+                  text: 'With the Ocean CLI',
+                  link: '/docs/oe-automation/consume/ocean-cli'
+                }
+              ]
+            }
+          ]
+        },
+        {
           text: 'Pontus-X Networks',
           collapsed: true,
           items: [
@@ -327,7 +351,7 @@ export const sidebar = {
                 {
                   text: 'License Object',
                   link: '/docs/ddo_credential/license_object',
-                  items: [{ link: '/docs/ddo_credential/odrl_object' }]
+                  items: [{ text: 'Odrl Object', link: '/docs/ddo_credential/odrl_object' }]
                 },
                 {
                   text: 'Consumer Parameters',

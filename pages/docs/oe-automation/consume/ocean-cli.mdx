@@ -1,0 +1,128 @@
+---
+title: Consume a Dataset with the Ocean CLI (v2)
+---
+
+# Consume a Dataset with the Ocean CLI (Ocean Enterprise v2)
+
+This guide achieves the **same result** as
+[Consume a Dataset with ocean.js](/docs/oe-automation/consume/ocean-js) —
+ordering and downloading a DDO v5 dataset — but using the ready-made
+[Ocean CLI](https://github.com/oceanprotocol/ocean-cli) instead of writing code.
+It targets Ocean Enterprise assets identified by a `did:ope` DID.
+
+:::info
+Use this **no-code path** when you just want the file, or to sanity-check a DID
+before integrating the library into your own app. For the concepts behind the
+flow, see the [Consume overview](/docs/oe-automation/consume/overview).
+:::
+
+## Prerequisites (required)
+
+- **Node.js** (Node 24 recommended, matching the ocean.js example repo).
+- **Git**.
+- A funded account (`PRIVATE_KEY`), an **RPC** endpoint, and an **Ocean Node** URL.
+- The **`did:ope`** of a published v5 dataset.
+
+:::info
+Find a `did:ope` in the Pontus-X Catalogue, and make sure your `RPC` and
+`NODE_URL` point at the **same network** the asset was published on
+([Pontus-X Networks](/docs/pontus-x-networks/quick-start)).
+:::
+
+## Step 1 — Install the CLI (required)
+
+```bash
+git clone https://github.com/oceanprotocol/ocean-cli.git
+cd ocean-cli
+npm install
+npm run build
+```
+
+## Step 2 — Configure the environment (required)
+
+The CLI is driven entirely by environment variables:
+
+```bash
+# Account: use either PRIVATE_KEY or MNEMONIC
+export PRIVATE_KEY="0x..."
+
+# JSON-RPC endpoint for the asset's chain
+export RPC="https://your-rpc-endpoint"
+
+# Ocean Node (metadata cache + provider)
+export NODE_URL="https://your-ocean-node"
+```
+
+:::warning
+Use a private key intended **only for development** and keep it secure. Never
+commit or share your key.
+:::
+
+:::info
+`MNEMONIC` is an **optional** alternative to `PRIVATE_KEY` — set one or the other.
+:::
+
+### Step 2a — SSI wallet variables (optional)
+
+For **credential-gated (SSI) v5 assets**, also set the SSI wallet variables so
+the CLI can complete the policy-server presentation flow (see
+[dual-wallet setup for v2](/docs/getting-started/wallet-setup)):
+
+```bash
+export SSI_WALLET_API="https://your-ssi-wallet/api"
+export SSI_WALLET_ID="your-wallet-id"
+export SSI_WALLET_DID="did:example:your-did"   # optional; defaults to first wallet DID
+```
+
+:::info
+If the asset is **not** credential-gated, the SSI variables can be omitted.
+:::
+
+## Step 3 — Download the dataset (required)
+
+Positional form:
+
+```bash
+npm run cli download <did> [folder] [serviceId]
+```
+
+Flag form:
+
+```bash
+npm run cli download --did <did> --folder ./downloads --service <serviceId>
+```
+
+- `<did>` — **required**, e.g. `did:ope:abc123...`
+- `[folder]` — *optional*; output directory (defaults to the current directory).
+- `[serviceId]` — *optional*; defaults to the first download service on the asset.
+
+Example:
+
+```bash
+npm run cli download did:ope:1234abcd... ./downloads
+```
+
+On success the CLI prints `File downloaded successfully: ./downloads/<filename>`.
+
+## What the CLI does under the hood
+
+It runs the very same steps as the [library guide](/docs/oe-automation/consume/ocean-js):
+
+1. Resolves the DDO from the Ocean Node (`aquarius.waitForIndexer`).
+2. Detects the DDO version; for `>= 5.0.0` it builds a **policy-server object**
+   via the SSI presentation flow (`getPolicyServerOBJ`).
+3. Orders the datatoken for the target service (`orderAsset`).
+4. Requests a signed download URL (`ProviderInstance.getDownloadUrl`).
+5. Writes the file to the output folder.
+
+:::info
+The difference from the library guide is that the CLI **fully implements** the
+SSI credential presentation, whereas the ocean.js example ships a non-blocking
+stub you can extend.
+:::
+
+## Related
+
+- [Consume a Dataset with ocean.js](/docs/oe-automation/consume/ocean-js) — the code-level equivalent.
+- [Consume overview](/docs/oe-automation/consume/overview) — concepts and prerequisites.
+- [Wallet Setup (v1 & v2)](/docs/getting-started/wallet-setup) — agent wallet + SSI wallet.

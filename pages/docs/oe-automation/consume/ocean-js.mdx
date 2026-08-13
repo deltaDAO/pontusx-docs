@@ -1,0 +1,759 @@
+---
+title: Consume a Dataset with ocean.js (v2)
+---
+
+# Consume a Dataset with ocean.js (Ocean Enterprise v2)
+
+This guide shows how to **order and download a DDO v5 dataset** from your own
+Node.js/TypeScript application using [`ocean.js`](https://github.com/oceanprotocol/ocean.js)
+— no Portal involved. It targets Ocean Enterprise assets identified by a
+`did:ope` DID.
+
+:::info
+This is the **code path**. If you just want the file with no code, use the
+[Ocean CLI guide](/docs/oe-automation/consume/ocean-cli). Both reach the same
+result. For the concepts behind the flow, see the
+[Consume overview](/docs/oe-automation/consume/overview).
+:::
+
+## Prerequisites (required)
+
+- **Node.js 24** — the example repo pins it via `.nvmrc`; run `nvm use`.
+- An account (`PRIVATE_KEY`) funded with:
+  - the chain's native token for gas, and
+  - enough of the asset's payment token if the service is priced.
+- Network access to the target chain's **RPC** and to an **Ocean Node**.
+- The **`did:ope`** of a published v5 dataset.
+
+:::info
+Find a `did:ope` in the Pontus-X Catalogue, and make sure your `RPC` and
+`NODE_URL` point at the **same network** the asset was published on
+([Pontus-X Networks](/docs/pontus-x-networks/quick-start)).
+:::
+
+## Step 1 — Get the example code (required)
+
+The runnable example lives in its own repository:
+
+```bash
+git clone https://github.com/deltaDAO/oe-automation-examples.git
+cd oe-automation-examples
+nvm use            # Node 24
+npm install
+```
+
+:::info
+`deltaDAO/oe-automation-examples` is a **placeholder** — the repository is to be
+published. Replace the URL with the final location once available.
+:::
+
+## Step 2 — Configure your environment (required)
+
+Copy the template and fill in the values:
+
+```bash
+cp .env.example .env
+```
+
+```bash
+# Required
+PRIVATE_KEY=0x...                     # consumer account
+RPC=https://your-rpc-endpoint         # JSON-RPC for the asset's chain
+NODE_URL=https://your-ocean-node      # Ocean Node (metadata + provider)
+```
+
+:::warning
+Use a private key intended **only for development** and keep it secure. Never
+commit your `.env` file or share your key.
+:::
+
+### Step 2a — SSI wallet variables (optional)
+
+Only needed for **credential-gated** assets (see
+[dual-wallet setup for v2](/docs/getting-started/wallet-setup)):
+
+```bash
+# Optional — only for credential-gated (SSI) assets
+SSI_WALLET_API=
+SSI_WALLET_ID=
+SSI_WALLET_DID=
+```
+
+:::info
+If the asset is **not** credential-gated, leave these unset. If they are unset,
+the example logs a warning and continues; the Ocean Node still enforces
+credentials on its side.
+:::
+
+### How the configuration is wired
+
+The env-to-runtime wiring lives in `src/config.ts`:
+
+- `createSigner()` — builds an `ethers` `Wallet` from `PRIVATE_KEY` + `RPC` and
+  reads the `chainId` from the network.
+- `createOceanConfig()` — loads the chain defaults via ocean.js `ConfigHelper`
+  and points every off-chain lookup at your single `NODE_URL`.
+- `createAquarius()` — the metadata-cache client, also served by the Ocean Node.
+
+## Step 3 — Run it (required)
+
+```bash
+npm run consume -- <did> [outputDir] [serviceId]
+```
+
+- `<did>` — **required**, e.g. `did:ope:abc123...`
+- `[outputDir]` — *optional*; where to write the file (default `./downloads`).
+- `[serviceId]` — *optional*; defaults to the asset's first service.
+
+Example:
+
+```bash
+npm run consume -- did:ope:1234abcd... ./downloads
+```
+
+On success you'll see `Downloaded: ./downloads/<filename>`.
+
+## How the code works (step by step)
+
+The full example is `src/consume-dataset.ts`. Step by step:
+
+### Dependencies and imports
+
+The example relies on these packages (already declared in the repo's
+`package.json` and installed during [Step 1](#step-1--get-the-example-code-required)):
+
+| Package | Purpose |
+| --- | --- |
+| `@oceanprotocol/lib` | Ordering, provider calls, and download helpers. |
+| `@oceanprotocol/ddo-js` | Parse the raw DDO into the correct version class. |
+| `ethers` | Wallet / signer and JSON-RPC provider. |
+| `dotenv` | Load your `.env` file into `process.env`. |
+
+The file starts by importing them, alongside the local config and policy-server
+helpers:
+
+```ts
+import 'dotenv/config'
+import fs from 'node:fs'
+import path from 'node:path'
+import {
+  Datatoken,
+  ProviderInstance,
+  downloadFile,
+  orderAsset
+} from '@oceanprotocol/lib'
+import { DDOManager } from '@oceanprotocol/ddo-js'
+import {
+  createAquarius,
+  createOceanConfig,
+  createSigner,
+  requireEnv
+} from './config.js'
+import { getPolicyServer, isV5Asset } from './policyServer.js'
+```
+
+### 1. Resolve the asset
+
+```ts
+const ddo = await aquarius.waitForIndexer(did)
+if (!ddo) throw new Error(`Asset ${did} was not found on the Ocean Node.`)
+```
+
+`waitForIndexer` polls the Ocean Node until the asset is indexed and returns the
+DDO document.
+
+### 2. Require v5 and pick a service
+
+```ts
+if (!isV5Asset(ddo)) {
+  throw new Error('This guide targets DDO v5 assets only; the resolved asset is not v5.')
+}
+
+const { services } = DDOManager.getDDOClass(ddo).getDDOFields() as {
+  services: Array<{ id: string }>
+}
+const serviceId = serviceIdArg ?? services[0].id
+const serviceIndex = services.findIndex((s) => s.id === serviceId)
+```
+
+`DDOManager` (from `@oceanprotocol/ddo-js`) parses the raw DDO into the correct
+version class. `isV5Asset` (in `src/policyServer.ts`) checks the DDO `version` is
+`>= 5.0.0`.
+
+### 3. Resolve the policy server and its `sessionId`
+
+```ts
+const policyServer = await getPolicyServer(ddo, serviceId, signer, nodeUrl)
+console.log(
+  policyServer?.sessionId
+    ? `Sending policyServer.sessionId to the node: ${policyServer.sessionId}`
+    : 'No policyServer object; the node will enforce credentials itself.'
+)
+```
+
+`getPolicyServer` returns a `policyServer` object whose key field is a
+**`sessionId`**. This session id is minted by the Ocean Node
+(`initializePSVerification`) and bound to your `(consumerAddress, documentId,
+serviceId)`.
+
+:::warning
+**Any asset with access control settings fails to download without a `sessionId`
+when the Ocean Node has a policy server configured (SSI verification enabled).**
+In that case the node's `download` action rejects every request that lacks a
+`sessionId` requested from the policy server — **before** it even decides whether
+an SSI presentation is required. So for any asset carrying a `credentials` block,
+the session id is a mandatory "ticket" you must obtain here and pass on in step 5.
+:::
+
+:::info
+The SSI credential **presentation** (walt.id) is the part that is optional and
+only runs when the asset has an `SSIpolicy`. For assets with no `credentials`
+block at all, `getPolicyServer` returns `undefined` and the flow continues
+without a session id. `getPolicyServer` is otherwise **non-blocking**: if the
+SSI wallet env vars are unset or the SSI flow throws, it downgrades to a warning.
+:::
+
+The Ocean Node remains the final authority — if a credential is genuinely
+required, it will reject the download at the next step. A complete reference
+implementation of the walt.id / policy-server presentation exists in the Ocean
+CLI (`getPolicyServerOBJ`).
+
+### 4. Order the datatoken
+
+```ts
+const datatoken = new Datatoken(signer, chainId, config)
+const tx = await orderAsset(
+  ddo, signer, config, datatoken, nodeUrl,
+  undefined, undefined, undefined, undefined, undefined,
+  serviceIndex
+)
+const orderTx = await tx.wait()
+```
+
+`orderAsset` inspects the datatoken's pricing (fixed-rate exchange, dispenser, or
+already owned) and performs whatever steps are needed to produce a valid order
+transaction for the chosen service.
+
+### 5. Get the download URL and save the file
+
+```ts
+const downloadResult = await ProviderInstance.getDownloadUrl(
+  ddo.id, serviceId, 0, orderTx.hash, nodeUrl, signer, policyServer
+)
+
+const { data, filename } = await downloadFile(downloadResult)
+fs.writeFileSync(path.join(outputDir, filename ?? 'file.out'), Buffer.from(data))
+```
+
+The `policyServer` object from step 3 is passed as the **last argument** so its
+`sessionId` travels with the request. For a credential-gated asset, omitting it
+(or passing one without a `sessionId`) makes the node reject the download.
+
+`getDownloadUrl` proves ownership of the order to the Ocean Node, which returns a
+signed URL (or the payload directly). The signed URL is **single-use**, so it is
+fetched exactly once and written to disk.
+
+## Complete source code
+
+Everything above lives in three files. Copy them into an `src/` folder (they
+match the [example repo](https://github.com/deltaDAO/oe-automation-examples)) and
+run with `npm run consume -- <did>`.
+
+### `src/config.ts`
+
+Turns your `.env` into an ethers signer, an ocean.js `Config`, and an Aquarius
+metadata client:
+
+```ts
+import 'dotenv/config'
+import { JsonRpcProvider, Wallet, type Signer } from 'ethers'
+import { Aquarius, ConfigHelper, type Config } from '@oceanprotocol/lib'
+
+// Throw early if a required environment variable is missing.
+export function requireEnv(name: string): string {
+  const value = process.env[name]
+  if (!value) throw new Error(`Missing required environment variable: ${name}`)
+  return value
+}
+
+// Build an ethers Wallet from PRIVATE_KEY + RPC and read its chainId.
+export async function createSigner(): Promise<{ signer: Signer; chainId: number }> {
+  const provider = new JsonRpcProvider(requireEnv('RPC'))
+  const signer = new Wallet(requireEnv('PRIVATE_KEY'), provider)
+  const { chainId } = await provider.getNetwork()
+  return { signer, chainId: Number(chainId) }
+}
+
+// Load ocean.js chain defaults, then point every off-chain lookup at NODE_URL.
+export function createOceanConfig(chainId: number, nodeUrl: string): Config {
+  const config = new ConfigHelper().getConfig(chainId)
+  config.nodeUri = nodeUrl
+  return config
+}
+
+// Metadata-cache client, also served by the Ocean Node.
+export function createAquarius(nodeUrl: string): Aquarius {
+  return new Aquarius(nodeUrl)
+}
+```
+
+### `src/policyServer.ts`
+
+Detects v5 assets and resolves the policy-server `sessionId` (plus the optional
+walt.id credential presentation). It is deliberately **non-blocking** — the Ocean
+Node stays the final authority:
+
+```ts
+import { type Signer } from 'ethers'
+import { ProviderInstance } from '@oceanprotocol/lib'
+import { DDOManager, type Asset } from '@oceanprotocol/ddo-js'
+
+const V5_MIN_VERSION = '5.0.0'
+
+// Numeric "version >= minimum" compare (avoids string sorting pitfalls).
+export function isVersionGte(version: string | undefined, minimum: string): boolean {
+  if (!version) return false
+  const parse = (v: string) => v.split('.').map((n) => parseInt(n, 10) || 0)
+  const a = parse(version)
+  const b = parse(minimum)
+  for (let i = 0; i < Math.max(a.length, b.length); i++) {
+    const x = a[i] ?? 0
+    const y = b[i] ?? 0
+    if (x !== y) return x > y
+  }
+  return true
+}
+
+// True when the DDO is a v5 (Ocean Enterprise) asset.
+export function isV5Asset(ddo: Asset): boolean {
+  const { version } = DDOManager.getDDOClass(ddo).getDDOFields() as { version?: string }
+  return isVersionGte(version, V5_MIN_VERSION)
+}
+
+// The object the Ocean Node hands to the policy server. Only `sessionId`
+// matters once verification succeeds.
+export interface PolicyServerInitiateActionData {
+  sessionId: string
+  successRedirectUri: string
+  errorRedirectUri: string
+  responseRedirectUri: string
+  presentationDefinitionUri: string
+}
+
+interface SsiWalletSession { token: string }
+interface SsiWalletDid { did: string }
+interface SsiVerifiableCredential { id: string }
+
+type InitiateMessage =
+  | string
+  | { sessionId?: string; redirectUri?: string }
+  | undefined
+
+// The policy server carries the session id inside its redirect/openid4vp URI,
+// as either `sessionId=<id>` or `id=<id>`.
+function sessionIdFromUri(uri: string | undefined): string {
+  if (typeof uri !== 'string') return ''
+  const match = /[?&](?:sessionId|id)=([^&#]+)/.exec(uri)
+  return match ? decodeURIComponent(match[1]) : ''
+}
+
+// Resolve the session id from any shape the node returned (object, JSON, URL).
+function extractSessionId(message: InitiateMessage): string {
+  if (!message) return ''
+  if (typeof message === 'object') {
+    return message.sessionId || sessionIdFromUri(message.redirectUri)
+  }
+  try {
+    const parsed = JSON.parse(message)
+    return (
+      parsed?.sessionId ||
+      parsed?.message?.sessionId ||
+      sessionIdFromUri(parsed?.redirectUri) ||
+      sessionIdFromUri(parsed?.message?.redirectUri) ||
+      sessionIdFromUri(message)
+    )
+  } catch {
+    return sessionIdFromUri(message)
+  }
+}
+
+// Resolve the openid4vp request string (only needed for a real presentation).
+function extractOpenid4vc(message: InitiateMessage): string | undefined {
+  if (!message) return undefined
+  if (typeof message === 'object') return message.redirectUri
+  try {
+    const parsed = JSON.parse(message)
+    return parsed?.redirectUri ?? parsed?.message?.redirectUri ?? message
+  } catch {
+    return message
+  }
+}
+
+// --- walt.id wallet-api helpers (native fetch; the wallet holds the credentials) ---
+
+// Log in to the SSI wallet by signing a nonce with the on-chain key.
+async function connectToSSIWallet(signer: Signer, api: string): Promise<SsiWalletSession> {
+  const nonceRes = await fetch(`${api}/wallet-api/auth/account/web3/nonce`)
+  if (!nonceRes.ok) throw new Error(`SSI wallet nonce request failed: ${nonceRes.status}`)
+  const nonce = await nonceRes.text()
+
+  const signedRes = await fetch(`${api}/wallet-api/auth/account/web3/signed`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      challenge: nonce,
+      signed: await signer.signMessage(nonce),
+      publicKey: await signer.getAddress()
+    })
+  })
+  if (!signedRes.ok) throw new Error(`SSI wallet login failed: ${signedRes.status}`)
+  return signedRes.json() as Promise<SsiWalletSession>
+}
+
+async function getWalletDids(walletId: string, token: string, api: string): Promise<SsiWalletDid[]> {
+  const res = await fetch(`${api}/wallet-api/wallet/${walletId}/dids`, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+  if (!res.ok) throw new Error(`Fetching wallet DIDs failed: ${res.status}`)
+  return res.json() as Promise<SsiWalletDid[]>
+}
+
+// Ask the wallet which of its credentials satisfy the presentation definition.
+async function matchCredentialsForPresentationDefinition(
+  api: string,
+  walletId: string,
+  presentationDefinition: unknown,
+  token: string
+): Promise<SsiVerifiableCredential[]> {
+  const res = await fetch(
+    `${api}/wallet-api/wallet/${walletId}/exchange/matchCredentialsForPresentationDefinition`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(presentationDefinition)
+    }
+  )
+  if (!res.ok) throw new Error(`Matching credentials failed: ${res.status}`)
+  return res.json() as Promise<SsiVerifiableCredential[]>
+}
+
+async function resolvePresentationRequest(
+  walletId: string,
+  presentationRequest: string,
+  token: string,
+  api: string
+): Promise<string> {
+  const res = await fetch(
+    `${api}/wallet-api/wallet/${walletId}/exchange/resolvePresentationRequest`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(presentationRequest)
+    }
+  )
+  if (!res.ok) throw new Error(`Resolving presentation request failed: ${res.status}`)
+  return res.text()
+}
+
+// Submit the chosen credentials as a verifiable presentation.
+async function sendPresentationRequest(
+  walletId: string,
+  did: string,
+  presentationRequest: string,
+  selectedCredentials: string[],
+  token: string,
+  api: string
+): Promise<{ redirectUri?: string; errorMessage?: string }> {
+  const res = await fetch(
+    `${api}/wallet-api/wallet/${walletId}/exchange/usePresentationRequest`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ did, presentationRequest, selectedCredentials })
+    }
+  )
+  if (!res.ok) throw new Error(`Submitting presentation failed: ${res.status}`)
+  return res.json() as Promise<{ redirectUri?: string; errorMessage?: string }>
+}
+
+// Fetch the presentation definition for a session (node proxies the `getPD` action).
+async function getPresentationDefinition(sessionId: string, nodeUrl: string): Promise<unknown> {
+  const response = await ProviderInstance.PolicyServerPassthrough(nodeUrl, {
+    policyServerPassthrough: { action: 'getPD', sessionId }
+  })
+  const message = response?.message
+  if (!message) throw new Error('Could not read presentation definition from policy server')
+  return message
+}
+
+// --- Client-side DDO inspection (mirrors what the policy server checks) ---
+
+interface CredentialEntry { type?: string; values?: unknown[] }
+interface CredentialsBlock { allow?: CredentialEntry[]; deny?: CredentialEntry[] }
+interface CredentialSubject {
+  credentials?: CredentialsBlock
+  services?: Array<{ id: string; credentials?: CredentialsBlock }>
+}
+
+function getCredentialSubject(ddo: Asset): CredentialSubject | undefined {
+  return (ddo as unknown as { credentialSubject?: CredentialSubject }).credentialSubject
+}
+
+// The node only consults the policy server when a `credentials` block exists
+// (asset or service level). No block -> no session id needed.
+function hasCredentialsBlock(ddo: Asset, serviceId: string): boolean {
+  const subject = getCredentialSubject(ddo)
+  if (subject?.credentials) return true
+  const service = subject?.services?.find((s) => s.id === serviceId)
+  return Boolean(service?.credentials)
+}
+
+// True only when an `SSIpolicy` with request_credentials is present. An
+// address-only gate needs a session id but no wallet presentation.
+function requiresCredentialPresentation(ddo: Asset, serviceId: string): boolean {
+  const subject = getCredentialSubject(ddo)
+  if (!subject) return false
+  const isSsi = (e: CredentialEntry) => e?.type === 'SSIpolicy'
+  const assetPolicies = subject.credentials?.allow?.filter(isSsi) ?? []
+  const service = subject.services?.find((s) => s.id === serviceId)
+  const servicePolicies = service?.credentials?.allow?.filter(isSsi) ?? []
+  for (const policy of [...assetPolicies, ...servicePolicies]) {
+    if (!Array.isArray(policy.values)) continue
+    for (const value of policy.values) {
+      const requested = (value as { request_credentials?: unknown[] })?.request_credentials
+      if (Array.isArray(requested) && requested.length > 0) return true
+    }
+  }
+  return false
+}
+
+/**
+ * Resolve the policy-server object the node needs at download time.
+ *   0. No credentials block            -> node won't consult the PS; undefined.
+ *   1. initializePSVerification        -> mint the sessionId ticket.
+ *   2. No SSIpolicy (e.g. address gate) -> return { sessionId }.
+ *   3. SSIpolicy present               -> run the walt.id presentation, then
+ *      return { sessionId }.
+ * Non-blocking: any failure is downgraded to a warning.
+ */
+export async function getPolicyServer(
+  ddo: Asset,
+  serviceId: string,
+  signer: Signer,
+  nodeUrl: string
+): Promise<PolicyServerInitiateActionData | undefined> {
+  // 0. Nothing to gate.
+  if (!hasCredentialsBlock(ddo, serviceId)) return undefined
+
+  const consumerAddress = await signer.getAddress()
+  const policyServer: PolicyServerInitiateActionData = {
+    sessionId: '',
+    successRedirectUri: '',
+    errorRedirectUri: '',
+    responseRedirectUri: '',
+    presentationDefinitionUri: ''
+  }
+
+  // 1. Mint a verification session. On a node without a policy server this
+  //    throws; the node then enforces credentials itself.
+  let initializePs: { success?: boolean; message?: InitiateMessage } | null
+  try {
+    initializePs = await ProviderInstance.initializePSVerification(nodeUrl, {
+      documentId: ddo.id,
+      serviceId,
+      consumerAddress,
+      policyServer
+    })
+  } catch (error) {
+    const messageText = error instanceof Error ? error.message : String(error)
+    console.warn(`initializePSVerification unavailable; proceeding without a policy server: ${messageText}`)
+    return undefined
+  }
+
+  const message = initializePs?.message as InitiateMessage
+  const sessionId = extractSessionId(message)
+  const openid4vc = extractOpenid4vc(message)
+
+  if (!initializePs?.success || !sessionId) {
+    console.warn('Policy server did not return a session id; proceeding without one.')
+    return undefined
+  }
+  console.log(`Policy server session id: ${sessionId}`)
+
+  // 2. Address-only / no SSI policy: the session id alone is the ticket.
+  if (!requiresCredentialPresentation(ddo, serviceId)) {
+    return { ...policyServer, sessionId }
+  }
+
+  // 3. SSIpolicy present: perform the walt.id credential presentation.
+  const ssiApi = process.env.SSI_WALLET_API
+  const walletId = process.env.SSI_WALLET_ID
+  if (!ssiApi || !walletId || !openid4vc) {
+    console.warn('SSI presentation required but SSI wallet is not configured; the node will deny the download.')
+    return { ...policyServer, sessionId }
+  }
+
+  try {
+    const presentationDefinition = await getPresentationDefinition(sessionId, nodeUrl)
+    const session = await connectToSSIWallet(signer, ssiApi)
+    const credentials = await matchCredentialsForPresentationDefinition(
+      ssiApi, walletId, presentationDefinition, session.token
+    )
+    if (credentials.length === 0) {
+      throw new Error('No wallet credential satisfies the asset presentation definition')
+    }
+
+    const dids = await getWalletDids(walletId, session.token, ssiApi)
+    if (dids.length === 0) throw new Error('No DIDs found in the SSI wallet')
+    const preferredDid = process.env.SSI_WALLET_DID
+    if (preferredDid && !dids.some((d) => d.did === preferredDid)) {
+      throw new Error(`SSI_WALLET_DID ${preferredDid} not found in the wallet`)
+    }
+    const did = preferredDid ?? dids[0].did
+
+    const resolvedRequest = await resolvePresentationRequest(walletId, openid4vc, session.token, ssiApi)
+    const result = await sendPresentationRequest(
+      walletId, did, resolvedRequest, credentials.map((c) => c.id), session.token, ssiApi
+    )
+    if (result.errorMessage || result.redirectUri?.includes('error')) {
+      throw new Error('Credential presentation was rejected by the verifier')
+    }
+  } catch (error) {
+    const messageText = error instanceof Error ? error.message : String(error)
+    console.warn(`Policy-server SSI presentation failed (non-blocking): ${messageText}`)
+  }
+
+  // The node re-checks the verifier session at download; hand back the ticket.
+  return { ...policyServer, sessionId }
+}
+```
+
+### `src/consume-dataset.ts`
+
+The entry point that ties it together — resolve, order, download:
+
+```ts
+import 'dotenv/config'
+import fs from 'node:fs'
+import path from 'node:path'
+import {
+  Datatoken,
+  ProviderInstance,
+  downloadFile,
+  orderAsset
+} from '@oceanprotocol/lib'
+import { DDOManager } from '@oceanprotocol/ddo-js'
+import {
+  createAquarius,
+  createOceanConfig,
+  createSigner,
+  requireEnv
+} from './config.js'
+import { getPolicyServer, isV5Asset } from './policyServer.js'
+
+// Read the download filename from the Content-Disposition header the node sets.
+function filenameFromResponse(response: Response): string | undefined {
+  const disposition = response.headers.get('content-disposition')
+  if (!disposition) return undefined
+  const match = /filename\*?=(?:UTF-8'')?"?([^";]+)"?/i.exec(disposition)
+  return match ? decodeURIComponent(match[1]) : undefined
+}
+
+async function main(): Promise<void> {
+  // CLI args: <did> [outputDir] [serviceId]
+  const did = process.argv[2]
+  const outputDir = process.argv[3] ?? './downloads'
+  const serviceIdArg = process.argv[4]
+  if (!did) {
+    console.error('Usage: npm run consume -- <did> [outputDir] [serviceId]')
+    process.exit(1)
+  }
+
+  const nodeUrl = requireEnv('NODE_URL')
+  const { signer, chainId } = await createSigner()
+  const config = createOceanConfig(chainId, nodeUrl)
+  const aquarius = createAquarius(nodeUrl)
+
+  // 1. Resolve the DDO from the Ocean Node metadata cache.
+  const ddo = await aquarius.waitForIndexer(did)
+  if (!ddo) throw new Error(`Asset ${did} was not found on the Ocean Node (${nodeUrl}).`)
+
+  // 2. This guide targets DDO v5 (Ocean Enterprise) assets only.
+  if (!isV5Asset(ddo)) {
+    throw new Error('This guide targets DDO v5 assets only; the resolved asset is not v5.')
+  }
+
+  // 3. Pick the service to consume (defaults to the first one).
+  const { services } = DDOManager.getDDOClass(ddo).getDDOFields() as {
+    services: Array<{ id: string }>
+  }
+  const serviceId = serviceIdArg ?? services[0].id
+  const serviceIndex = services.findIndex((s) => s.id === serviceId)
+  if (serviceIndex < 0) throw new Error(`Service ${serviceId} does not exist on asset ${did}.`)
+
+  // 4. Resolve the policy-server object. Its sessionId is mandatory for
+  //    access-controlled assets when the node runs a policy server.
+  const policyServer = await getPolicyServer(ddo, serviceId, signer, nodeUrl)
+
+  // 5. Order the datatoken for the chosen service (handles fixed-rate & free pricing).
+  const datatoken = new Datatoken(signer, chainId, config)
+  const tx = await orderAsset(
+    ddo, signer, config, datatoken, nodeUrl,
+    undefined, undefined, undefined, undefined, undefined,
+    serviceIndex
+  )
+  if (!tx) throw new Error('Order failed. Do you hold, or can you buy, the datatoken?')
+  const orderTx = await tx.wait()
+  if (!orderTx) throw new Error('Order transaction was not mined.')
+
+  // 6. Exchange the on-chain order for a signed download URL. Pass policyServer
+  //    last so its sessionId travels with the request.
+  const downloadResult = await ProviderInstance.getDownloadUrl(
+    ddo.id, serviceId, 0, orderTx.hash, nodeUrl, signer, policyServer
+  )
+
+  // 7. getDownloadUrl returns either a single-use signed URL (common) or a
+  //    ready payload. Fetch/normalize once and write the bytes to disk.
+  fs.mkdirSync(outputDir, { recursive: true })
+  if (typeof downloadResult === 'string') {
+    const response = await fetch(downloadResult)
+    if (!response.ok) {
+      const body = await response.text().catch(() => '')
+      throw new Error(
+        `Ocean Node rejected the download: ${response.status} ${response.statusText}\n${body}`
+      )
+    }
+    const filename = filenameFromResponse(response) ?? 'file.out'
+    const filePath = path.join(outputDir, filename)
+    fs.writeFileSync(filePath, Buffer.from(await response.arrayBuffer()))
+    console.log(`Downloaded: ${filePath}`)
+    return
+  }
+
+  const { data, filename } = await downloadFile(downloadResult)
+  const filePath = path.join(outputDir, filename ?? 'file.out')
+  fs.writeFileSync(filePath, Buffer.from(data))
+  console.log(`Downloaded: ${filePath}`)
+}
+
+main().catch((error) => {
+  console.error(error)
+  process.exit(1)
+})
+```
+
+## Troubleshooting
+
+| Symptom | Likely cause |
+| --- | --- |
+| `Asset ... was not found` | Wrong `NODE_URL`, wrong chain, or the DID isn't indexed yet. |
+| `not v5` error | The DID points to an older (v4/v1) asset; this guide is v5-only. |
+| `Order failed` | The account can't pay for / claim the datatoken (funds or pricing). |
+| Download rejected after ordering (missing `sessionId`) | The asset is credential-gated; obtain the policy-server `sessionId` in step 3 and pass the `policyServer` object to `getDownloadUrl` (and configure the SSI wallet if an `SSIpolicy` applies). |
+| Chain ID mismatch | `RPC` points at a different chain than the DDO was published on. |
+
+## Related
+
+- [Consume with the Ocean CLI](/docs/oe-automation/consume/ocean-cli) — the same outcome, no code.
+- [Consume overview](/docs/oe-automation/consume/overview) — concepts and prerequisites.
+- [Wallet Setup (v1 & v2)](/docs/getting-started/wallet-setup) — agent wallet + SSI wallet.

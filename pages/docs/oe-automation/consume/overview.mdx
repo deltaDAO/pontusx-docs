@@ -1,0 +1,91 @@
+---
+title: Consume a Dataset (Ocean Enterprise v2) — Overview
+---
+
+# Consume a Dataset without a Portal (Ocean Enterprise v2)
+
+This chapter shows how to **access and download data services programmatically**
+— directly from your own application or scripts, **without using a Portal**.
+It targets the Pontus-X **v2 stack based on [Ocean Enterprise](https://www.oceanenterprise.io/)**,
+where assets are described with **DDO v5** and identified by a `did:ope` DID.
+
+Use this when you want to integrate consumption into your own product, automate
+downloads, or sanity-check a DID before wiring the library into an application.
+
+:::info
+**`did:ope` vs `did:op`** — Ocean Enterprise (v2) assets use the **`did:ope:`**
+prefix. The legacy Pontus-X (v1) stack used `did:op:`. Everything in this chapter
+is for **`did:ope`** / DDO v5 assets. If you are on the v1 stack, see
+[Download Assets](/docs/use-cases/download) (Nautilus) instead.
+:::
+
+## What "consuming" means
+
+Downloading a data service in Ocean Enterprise is a short, ordered flow:
+
+1. **Resolve** the asset's metadata (the DDO) from the Ocean Node.
+2. **Order** the datatoken for the service you want (the on-chain payment /
+   access grant).
+3. **Exchange** that order for a short-lived, signed **download URL** issued by
+   the Ocean Node's provider component.
+4. **Download** the bytes.
+
+The account you use must either already hold the datatoken, or be able to buy it
+(fixed-rate priced assets) / claim it (free / dispenser assets).
+
+## Two integration paths
+
+| Path | Best for | Effort |
+| --- | --- | --- |
+| **[ocean.js](/docs/oe-automation/consume/ocean-js)** | Integrating consumption into a Node.js/TypeScript app; full control. | Write code |
+| **[Ocean CLI](/docs/oe-automation/consume/ocean-cli)** | Getting the file with no code; sanity-checking a DID. | No code |
+
+Both perform the **same steps** and reach the same result. Start with the Ocean
+CLI if you just want the file; use ocean.js when you are embedding consumption
+into your own application.
+
+## Prerequisites checklist
+
+| Requirement | Required? | Purpose |
+| --- | --- | --- |
+| Account private key (`PRIVATE_KEY`) | **Yes** | Consumer account that pays for / claims the datatoken. |
+| RPC endpoint (`RPC`) | **Yes** | JSON-RPC for the asset's chain. |
+| Ocean Node URL (`NODE_URL`) | **Yes** | Metadata cache + provider (off-chain lookups). |
+| A published v5 `did:ope` | **Yes** | The asset you want to download. |
+| Native token for gas | **Yes** | To submit the order transaction. |
+| Payment token balance | If priced | Only for fixed-rate priced services. |
+| SSI wallet (`SSI_WALLET_*`) | Optional | Only for **credential-gated** assets (see below). |
+
+:::info
+You can find published assets and their `did:ope` in the Pontus-X Catalogue.
+Make sure the `NODE_URL` and `RPC` point at the **same network** the asset was
+published on — see [Pontus-X Networks](/docs/pontus-x-networks/quick-start).
+:::
+
+## Credential-gated (SSI) assets
+
+DDO v5 assets can be **credential-gated**: before releasing the data, the Ocean
+Node asks a policy server to verify a verifiable presentation (via walt.id). This
+requires an **SSI wallet** in addition to your transaction account — see the
+[dual-wallet setup for v2](/docs/getting-started/wallet-setup).
+
+:::info
+The SSI steps are **optional** and only needed for credential-gated assets. If an
+asset is not gated, you can omit the `SSI_WALLET_*` variables entirely. The Ocean
+Node is always the final authority — if a credential is genuinely required, it
+rejects the download and you will see that error.
+:::
+
+## Example code
+
+The runnable TypeScript example used throughout the ocean.js guide lives in its
+own repository:
+
+- **Example repo:** [`deltaDAO/oe-automation-examples`](https://github.com/deltaDAO/oe-automation-examples) *(placeholder — repository to be published)*
+
+## Related
+
+- [Consume with ocean.js](/docs/oe-automation/consume/ocean-js) — the code path.
+- [Consume with the Ocean CLI](/docs/oe-automation/consume/ocean-cli) — the no-code path.
+- [Wallet Setup (v1 & v2)](/docs/getting-started/wallet-setup) — agent wallet + SSI wallet.
+- [Asset Metadata Standard (DDO)](/docs/ddo_credential/ddo_intro) — how v5 assets are described.
