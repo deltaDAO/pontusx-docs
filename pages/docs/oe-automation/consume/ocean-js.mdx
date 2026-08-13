@@ -22,8 +22,11 @@ result. For the concepts behind the flow, see the
 - An account (`PRIVATE_KEY`) funded with:
   - the chain's native token for gas, and
   - enough of the asset's payment token if the service is priced.
+    - Pontus-X v2 supports EURAU (AllUnity) and EURC (Circle) for settlement. Please contact us for test network tokens.
 - Network access to the target chain's **RPC** and to an **Ocean Node**.
-- The **`did:ope`** of a published v5 dataset.
+  - For the **RPC**, you can use a [public RPC](https://chainlist.org/chain/11155420) or contact deltaDAO for RPC access.
+  - For the **Ocean Node**, you can run your own or use one provided by a service provider like deltaDAO.
+- The **`did:ope`** of a published v5 dataset, for example `did:ope:c4f73e09f932f50520d89d50245374a442fb6bca37e5659af1711703e3cc6f53`.
 
 :::info
 Find a `did:ope` in the Pontus-X Catalogue, and make sure your `RPC` and
@@ -67,7 +70,44 @@ Use a private key intended **only for development** and keep it secure. Never
 commit your `.env` file or share your key.
 :::
 
-### Step 2a — SSI wallet variables (optional)
+### Step 2a — Get your `PRIVATE_KEY` from a wallet file (optional)
+
+If you onboarded through the
+[wallet file setup](/docs/getting-started/wallet-setup), you hold an
+**encrypted JSON keystore** (v3) rather than a raw private key. It looks like
+this:
+
+```json
+{"address":"cb638bc3e4ea03072f6e0ebf43a8f514c63f0eea","id":"71fe0cd9-77cc-4539-a0d4-f5ee68a0754d","version":3,"Crypto":{ ... },"x-ethers":{ ... }}
+```
+
+Decrypt it once to obtain the `0x…` private key that these guides expect. The
+example repo already ships `ethers`, so you can run a short script:
+
+```js
+// extract-key.mjs
+import { readFileSync } from "node:fs";
+import { Wallet } from "ethers";
+
+const json = readFileSync(process.argv[2], "utf8");
+const password = process.env.WALLET_PASSWORD;
+
+const wallet = await Wallet.fromEncryptedJson(json, password);
+console.log(wallet.privateKey); // 0x...
+```
+
+```bash
+WALLET_PASSWORD="your-wallet-password" node extract-key.mjs ./wallet.json
+```
+
+Copy the printed `0x…` value into `PRIVATE_KEY` in your `.env`.
+
+:::warning
+Decrypt the wallet file only on a trusted machine. Never commit the wallet file,
+its password, or the extracted private key.
+:::
+
+### Step 2b — SSI wallet variables (optional)
 
 Only needed for **credential-gated** assets (see
 [dual-wallet setup for v2](/docs/getting-started/wallet-setup)):
