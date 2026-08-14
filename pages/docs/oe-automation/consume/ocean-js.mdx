@@ -16,6 +16,13 @@ result. For the concepts behind the flow, see the
 [Consume overview](/docs/oe-automation/consume/overview).
 :::
 
+:::info
+The complete, working example code for this guide lives in
+[`deltaDAO/oe-automation-examples`](https://github.com/deltaDAO/oe-automation-examples).
+Every snippet below is taken verbatim from that repository — clone it to run the
+guide end to end.
+:::
+
 ## Prerequisites (required)
 
 - **Node.js 24** — the example repo pins it via `.nvmrc`; run `nvm use`.
@@ -36,7 +43,10 @@ Find a `did:ope` in the Pontus-X Catalogue, and make sure your `RPC` and
 
 ## Step 1 — Get the example code (required)
 
-The runnable example lives in its own repository:
+The complete, runnable example lives in its own repository —
+[`deltaDAO/oe-automation-examples`](https://github.com/deltaDAO/oe-automation-examples).
+Everything in this guide comes straight from that repo, so cloning it gives you
+the full working code:
 
 ```bash
 git clone https://github.com/deltaDAO/oe-automation-examples.git
@@ -44,11 +54,6 @@ cd oe-automation-examples
 nvm use            # Node 24
 npm install
 ```
-
-:::info
-`deltaDAO/oe-automation-examples` is a **placeholder** — the repository is to be
-published. Replace the URL with the final location once available.
-:::
 
 ## Step 2 — Configure your environment (required)
 
@@ -295,9 +300,10 @@ fetched exactly once and written to disk.
 
 ## Complete source code
 
-Everything above lives in three files. Copy them into an `src/` folder (they
-match the [example repo](https://github.com/deltaDAO/oe-automation-examples)) and
-run with `npm run consume -- <did>`.
+Everything above lives in three files, reproduced verbatim from the
+[example repo](https://github.com/deltaDAO/oe-automation-examples). If you cloned
+it in [Step 1](#step-1--get-the-example-code-required) they are already in `src/`;
+otherwise copy them into an `src/` folder and run with `npm run consume -- <did>`.
 
 ### `src/config.ts`
 
